@@ -1,5 +1,5 @@
 
-import Base.BaseTest;
+import Base.BasePage;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -16,9 +16,9 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class TestAltaPosP {
+public class TestAltaPosP extends Base.BaseTest {
     CostumerPage ap;
-    BaseTest driver;
+   
      
     public TestAltaPosP() {
         
@@ -32,7 +32,7 @@ public class TestAltaPosP {
        // Le paso los object id
        //Se trabaja con el user
        String nombre_plan= "";
-       BaseTest.initBaseTest();
+       BasePage.initBaseTest();
        LoginPage lp = new LoginPage();
        
     
@@ -41,7 +41,7 @@ public class TestAltaPosP {
        lp.Nav();
        lp.signIn();
        // if("PLR282".equals(nombre_plan)){
-        ap.seleccionar_Canal("9156277650013065775");
+        ap.seleccionar_Canal("9156303183413085427");
         ap.seleccionar_PosPR("PLR314");
         ap.obtener_PPActivo("PLR314");
         ap.iccid_MSISDN_PosPLR();
@@ -53,14 +53,10 @@ public class TestAltaPosP {
       //ap.obtener_PPActivo(nombre_plan);
     //   ap.iccid_MSISDN_PosPLC();
       
+        Thread.sleep(4000);
+        super.CerrarNavegador();
        
    }  
-     @After
-    public void CerrarNavegador(){
-    
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
+     
   }
 

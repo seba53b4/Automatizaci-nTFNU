@@ -10,6 +10,7 @@ import java.sql.Driver;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  * @author sdominguez
  */
-public class CostumerPage extends Base.BaseTest{
+public class CostumerPage extends Base.BasePage{
    
     By menu= By.xpath("//*[@id=\\\"menuItem_0\\\"]/ul/li[1]/a/span");
     By SO= By.linkText("Órdenes de Venta");
@@ -208,7 +209,7 @@ public class CostumerPage extends Base.BaseTest{
    click(boton_cerrarSO);
    
    }
-    /*Para Test Cliente y Plan*/
+    /*Para Test Alta Cliente y Plan*/
     public void seleccionar_Canal(String object_id) throws InterruptedException{
         
         click(recientes);
@@ -327,7 +328,7 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Thread.sleep(20000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
-    if(fact_sinpagar()==true){
+   if (fact_sinpagar()!=null){
      Thread.sleep(5000);
       Wait(boton_factSinPagar);
        Thread.sleep(5000);
@@ -388,7 +389,7 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Thread.sleep(10000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
-    if(fact_sinpagar()==true){
+    if(fact_sinpagar()!=null){
      Thread.sleep(5000);
       Wait(boton_factSinPagar);
        Thread.sleep(5000);
@@ -449,7 +450,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     Thread.sleep(15000);
     click(obtener_botonenviar());
     Thread.sleep(6000);
-    if(fact_sinpagar()==true){
+    if(fact_sinpagar()!= null){
      Thread.sleep(5000);
       Wait(boton_factSinPagar);
        Thread.sleep(5000);
@@ -623,10 +624,18 @@ for (WebElement wb : facturacreada) {
      Wait_element(obtener_BotonMenu("Revisión"));
      click(obtener_BotonMenu("Revisión"));
  }
-public Boolean fact_sinpagar() throws InterruptedException{
-    Wait(boton_factSinPagar);
-    WebElement fact_sin_pago=findElement(boton_factSinPagar);
-        return fact_sin_pago.isDisplayed();
+public WebElement fact_sinpagar() throws InterruptedException{
+    
+    try{
+        Wait(boton_factSinPagar);
+        WebElement fact_sin_pago=findElement(boton_factSinPagar);
+        return fact_sin_pago;
+    } catch (NoSuchElementException e)
+    {
+        return null;
+    }
+    
+        
 }
 public Boolean reparacion_Pantalla() throws InterruptedException{
     

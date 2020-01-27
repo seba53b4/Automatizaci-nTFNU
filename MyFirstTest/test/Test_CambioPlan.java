@@ -1,5 +1,5 @@
 
-import Base.BaseTest;
+import Base.BasePage;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -16,9 +16,9 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class Test_CambioPlan {
+public class Test_CambioPlan extends Base.BaseTest {
     CostumerPage ap;
-    BaseTest driver;
+   
     
      public Test_CambioPlan() {
         
@@ -32,7 +32,7 @@ public class Test_CambioPlan {
        // Le paso los object id
        //Se trabaja con el user
       // String nombre_plan= "";
-       BaseTest.initBaseTest();
+       BasePage.initBaseTest();
        LoginPage lp = new LoginPage();
        lp.chromeDriverConnection();
        lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
@@ -43,14 +43,10 @@ public class Test_CambioPlan {
         ap.cambio_Plan("PLROT");
         ap.Terminar_Cambio_Plan();
         
+        Thread.sleep(4000);
+        super.CerrarNavegador();
        
         //ap.Terminar();  
    }  
-     @After
-    public void CerrarNavegador(){
-    
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
+     
 }

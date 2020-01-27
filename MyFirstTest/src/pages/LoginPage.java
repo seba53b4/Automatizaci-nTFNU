@@ -14,7 +14,7 @@ import org.openqa.selenium.support.FindBy;
  *
  * @author sdominguez
  */
-public class LoginPage extends Base.BaseTest{
+public class LoginPage extends Base.BasePage{
     By botonnavegador= By.xpath("//*[@id=\"details-button\"]");
     By linknavegador= By.xpath("//*[@id=\"proceed-link\"]");
     By sesionNT= By.linkText("Inicie sesión como usuario de NT");

@@ -7,7 +7,7 @@
  */
 
 
-import Base.BaseTest;
+import Base.BasePage;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
@@ -24,11 +24,11 @@ import pages.LoginPage;
  *
  * @author sdominguez
  */
-public class TestAltaPP {
+public class TestAltaPP extends Base.BaseTest{
    
    //WebDriver driver ;
    CostumerPage ap;
-   BaseTest driver;
+   
      
 /*
    public TestAltaPP(WebDriver driver) {
@@ -49,7 +49,7 @@ public class TestAltaPP {
        // Le paso los object id
        //Se trabaja con el user
        
-       BaseTest.initBaseTest();
+       BasePage.initBaseTest();
        LoginPage lp = new LoginPage();
        
     
@@ -73,13 +73,10 @@ public class TestAltaPP {
        //ap.Enviar();
       
        //end for
+       
+       
+        Thread.sleep(4000);
+        super.CerrarNavegador();
    }
-     @After
-    public void CerrarNavegador(){
-    
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
-   
+     
 }

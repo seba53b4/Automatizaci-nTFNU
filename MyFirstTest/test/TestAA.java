@@ -1,4 +1,5 @@
 
+import Base.BasePage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,27 +16,25 @@ import pages.AAPage;
  *
  * @author seolivera
  */
-public class TestAA {
+public class TestAA  extends Base.BaseTest{
     
     AAPage ap;
-    Base.BaseTest driver;
-    
+  
     public TestAA ()
     {
         ap = new AAPage();
         
     }
     @Test
-    public void validarTestAA()
+    public void validarTestAA() throws InterruptedException
     {
         ap.logIN();
         Assert.assertTrue(ap.consultaEstado("95838603","TOMS"));
+        
+        Thread.sleep(4000);
+        super.CerrarNavegador();
     }
-      @After
-    public void CerrarNavegador(){
+     
     
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
+    
 }

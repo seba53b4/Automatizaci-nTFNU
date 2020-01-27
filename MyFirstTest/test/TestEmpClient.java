@@ -1,5 +1,5 @@
 
-import Base.BaseTest;
+import Base.BasePage;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -16,30 +16,27 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class TestEmpClient {
+public class TestEmpClient extends Base.BaseTest {
  
      ClientPage cp;
-     BaseTest driver;
+     
     public TestEmpClient() {
         
         cp = new ClientPage();   
     }
     @Test
     public void altaClienteP() throws InterruptedException{
-    BaseTest.initBaseTest();
+    BasePage.initBaseTest();
     LoginPage lp = new LoginPage();
     lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
     lp.Nav();
     lp.signIn();
     cp.crear_Cliente_Empresarial();
+    
+        Thread.sleep(4000);
+        super.CerrarNavegador();
         //System.out.println(cp.obtener_CR());
     
     }
-       @After
-    public void CerrarNavegador(){
-    
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
+       
 }

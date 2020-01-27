@@ -1,5 +1,5 @@
 
-import Base.BaseTest;
+import Base.BasePage;
 import java.util.List;
 import org.junit.After;
 import org.junit.Test;
@@ -21,8 +21,8 @@ import pages.LoginPage;
  *
  * @author sdominguez
  */
-public class TestNewResiClient {
-     BaseTest driver ;
+public class TestNewResiClient extends Base.BaseTest {
+     
      ClientPage cp;
      
     public TestNewResiClient() {
@@ -31,20 +31,15 @@ public class TestNewResiClient {
     }
     @Test
     public void altaClienteR() throws InterruptedException{
-    BaseTest.initBaseTest();
+    BasePage.initBaseTest();
     LoginPage lp = new LoginPage();
     lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
     lp.Nav();
     lp.signIn();
     cp.crear_Cliente_Residencial();
-        //System.out.println(cp.obtener_CR());
+    
+    super.CerrarNavegador();
     
     }
-      @After
-    public void CerrarNavegador(){
-    
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
+     
 }

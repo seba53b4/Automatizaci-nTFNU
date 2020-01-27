@@ -16,7 +16,7 @@ import org.openqa.selenium.interactions.Actions;
  *
  * @author sdominguez
  */
-public class ClientPage extends Base.BaseTest{
+public class ClientPage extends Base.BasePage{
      By creacion_rapida= By.xpath("/html/body/div[3]/ul/li[5]");
      By opcion_ClienteRe= By.xpath("/html/body/div[3]/ul/li[5]/ul/li[3]");
   
@@ -59,15 +59,20 @@ public class ClientPage extends Base.BaseTest{
     click(opcion_ClienteRe);
     Thread.sleep(2000);
     sendKeys("Nativo", nombR);
-    sendKeys("Test6", apellidoR);
+    sendKeys("Test8", apellidoR);
     Thread.sleep(2000);
     click(categoria_cliente);
     obtener_CR();
-    sendKeys("k165009", numero_doc);
+    sendKeys("k165002322a", numero_doc);
     sendKeys("18 de julio", direccion_cliente);
     Thread.sleep(4000);
+    Wait(obtener_direccion);
+    Thread.sleep(2000);
     click(obtener_direccion);
+    Wait(boton_crear);
+    Thread.sleep(2000);
     click(boton_crear);
+    Thread.sleep(4000);
     
     }
       public void crear_Cliente_Empresarial() throws InterruptedException{

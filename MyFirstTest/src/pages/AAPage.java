@@ -5,7 +5,7 @@
  */
 package pages;
 
-import Base.BaseTest;
+import Base.BasePage;
 import java.util.List;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
  *
  * @author seolivera
  */
-public class AAPage extends Base.BaseTest{
+public class AAPage extends Base.BasePage{
     
     By login_volver = By.xpath("/html/body/table/tbody/tr[3]/td/a");
     By user_login = By.xpath("/html/body/form[1]/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[2]/td[2]/center/table/tbody/tr[1]/td[2]/input");
@@ -35,7 +35,7 @@ public class AAPage extends Base.BaseTest{
     
     public void logIN()
     {
-        BaseTest.initBaseTest();
+        BasePage.initBaseTest();
         this.visit("http://10.24.167.216/AltamirA/bowe/bw_co_Movistar");
         Wait(login_volver);
         click(login_volver);
@@ -56,7 +56,7 @@ public class AAPage extends Base.BaseTest{
         WebElement wb = seleccionarEstadoActual("PRE");
         
         click(wb);
-        Alert alert = BaseTest.driver.switchTo().alert();
+        Alert alert = BasePage.driver.switchTo().alert();
         alert.accept();
         
         Wait(plan_AA);

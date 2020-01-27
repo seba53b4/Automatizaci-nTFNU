@@ -1,5 +1,5 @@
 
-import Base.BaseTest;
+import Base.BasePage;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -17,12 +17,12 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida {
+public class Test_SimCardLost extends Base.BaseTest {
      CostumerPage ap;
-     Base.BaseTest driver;
+    
      
     
-     public Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida() {
+     public Test_SimCardLost() {
         
         ap = new CostumerPage();
       
@@ -34,7 +34,7 @@ public class Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida {
        // Le paso los object id
        //Se trabaja con el user
       // String nombre_plan= "";
-       BaseTest.initBaseTest();
+       BasePage.initBaseTest();
        LoginPage lp = new LoginPage();
        lp.chromeDriverConnection();
        lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
@@ -44,12 +44,8 @@ public class Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida {
         ap.obtener_PPActivo("PLR314");
         ap.select_SIMCardLost();
         ap.Terminar();  
+        Thread.sleep(4000);
+        super.CerrarNavegador();
    }
-    @After
-    public void CerrarNavegador(){
     
-        WebDriver dri=driver.chromeDriverConnection();
-        dri.quit();
-           
-    }
 }
