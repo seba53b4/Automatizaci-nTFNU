@@ -38,11 +38,11 @@ public class Test_CambioPlan extends Base.BaseTest {
        lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
        lp.Nav();
        lp.signIn();
-        ap.seleccionar_CanalOrder("9156277650013065775");
+        ap.seleccionar_CanalOrder("9156303183413085427");
         ap.obtener_PPActivo("PLR314");
-        ap.cambio_Plan("PLROT");
+        ap.cambio_Plan("PLC","PLC");
         ap.Terminar_Cambio_Plan();
-        
+      
         Thread.sleep(4000);
         super.CerrarNavegador();
        

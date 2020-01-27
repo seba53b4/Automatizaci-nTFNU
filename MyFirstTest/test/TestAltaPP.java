@@ -61,11 +61,11 @@ public class TestAltaPP extends Base.BaseTest{
         
        //leo el archivo
        // for each
-       ap.seleccionar_Canal("");
+       ap.seleccionar_Canal("9156303183413085427");
        //ap. seleccionar_CanalX();
-       ap.seleccionar_PP("PLTTEX");
+       ap.seleccionar_PP("PLTTEF");
       // Thread.sleep(5000);
-       ap.obtener_PPActivo("PLTTEX");
+       ap.obtener_PPActivo("PLTTEF");
       // Thread.sleep(10000);
        ap.iccid_MSISDN_PP();
        //System.out.println(ap.obtener_botonenviar());
@@ -76,7 +76,7 @@ public class TestAltaPP extends Base.BaseTest{
        
        
         Thread.sleep(4000);
-        super.CerrarNavegador();
+        //super.CerrarNavegador();
    }
      
 }

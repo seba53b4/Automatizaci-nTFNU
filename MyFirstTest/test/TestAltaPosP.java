@@ -54,7 +54,7 @@ public class TestAltaPosP extends Base.BaseTest {
     //   ap.iccid_MSISDN_PosPLC();
       
         Thread.sleep(4000);
-        super.CerrarNavegador();
+        //super.CerrarNavegador();
        
    }  
      

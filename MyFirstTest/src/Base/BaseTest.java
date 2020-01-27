@@ -18,7 +18,7 @@ public class BaseTest {
     
     
     
-    @After
+
     public void CerrarNavegador(){
     
          BasePage.driver.quit();
