@@ -89,7 +89,7 @@ public class CostumerPage extends Base.BaseTest{
     
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
     By opcion_cambiado= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]");
-    
+    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div");
    public CostumerPage() {
        super(); 
@@ -149,17 +149,27 @@ public class CostumerPage extends Base.BaseTest{
    
    }
    /*Cambio Plan*/
-   public void cambio_Plan(String nombre_plan){
+   public void cambio_Plan(String nombre_plan) throws InterruptedException{
+       WebElement cam=null;
        Wait(opcion_cambiado);
+        System.out.println(opcion_cambiado);
        click(opcion_cambiado);
+       
        WebElement cambiado=findElement(opcion_cambiado);
+      
        List<WebElement>lista_plan= cambiado.findElements(By.tagName("span"));
        for (int j = 0; j < lista_plan.size(); j++) {
-            if(getText(lista_plan.get(j)).contains(nombre_plan)){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                click(lista_plan.get(j));
-                break;
+            if(getText(lista_plan.get(j)).contains(nombre_plan)) {//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            
+                cam=lista_plan.get(j);
+                System.out.println(cam);
             } 
-          }    
+                break;      
+          }
+       Wait_element(cam);
+       Thread.sleep(4000);
+       click(cam);  
+      
    }
      public void Terminar_Cambio_Plan() throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);

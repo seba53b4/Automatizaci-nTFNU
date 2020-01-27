@@ -1,6 +1,8 @@
 
 import Base.BaseTest;
+import org.junit.After;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 import pages.CostumerPage;
 import pages.LoginPage;
 
@@ -16,11 +18,12 @@ import pages.LoginPage;
  */
 public class Test_CambioPlan {
     CostumerPage ap;
+    BaseTest driver;
     
      public Test_CambioPlan() {
         
         ap = new CostumerPage();
-      
+       
     }
      @Test
    public void Cambio_Plan() throws Exception
@@ -37,9 +40,17 @@ public class Test_CambioPlan {
        lp.signIn();
         ap.seleccionar_CanalOrder("9156277650013065775");
         ap.obtener_PPActivo("PLR314");
-        ap.cambio_Plan("PLR282");
+        ap.cambio_Plan("PLROT");
+        ap.Terminar_Cambio_Plan();
         
        
         //ap.Terminar();  
    }  
+     @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
+    }
 }

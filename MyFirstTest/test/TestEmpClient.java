@@ -1,5 +1,6 @@
 
 import Base.BaseTest;
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import pages.ClientPage;
@@ -16,8 +17,9 @@ import pages.LoginPage;
  * @author ipupo
  */
 public class TestEmpClient {
-     WebDriver driver ;
+ 
      ClientPage cp;
+     BaseTest driver;
     public TestEmpClient() {
         
         cp = new ClientPage();   
@@ -32,5 +34,12 @@ public class TestEmpClient {
     cp.crear_Cliente_Empresarial();
         //System.out.println(cp.obtener_CR());
     
+    }
+       @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
     }
 }

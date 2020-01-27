@@ -1,6 +1,8 @@
 
 import Base.BaseTest;
+import org.junit.After;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 import pages.CostumerPage;
 import pages.LoginPage;
 
@@ -16,6 +18,7 @@ import pages.LoginPage;
  */
 public class TestAltaPosP {
     CostumerPage ap;
+    BaseTest driver;
      
     public TestAltaPosP() {
         
@@ -52,5 +55,12 @@ public class TestAltaPosP {
       
        
    }  
+     @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
+    }
   }
 

@@ -1,6 +1,7 @@
 
 import Base.BaseTest;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +22,9 @@ import pages.LoginPage;
  * @author sdominguez
  */
 public class TestNewResiClient {
-     WebDriver driver ;
+     BaseTest driver ;
      ClientPage cp;
+     
     public TestNewResiClient() {
         
         cp = new ClientPage();   
@@ -37,5 +39,12 @@ public class TestNewResiClient {
     cp.crear_Cliente_Residencial();
         //System.out.println(cp.obtener_CR());
     
+    }
+      @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
     }
 }

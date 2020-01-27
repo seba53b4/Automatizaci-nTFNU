@@ -1,6 +1,8 @@
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 import pages.AAPage;
 
 /*
@@ -16,6 +18,7 @@ import pages.AAPage;
 public class TestAA {
     
     AAPage ap;
+    Base.BaseTest driver;
     
     public TestAA ()
     {
@@ -27,5 +30,12 @@ public class TestAA {
     {
         ap.logIN();
         Assert.assertTrue(ap.consultaEstado("95838603","TOMS"));
+    }
+      @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
     }
 }

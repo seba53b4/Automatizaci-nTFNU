@@ -1,6 +1,9 @@
 
 import Base.BaseTest;
+import org.junit.After;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CostumerPage;
 import pages.LoginPage;
 
@@ -16,6 +19,8 @@ import pages.LoginPage;
  */
 public class Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida {
      CostumerPage ap;
+     Base.BaseTest driver;
+     
     
      public Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida() {
         
@@ -39,5 +44,12 @@ public class Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida {
         ap.obtener_PPActivo("PLR314");
         ap.select_SIMCardLost();
         ap.Terminar();  
-   }  
+   }
+    @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
+    }
 }

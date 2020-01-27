@@ -37,6 +37,7 @@ public static BaseTest initBaseTest() {
         bt = new BaseTest();
       System.setProperty("webdriver.chrome.driver","C:\\Users\\ipupo\\Documents\\NetBeansProjects\\MyFirstTest\\drivers\\chromedriver.exe");
         driver= new ChromeDriver(); 
+        driver.manage().window().maximize();
         
         
     }

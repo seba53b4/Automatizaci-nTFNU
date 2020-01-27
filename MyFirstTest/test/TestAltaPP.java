@@ -10,6 +10,7 @@
 import Base.BaseTest;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -27,6 +28,7 @@ public class TestAltaPP {
    
    //WebDriver driver ;
    CostumerPage ap;
+   BaseTest driver;
      
 /*
    public TestAltaPP(WebDriver driver) {
@@ -72,5 +74,12 @@ public class TestAltaPP {
       
        //end for
    }
+     @After
+    public void CerrarNavegador(){
+    
+        WebDriver dri=driver.chromeDriverConnection();
+        dri.quit();
+           
+    }
    
 }
