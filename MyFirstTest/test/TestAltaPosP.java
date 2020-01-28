@@ -41,7 +41,7 @@ public class TestAltaPosP extends Base.BaseTest {
        lp.Nav();
        lp.signIn();
        // if("PLR282".equals(nombre_plan)){
-        ap.seleccionar_Canal("9156314055513102248");
+        ap.seleccionar_Canal("9156314432513103959");
         Thread.sleep(5000);
         ap.seleccionar_PosPR("PLR314");
         Thread.sleep(5000);

@@ -81,7 +81,8 @@ public class CostumerPage extends Base.BasePage{
     By boton_revision= By.xpath("/html/body/div[3]/div[2]/div[1]/ul/li[4]");
     By boton_contrato= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("/html/body/div[7]/div/div/div[3]/div/button[1]");
-   ///html/body/div[7]/div/div/div[3]/div/button[1]
+    By boton_contrato_confirmar2=By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
+
     By generar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By firmar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By boton_confirmar_firma= By.xpath("/html/body/div[9]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]");
@@ -215,8 +216,8 @@ public class CostumerPage extends Base.BasePage{
     Thread.sleep(4000);
     Wait(boton_contrato);
     click(boton_contrato);
-    Wait(boton_contrato_confirmar);
-    click(boton_contrato_confirmar);
+    this.confirmarContrato();
+    
     Thread.sleep(2000);
     Wait(generar_contrato);
     click(generar_contrato);
@@ -397,8 +398,8 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Thread.sleep(4000);
     Wait(boton_contrato);
     click(boton_contrato);
-    Wait(boton_contrato_confirmar);
-    click(boton_contrato_confirmar);
+    
+    this.confirmarContrato();
     Thread.sleep(2000);
     Wait(generar_contrato);
     click(generar_contrato);
@@ -424,7 +425,10 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Thread.sleep(5000);
    Wait(boton_cerrarSO);
    click(boton_cerrarSO);
- } 
+ }
+ 
+ 
+ 
 public void iccid_MSISDN_PosPLR() throws InterruptedException{
     
  
@@ -433,13 +437,13 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     
     
     Wait(iccid_plr);
-    sendKeys("89598076103021021074", iccid_plr); // 89598071102044547292
+    sendKeys("89598076103021044555", iccid_plr); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msidn_posp);
     Thread.sleep(4000);
-    sendKeys("93577046", msidn_posp); // 95728402
+    sendKeys("93594532", msidn_posp); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -460,9 +464,11 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     Wait(boton_contrato);
     click(boton_contrato);
     Thread.sleep(5000);
-    Wait(boton_contrato_confirmar);
-    click(boton_contrato_confirmar);
+    
+    this.confirmarContrato();
+    
     Thread.sleep(2000);
+    
     Wait(generar_contrato);
     click(generar_contrato);
 
@@ -491,6 +497,36 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
    click(boton_cerrarSO);
  } 
 
+public void confirmarContrato()
+{
+    boolean esta = false;
+    try{
+        Wait(boton_contrato_confirmar);
+        click(boton_contrato_confirmar);
+        esta = true;
+    } catch (StaleElementReferenceException e)
+    {
+        System.out.println(e);
+    } catch (NoSuchElementException | TimeoutException e)
+    {
+        System.out.println(e);
+    }
+    
+    if (!esta) {
+        try{
+            Wait(boton_contrato_confirmar2);
+            click(boton_contrato_confirmar2);
+        } catch (StaleElementReferenceException e)
+        {
+            System.out.println(e);
+        } catch (NoSuchElementException | TimeoutException e)
+        {
+            System.out.println(e);
+        }
+    }
+}
+
+
 /**
  *
  * @return 
@@ -508,6 +544,11 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
         return canal;
         
 }
+ /**
+  * Se obtiene la lista de planes 
+  * @param nombre_plan
+  * @return 
+  */
 public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
  WebElement pp=null;   
    Wait(Lis_planes);
