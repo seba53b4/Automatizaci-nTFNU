@@ -33,12 +33,12 @@ public class TestNewResiClient extends Base.BaseTest {
     public void altaClienteR() throws InterruptedException{
     BasePage.initBaseTest();
     LoginPage lp = new LoginPage();
-    lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
+    lp.visit("https://noprd-jit-toms.temu.com.uy:7002");
     lp.Nav();
     lp.signIn();
     cp.crear_Cliente_Residencial();
     
-    super.CerrarNavegador();
+   // super.CerrarNavegador();
     
     }
      

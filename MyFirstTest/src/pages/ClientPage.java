@@ -59,11 +59,11 @@ public class ClientPage extends Base.BasePage{
     click(opcion_ClienteRe);
     Thread.sleep(2000);
     sendKeys("Nativo", nombR);
-    sendKeys("Test8", apellidoR);
+    sendKeys("Test_1", apellidoR);
     Thread.sleep(2000);
     click(categoria_cliente);
     obtener_CR();
-    sendKeys("k165002322a", numero_doc);
+    sendKeys("k16500232351", numero_doc);
     sendKeys("18 de julio", direccion_cliente);
     Thread.sleep(4000);
     Wait(obtener_direccion);

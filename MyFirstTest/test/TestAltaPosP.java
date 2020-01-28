@@ -37,21 +37,23 @@ public class TestAltaPosP extends Base.BaseTest {
        
     
        //lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
+       lp.visit("https://noprd-jit-toms.temu.com.uy:7002");
        lp.Nav();
        lp.signIn();
        // if("PLR282".equals(nombre_plan)){
-        ap.seleccionar_Canal("9156303183413085427");
+        ap.seleccionar_Canal("9156314055513102248");
+        Thread.sleep(5000);
         ap.seleccionar_PosPR("PLR314");
+        Thread.sleep(5000);
         ap.obtener_PPActivo("PLR314");
         ap.iccid_MSISDN_PosPLR();
        // }
        // else 
-      //   nombre_plan="PLC292";
-    //   ap.seleccionar_Canal();
-   //    ap.seleccionar_PosPC(nombre_plan);
-      //ap.obtener_PPActivo(nombre_plan);
-    //   ap.iccid_MSISDN_PosPLC();
+       //nombre_plan="PLC292";
+      // ap.seleccionar_Canal("9156311923013095250");
+       //ap.seleccionar_PosPC("PLC305");
+      // ap.obtener_PPActivo("PLC305");
+      // ap.iccid_MSISDN_PosPLC();
       
         Thread.sleep(4000);
         //super.CerrarNavegador();

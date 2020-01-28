@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -80,6 +81,7 @@ public class CostumerPage extends Base.BasePage{
     By boton_revision= By.xpath("/html/body/div[3]/div[2]/div[1]/ul/li[4]");
     By boton_contrato= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("/html/body/div[7]/div/div/div[3]/div/button[1]");
+   ///html/body/div[7]/div/div/div[3]/div/button[1]
     By generar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By firmar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By boton_confirmar_firma= By.xpath("/html/body/div[9]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]");
@@ -88,7 +90,7 @@ public class CostumerPage extends Base.BasePage{
     By boton_enviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[11]");
     
     By boton_factSinPagar= By.xpath("/html/body/div[10]/div/div/div[3]/div/button[1]");
-    ///html/body/div[7]/div/div/div[3]/div/button[1]
+    
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
     By opcion_cambiado= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
@@ -96,7 +98,9 @@ public class CostumerPage extends Base.BasePage{
     By lista_plancambio_controlada= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]");
     By lista_plancambio_prepago= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]");
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div");
-   public CostumerPage() {
+    By boton_progress = By.xpath("/html/body/div[9]");
+   
+    public CostumerPage() {
        super(); 
         
     }
@@ -184,12 +188,21 @@ public class CostumerPage extends Base.BasePage{
    WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
   
       Thread.sleep(8000);
-     
-      if (reparacion_Pantalla()==true) {
+     try{
+         if (reparacion_Pantalla()==true) {
          Wait_element(elemento_reparacion_Pantalla());
          Thread.sleep(4000);
          click(elemento_reparacion_Pantalla());
+     }      
      }
+     catch (StaleElementReferenceException e)
+    {
+        System.out.println(e);
+    }catch (NoSuchElementException e)
+    {
+        System.out.println(e);
+    } 
+      
    Thread.sleep(4000);
    Wait_element(siguiente);
    siguiente.click();
@@ -276,7 +289,7 @@ public void seleccionar_PosPC(String nombre_plan) {
  
 }
 public void seleccionar_PosPR(String nombre_plan) {
-   
+   WebElement plr=null;
    Wait_element(obtenerList_Planes("Regulares"));
    click(obtenerList_Planes("Regulares"));
    Wait(table_plr);
@@ -284,10 +297,12 @@ public void seleccionar_PosPR(String nombre_plan) {
    List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
             for (int j = 0; j < ppc.size(); j++) {
             if(getText(ppc.get(j)).contains(nombre_plan)){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                click(ppc.get(j));
+                plr=ppc.get(j);      
                 break;
             } 
-          }          
+          }
+            Wait_element(plr);
+            click(plr);
  
 }
 
@@ -356,13 +371,13 @@ public void iccid_MSISDN_PP() throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
     WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
     Wait(iccid_posp);
-    sendKeys("89598076103021044530", iccid_posp); // 89598071102044547292
+    sendKeys("89598076103021021090", iccid_posp); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msidn_posp);
     Thread.sleep(4000);
-    sendKeys("93569263", msidn_posp); // 95728402
+    sendKeys("93571532", msidn_posp); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -418,13 +433,13 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     
     
     Wait(iccid_plr);
-    sendKeys("89598076103021021322", iccid_plr); // 89598071102044547292
+    sendKeys("89598076103021021074", iccid_plr); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msidn_posp);
     Thread.sleep(4000);
-    sendKeys("93429785", msidn_posp); // 95728402
+    sendKeys("93577046", msidn_posp); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -444,6 +459,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     
     Wait(boton_contrato);
     click(boton_contrato);
+    Thread.sleep(5000);
     Wait(boton_contrato_confirmar);
     click(boton_contrato_confirmar);
     Thread.sleep(2000);
@@ -456,6 +472,8 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
      Thread.sleep(4000);
      Wait(boton_confirmar_firma);
      click(boton_confirmar_firma);
+     Wait(boton_crearfact);
+     click(boton_crearfact);
     validar_Factura();
     Wait_element(obtener_botonenviar());
     Thread.sleep(15000);
@@ -516,18 +534,85 @@ WebElement be= findElement(boton_enviar);
     }
     return boton_envia;
 }
-public void validar_Factura()
+public void validar_Factura() throws InterruptedException
 {//metodo utilizado
-    //Wait(boton_crearfact);
-WebElement validar_fact = driver.findElement(boton_crearfact);
+///html/body/div[10]
+    ///html/body/div[10]
+    ///html/body/div[10] ///html/body/div[10]
+    ///html/body/div[10] //html/body/div[10]/div[2]
+WebElement validar_fact = findElement(boton_crearfact);
+
 int i=0;
-   
- while (i<30) {
-        i++;       
-           System.out.println("iterador: "+ i);
-            click(validar_fact);         
-    }
+    
+    loading();
+    
+    while (i<40 && validar_fact.isEnabled() ) {
+                i++;       
+                System.out.println("iterador: "+ i);
+                click(validar_fact); 
+                try{
+                    loading();
+                    loading2();
+                } catch (StaleElementReferenceException e)
+                {
+                    System.out.println(e);
+                }catch (NoSuchElementException e)
+                {
+                    System.out.println(e);
+                }
+            }
 }
+
+public void loading() throws InterruptedException
+{
+    WebElement progress=findElement(boton_progress);
+    Wait_element(progress);
+    System.out.println(progress);
+    try{
+    while (progress.isDisplayed()){
+        
+        System.out.println("estado progreso en loading: "+progress.isEnabled());
+        System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+        Thread.sleep(6000);
+        Wait_element(progress);
+       }
+    } catch (StaleElementReferenceException e)
+    {
+        System.out.println(e);
+    }catch (NoSuchElementException e)
+    {
+        System.out.println(e);
+    }
+     
+    //return progress.isEnabled();
+            
+}
+public void loading2() throws InterruptedException
+{
+    WebElement progress=findElement(By.xpath("/html/body/div[10]"));
+    Wait_element(progress);
+    System.out.println(progress);
+    try{
+    while (progress.isDisplayed()){
+        
+        System.out.println("estado progreso en loading: "+progress.isEnabled());
+        System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+        Thread.sleep(6000);
+        Wait_element(progress);
+       }
+    } catch (StaleElementReferenceException e)
+    {
+        System.out.println(e);
+    }catch (NoSuchElementException e)
+    {
+        System.out.println(e);
+    }
+     
+    //return progress.isEnabled();
+            
+}
+
+
 public WebElement obtener_BotonMenu(String botoName)//metodos utilizados
 { 
 WebElement facturacio_pago = null;

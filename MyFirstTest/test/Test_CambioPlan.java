@@ -35,16 +35,16 @@ public class Test_CambioPlan extends Base.BaseTest {
        BasePage.initBaseTest();
        LoginPage lp = new LoginPage();
        lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
+       lp.visit("https://noprd-jit-toms.temu.com.uy:7002");
        lp.Nav();
        lp.signIn();
-        ap.seleccionar_CanalOrder("9156303183413085427");
+        ap.seleccionar_CanalOrder("9156314055513102248");
         ap.obtener_PPActivo("PLR314");
-        ap.cambio_Plan("PLC","PLC");
+        ap.cambio_Plan("PLR284","PLR");
         ap.Terminar_Cambio_Plan();
       
         Thread.sleep(4000);
-        super.CerrarNavegador();
+       // super.CerrarNavegador();
        
         //ap.Terminar();  
    }  

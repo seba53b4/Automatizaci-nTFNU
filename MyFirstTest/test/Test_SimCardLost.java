@@ -40,8 +40,8 @@ public class Test_SimCardLost extends Base.BaseTest {
        lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
        lp.Nav();
        lp.signIn();
-        ap.seleccionar_CanalOrder("9156277650013065775");
-        ap.obtener_PPActivo("PLR314");
+        ap.seleccionar_CanalOrder("9156314055513102248");
+        ap.obtener_PPActivo("PLR284");
         ap.select_SIMCardLost();
         ap.Terminar();  
         Thread.sleep(4000);
