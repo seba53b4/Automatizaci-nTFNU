@@ -37,7 +37,7 @@ public class LoginPage extends Base.BasePage{
    click(userNT);
     if(isDisplayed(user)){
     sendKeys("temu\\ipupo",user);
-    sendKeys("Movistar.1",pass);
+    sendKeys("Movistar.12",pass);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");

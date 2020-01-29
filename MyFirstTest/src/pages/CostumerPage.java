@@ -35,7 +35,7 @@ public class CostumerPage extends Base.BasePage{
     By combobox= By.className("refsel_table");
     By pruebacanal= By.cssSelector("#id_refsel1613764204_div > div > input");
    
-    
+    //("//*[@class=\"id_refsel1965777193_div/a
     By elementoAgente= By.xpath("//*[@id=\"id_refsel1965777193_div\"]/div/input");
     By stringAgente= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]/div[1]/div[1]/div[1]");
     By recientes = By.xpath("//*[@id=\"gen_menu_3\"]");
@@ -331,13 +331,13 @@ public void iccid_MSISDN_PP() throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
     WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
     Wait(iccid);
-    sendKeys("89598076103021021124", iccid); // 89598071102044547292
+    sendKeys("89598076103021044266", iccid); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msisdn);
     Thread.sleep(4000);
-    sendKeys("93557907", msisdn); // 95728402
+    sendKeys("93590328", msisdn); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -347,8 +347,12 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Wait_element(fact_pago2);
     Thread.sleep(4000);
     fact_pago2.click();
+    
     obtener_factcreada_pp();
+   
     Thread.sleep(4000);
+     Wait(boton_crearfact);
+     click(boton_crearfact);
     validar_Factura();
     Wait_element(obtener_botonenviar());
     Thread.sleep(20000);
@@ -394,8 +398,10 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Wait_element(fact_pago2);
     Thread.sleep(4000);
     fact_pago2.click();
-   obtener_factcreada_posp();
-    Thread.sleep(4000);
+   
+    obtener_factcreada_posp();
+   
+   Thread.sleep(4000);
     Wait(boton_contrato);
     click(boton_contrato);
     
@@ -410,7 +416,9 @@ public void iccid_MSISDN_PP() throws InterruptedException{
      Thread.sleep(2000);
      Wait(boton_confirmar_firma);
      click(boton_confirmar_firma);
-    validar_Factura();
+   Wait(boton_crearfact);
+     click(boton_crearfact);
+     validar_Factura();
     Wait_element(obtener_botonenviar());
     Thread.sleep(10000);
     click(obtener_botonenviar());
@@ -497,34 +505,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
    click(boton_cerrarSO);
  } 
 
-public void confirmarContrato()
-{
-    boolean esta = false;
-    try{
-        Wait(boton_contrato_confirmar);
-        click(boton_contrato_confirmar);
-        esta = true;
-    } catch (StaleElementReferenceException e)
-    {
-        System.out.println(e);
-    } catch (NoSuchElementException | TimeoutException e)
-    {
-        System.out.println(e);
-    }
-    
-    if (!esta) {
-        try{
-            Wait(boton_contrato_confirmar2);
-            click(boton_contrato_confirmar2);
-        } catch (StaleElementReferenceException e)
-        {
-            System.out.println(e);
-        } catch (NoSuchElementException | TimeoutException e)
-        {
-            System.out.println(e);
-        }
-    }
-}
+
 
 
 /**
@@ -577,23 +558,29 @@ WebElement be= findElement(boton_enviar);
 }
 public void validar_Factura() throws InterruptedException
 {//metodo utilizado
-///html/body/div[10]
-    ///html/body/div[10]
-    ///html/body/div[10] ///html/body/div[10]
-    ///html/body/div[10] //html/body/div[10]/div[2]
-WebElement validar_fact = findElement(boton_crearfact);
+By nombre_clase_boton_validar_factura_disabled=By.xpath("//div[@class='tfn_button_panel disabled'  and a[contains(text(),'Nueva factura')]]");
+WebElement validar_fact_disable = null;
+By nombre_clase_boton_validar_factura=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Validar factura')]]");
+WebElement validar_fact = null;
 
 int i=0;
     
     loading();
     
-    while (i<40 && validar_fact.isEnabled() ) {
+    while (validar_fact_disable == null) {
                 i++;       
-                System.out.println("iterador: "+ i);
-                click(validar_fact); 
+                
+                System.out.println("Validar factura: "+i);
+                
+                try{
+                    validar_fact = findElement(nombre_clase_boton_validar_factura);
+                    click(validar_fact);
+                 }catch (NoSuchElementException e)
+                     {
+                         System.out.println(e);
+                     }
                 try{
                     loading();
-                    loading2();
                 } catch (StaleElementReferenceException e)
                 {
                     System.out.println(e);
@@ -601,53 +588,46 @@ int i=0;
                 {
                     System.out.println(e);
                 }
+                
+                try{
+                    validar_fact_disable = findElement(nombre_clase_boton_validar_factura_disabled);
+                 }catch (NoSuchElementException e)
+                     {
+                         System.out.println(e);
+                     }
             }
 }
 
-public void loading() throws InterruptedException
-{
-    WebElement progress=findElement(boton_progress);
-    Wait_element(progress);
-    System.out.println(progress);
-    try{
-    while (progress.isDisplayed()){
-        
-        System.out.println("estado progreso en loading: "+progress.isEnabled());
-        System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
-        Thread.sleep(6000);
-        Wait_element(progress);
-       }
-    } catch (StaleElementReferenceException e)
-    {
-        System.out.println(e);
-    }catch (NoSuchElementException e)
-    {
-        System.out.println(e);
-    }
+
      
     //return progress.isEnabled();
             
-}
-public void loading2() throws InterruptedException
+
+public void loading() throws InterruptedException
 {
-    WebElement progress=findElement(By.xpath("/html/body/div[10]"));
-    Wait_element(progress);
-    System.out.println(progress);
-    try{
-    while (progress.isDisplayed()){
-        
-        System.out.println("estado progreso en loading: "+progress.isEnabled());
-        System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
-        Thread.sleep(6000);
-        Wait_element(progress);
-       }
-    } catch (StaleElementReferenceException e)
-    {
-        System.out.println(e);
-    }catch (NoSuchElementException e)
-    {
-        System.out.println(e);
+    
+    WebElement progress = null;
+    for (int i = 1; i < 11; i++) {
+        try{///html/body/div[7]/div /html/body/div[7]
+            progress = findElement(By.xpath("//div[@class='popupContent']"));///html/body/div["+i+"`]/div"));
+            Wait_element(progress);
+            System.out.println(progress);
+            while (progress != null && progress.isDisplayed()){
+                System.out.println("estado progreso en loading: "+progress.isEnabled());
+                System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+                Thread.sleep(6000);
+                Wait_element(progress);
+               }
+        } catch (StaleElementReferenceException e)
+            {
+                System.out.println(e);
+            }catch (NoSuchElementException e)
+            {
+                System.out.println(e);
+            }
     }
+    
+    
      
     //return progress.isEnabled();
             
@@ -876,6 +856,34 @@ public WebElement Obtener_cambioPLR(String nombre_plan){//utilizado
        return pp;
    
    }
+    public void confirmarContrato()
+{
+    boolean esta = false;
+    try{
+        Wait(boton_contrato_confirmar);
+        click(boton_contrato_confirmar);
+        esta = true;
+    } catch (StaleElementReferenceException e)
+    {
+        System.out.println(e);
+    } catch (NoSuchElementException | TimeoutException e)
+    {
+        System.out.println(e);
+    }
+    
+    if (!esta) {
+        try{
+            Wait(boton_contrato_confirmar2);
+            click(boton_contrato_confirmar2);
+        } catch (StaleElementReferenceException e)
+        {
+            System.out.println(e);
+        } catch (NoSuchElementException | TimeoutException e)
+        {
+            System.out.println(e);
+        }
+    }
+}
 /*public WebElement Obtener_PP_Derecha(){
     WebElement elem=null;
 Wait_element(obtenerList_PP());

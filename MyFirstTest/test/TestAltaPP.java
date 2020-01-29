@@ -61,7 +61,7 @@ public class TestAltaPP extends Base.BaseTest{
         
        //leo el archivo
        // for each
-       ap.seleccionar_Canal("9156303183413085427");
+       ap.seleccionar_Canal("9156322232713111161");
        //ap. seleccionar_CanalX();
        ap.seleccionar_PP("PLTTEF");
       // Thread.sleep(5000);
