@@ -556,6 +556,26 @@ WebElement be= findElement(boton_enviar);
     }
     return boton_envia;
 }
+
+public void validar_Deuda()
+{
+    try {
+        By validar_deuda = By.xpath("/html/body/div[8]/div/div");
+        By button_yes = By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only']"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
+        WebElement validar_deuda_elem = findElement(validar_deuda);
+        
+        if (validar_deuda_elem != null) {
+            findElement(button_yes);
+            click(button_yes);
+        }
+    } catch (NoSuchElementException e)
+    {
+        System.out.println("Excepcion validar Deuda " +e);
+    }
+    
+}
+
+
 public void validar_Factura() throws InterruptedException
 {//metodo utilizado
 By nombre_clase_boton_validar_factura_disabled=By.xpath("//div[@class='tfn_button_panel disabled'  and a[contains(text(),'Nueva factura')]]");

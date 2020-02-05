@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,20 @@ import java.util.List;
 public class HandleFile {
     
     private String dir;
+    private static HandleFile hf;
+            
+    public static HandleFile initHandleFile(String dir){
+        if (hf == null) {
+            hf = new HandleFile(dir);
+        }
+        return hf;
+        
+    }
     
+    public static HandleFile getHandleFile()
+    {
+        return hf;
+    }
     
     public HandleFile(String path)
     {
@@ -28,20 +42,29 @@ public class HandleFile {
     }
     
     
-    public LinkedList<String> readArchivoEntradaDesconexion()
+    public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
     {
-        LinkedList<String> ret = new LinkedList<>();
+        HashMap<String, LinkedList<String>> map = new HashMap<>();
+        
         try {
             FileReader fr = new FileReader(dir+"\\Desconexion\\archivoEntrada.csv");
             BufferedReader br = new BufferedReader(fr);
             String linea;
             String ant ="";
             String[] aux ;
+            LinkedList<String> auxiliar;
             while((linea = br.readLine()) != null)
             {
                 aux = linea.split(";");
-                if (isNumeric(aux[1])) {
-                    ret.add(ant);
+                if (isNumeric(aux[1]) && aux[1].length() == 8) {
+                    if (!map.containsKey(aux[2])) {
+                        map.put(aux[2],new LinkedList<String>());
+                        map.get(aux[2]).add(aux[1]);
+                        
+                    } else 
+                    {
+                        map.get(aux[2]).add(aux[1]);
+                    }
                 }
             }
             fr.close();
@@ -49,7 +72,7 @@ public class HandleFile {
           System.out.println("Excepcion leyendo fichero archivoEntrada.csv con Error: " + e);
           
         }
-        return ret;
+        return map;
     }
     public boolean writeArchivoSO_Desconexion(String id,String SO)
     {
@@ -119,7 +142,7 @@ public class HandleFile {
                 }
                 for (String string : lst) {
                     Integer.parseInt(string);
-                    System.out.println(string+" ");
+                    //System.out.println(string+" ");
                 }
                 
 		return true;
