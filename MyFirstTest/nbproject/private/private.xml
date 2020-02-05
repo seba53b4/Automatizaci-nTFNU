@@ -3,16 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/TestAA.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/src/pages/CostumerPage.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/src/Base/BaseTest.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/TestNewResiClient.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/Test_CambioPlan.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/TestAltaPosP.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/TestAltaPP.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/src/pages/ClientPage.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/test/TestEmpClient.java</file>
-            <file>file:/C:/Users/ipupo/Documents/NetBeansProjects/MyFirstTest/src/pages/AAPage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/src/pages/AAPage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/src/pages/LoginPage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/test/TestNewResiClient.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/test/Test_CambioPlan.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/src/Base/BasePage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/test/TestAltaPP.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/test/Test_SimCardLost.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/src/pages/CostumerPage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/src/pages/ClientPage.java</file>
+            <file>file:/C:/Users/ipupo/Documents/GitHub/Automatizaci-nTFNU/MyFirstTest/test/TestAltaPosP.java</file>
         </group>
     </open-files>
 </project-private>
