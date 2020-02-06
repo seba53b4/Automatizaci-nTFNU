@@ -82,7 +82,7 @@ public class CostumerPage extends Base.BasePage{
     By boton_contrato= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("/html/body/div[7]/div/div/div[3]/div/button[1]");
     By boton_contrato_confirmar2=By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
-
+   ///html/body/div[8]/div/div/div[3]/div/button[1]
     By generar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By firmar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By boton_confirmar_firma= By.xpath("/html/body/div[9]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]");
@@ -557,25 +557,33 @@ WebElement be= findElement(boton_enviar);
     return boton_envia;
 }
 
-public void validar_Deuda()
+public Boolean validar_Deuda()
 {
-    try {
-        By validar_deuda = By.xpath("/html/body/div[8]/div/div");
-        By button_yes = By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only']"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
-        WebElement validar_deuda_elem = findElement(validar_deuda);
-        
-        if (validar_deuda_elem != null) {
-            findElement(button_yes);
-            click(button_yes);
+   Boolean ret=false;
+    try{
+    By validar_deuda = By.xpath("/html/body/div[8]/div/div");
+    WebElement validar_deuda_elem = findElement(validar_deuda);
+    validar_deuda_elem=null;
+    By button_yes = By.xpath("//button[@aria-disabled='false' and span[contains(text(),'Sí')]]"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
+    WebElement boton= findElement(button_yes);
+   
+     
+        System.out.println(boton);
+ 
+        if (validar_deuda_elem == null) {
+           
+                    click(boton);
+                    ret=true;
+                    
+                 }
+                    
+                 }catch (NoSuchElementException e)
+                     {
+                         System.out.println(e);
+                     }
+        return ret;
         }
-    } catch (NoSuchElementException e)
-    {
-        System.out.println("Excepcion validar Deuda " +e);
-    }
-    
-}
-
-
+        
 public void validar_Factura() throws InterruptedException
 {//metodo utilizado
 By nombre_clase_boton_validar_factura_disabled=By.xpath("//div[@class='tfn_button_panel disabled'  and a[contains(text(),'Nueva factura')]]");
@@ -617,7 +625,25 @@ int i=0;
                      }
             }
 }
+public boolean configurar_Contrato() throws InterruptedException
+{//metodo utilizado
 
+By nombre_clase_boton_configurar_contrato=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Configurar contratos')]]");
+WebElement config_contract = null;
+boolean ret = false;
+//    loading();
+    try{
+        Wait(nombre_clase_boton_configurar_contrato);
+        config_contract = findElement(nombre_clase_boton_configurar_contrato);
+        click(config_contract);
+        ret = true;
+    }catch (NoSuchElementException e)
+    {
+        System.out.println(e);
+    }
+    return ret;
+    
+}
 
      
     //return progress.isEnabled();

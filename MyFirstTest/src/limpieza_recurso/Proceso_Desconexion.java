@@ -33,9 +33,9 @@ public class Proceso_Desconexion {
       LoginPage lp = new LoginPage();
       DesconectarPage dp = new DesconectarPage();
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
-            lp.visit("https://noprd-"+entry.getKey()+"-toms.temu.com.uy:7002/");
+            dp.initUrlBusqueda(entry.getKey());
             lp.Nav();
-            lp.signIn();
+            lp.signIn_preprod();
             
             for (String num : entry.getValue()) {
                 System.out.println(num);

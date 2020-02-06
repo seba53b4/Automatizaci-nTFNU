@@ -22,6 +22,7 @@ public class LoginPage extends Base.BasePage{
     By pass = By.xpath("//*[@id=\"passwordInput\"]");
     By botonlog = By.xpath("//*[@id=\"submitButton\"]");
     By userNT= By.xpath("//*[@id=\"theform\"]/table/tbody/tr[1]/td[2]/a");
+    By userNTpp=By.xpath("/html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]");
     
 
     public LoginPage() {
@@ -34,7 +35,19 @@ public class LoginPage extends Base.BasePage{
      
     }
     public void signIn(){
+        
    click(userNT);
+    if(isDisplayed(user)){
+    sendKeys("temu\\ipupo",user);
+    sendKeys("Movistar.12",pass);
+        click(botonlog);
+    }else{
+       System.out.println("username textbox was not present");
+    }
+   } 
+    public void signIn_preprod(){
+        
+   click(userNTpp);
     if(isDisplayed(user)){
     sendKeys("temu\\ipupo",user);
     sendKeys("Movistar.12",pass);
