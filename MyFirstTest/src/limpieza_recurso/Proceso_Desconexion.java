@@ -29,24 +29,32 @@ public class Proceso_Desconexion {
         datosEntrada = hf.readArchivoEntradaDesconexion();
     }
     
+    
+    
     public void desconectar() throws InterruptedException{
       LoginPage lp = new LoginPage();
       DesconectarPage dp = new DesconectarPage();
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
             dp.initUrlBusqueda(entry.getKey());
             lp.Nav();
-            lp.signIn_preprod();
-            
+         if(entry.getKey().equals("jit")){
+         lp.signIn_Jit();
+         }
+         else{
+         lp.signIn();
+         }
             for (String num : entry.getValue()) {
                 System.out.println(num);
                 dp.initUrlBusqueda(entry.getKey());
                 dp.buscarLinea(num);
                 dp.Desconectar(num);
-                break;
+                hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
+                
                 //busqueda estado logico , iccid
             }
             
         }
+      
       
     }
 }

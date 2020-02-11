@@ -34,7 +34,7 @@ public class LoginPage extends Base.BasePage{
      click(linknavegador);
      
     }
-    public void signIn(){
+    public void signIn_Jit(){
         
    click(userNT);
     if(isDisplayed(user)){
@@ -45,7 +45,7 @@ public class LoginPage extends Base.BasePage{
        System.out.println("username textbox was not present");
     }
    } 
-    public void signIn_preprod(){
+    public void signIn(){
         
    click(userNTpp);
     if(isDisplayed(user)){

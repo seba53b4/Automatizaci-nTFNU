@@ -41,7 +41,6 @@ public class HandleFile {
         dir = path;
     }
     
-    
     public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
     {
         HashMap<String, LinkedList<String>> map = new HashMap<>();
@@ -74,14 +73,17 @@ public class HandleFile {
         }
         return map;
     }
-    public boolean writeArchivoSO_Desconexion(String id,String SO)
+    public boolean writeArchivoSO_Desconexion(HashMap<String, String> map)
     {
+        
         File f = new File(dir+"\\Desconexion\\archivoSO.csv");
         try {
             FileWriter fw = new FileWriter(dir+"\\Desconexion\\archivoSO.csv",true);
             BufferedWriter bw = new BufferedWriter(fw);
-            String linea = id+";"+SO+"\n";
-            bw.write(linea);
+            for (HashMap.Entry<String, String>entry : map.entrySet()) {
+                bw.write(entry.getKey()+";"+entry.getValue());
+            }
+            fw.close();
             return true;
         } catch(Exception e) {
           System.out.println("Excepcion leyendo fichero archivoSO.csv con Error: " + e);

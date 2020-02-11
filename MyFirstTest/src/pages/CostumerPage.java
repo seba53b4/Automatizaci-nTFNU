@@ -7,6 +7,7 @@ package pages;
 
 import java.awt.Desktop;
 import java.sql.Driver;
+import java.time.chrono.ThaiBuddhistChronology;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
@@ -462,6 +463,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
      }
     Thread.sleep(4000);
     Wait_element(siguiente);
+    Thread.sleep(4000);
     siguiente.click();
     Wait_element(fact_pago2);
     Thread.sleep(6000);
@@ -470,6 +472,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     obtener_factcreada_posp();
     
     Wait(boton_contrato);
+    Thread.sleep(4000);
     click(boton_contrato);
     Thread.sleep(5000);
     
@@ -625,28 +628,31 @@ int i=0;
                      }
             }
 }
-public boolean configurar_Contrato() throws InterruptedException
+public boolean esta_configurar_Contrato() throws InterruptedException
 {//metodo utilizado
 
-By nombre_clase_boton_configurar_contrato=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Configurar contratos')]]");
+By nombre_clase_boton_configurar_contrato=By.xpath("//div[@class='tfn_button_panel' and a[contains(text(),'Configurar contratos')]][@style='display: none;']");
 WebElement config_contract = null;
-boolean ret = false;
+boolean ret = true;
 //    loading();
     try{
         Wait(nombre_clase_boton_configurar_contrato);
         config_contract = findElement(nombre_clase_boton_configurar_contrato);
-        click(config_contract);
-        ret = true;
-    }catch (NoSuchElementException e)
+        
+        ret = false;
+    }catch (NoSuchElementException e)//button[@class="ui-button-icon-primary ui-icon ui-icon-closethick" and span[contains(text(),'Desconectar')]]
+    {
+        System.out.println(e);
+    }catch (TimeoutException e)
     {
         System.out.println(e);
     }
+    
     return ret;
     
 }
 
-     
-    //return progress.isEnabled();
+
             
 
 public void loading() throws InterruptedException
