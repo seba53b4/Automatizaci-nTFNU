@@ -8,8 +8,10 @@ package Utils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,12 +80,16 @@ public class HandleFile {
         
         File f = new File(dir+"\\Desconexion\\archivoSO.csv");
         try {
-            FileWriter fw = new FileWriter(dir+"\\Desconexion\\archivoSO.csv",true);
-            BufferedWriter bw = new BufferedWriter(fw);
+            FileOutputStream fos=new FileOutputStream(f);
+            PrintWriter pw=new PrintWriter(fos);           
             for (HashMap.Entry<String, String>entry : map.entrySet()) {
-                bw.write(entry.getKey()+";"+entry.getValue());
+                pw.write(entry.getKey()+";"+entry.getValue()+"\n");
+                
             }
-            fw.close();
+            pw.flush();
+            pw.close();
+            fos.close();
+            
             return true;
         } catch(Exception e) {
           System.out.println("Excepcion leyendo fichero archivoSO.csv con Error: " + e);
@@ -95,7 +101,7 @@ public class HandleFile {
     {
         File f = new File(dir+"\\Desconexion\\archivoNumberSIM.csv");
         try {
-            FileWriter fw = new FileWriter(dir+"\\Desconexion\\archivoNumberSIM.csv",true);
+            FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw);
             String linea = id+";"+num+";"+sim+"\n";
             bw.write(linea);
