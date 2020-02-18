@@ -8,9 +8,12 @@ package pages;
 import static Base.BasePage.driver;
 import java.util.HashMap;
 import java.util.List;
+import limpieza_recurso.Limpieza_Class;
+import limpieza_recurso.Proceso_Desconexion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
 
 /**
  *
@@ -19,8 +22,8 @@ import org.openqa.selenium.interactions.Actions;
 public class DesconectarPage extends Base.BasePage{
     
     private HashMap<String, String> soCreadas;
+    private Proceso_Desconexion proceso_desconexion;
 
-   
     
     By primerpartelinea= By.xpath("/html/body/div[4]/div[3]/div[1]/form[1]/div[1]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td[2]/table/tbody/tr/td[2]/div/span/input[1]");
     By segundapartelinea= By.xpath("/html/body/div[4]/div[3]/div[1]/form[1]/div[1]/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td[2]/table/tbody/tr/td[2]/div/span/input[2]");
@@ -51,11 +54,14 @@ public class DesconectarPage extends Base.BasePage{
     By filtro_SO_nombre = By.xpath("//*[@id=\"9139371752413211533_-1\"]/span[2]");
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
     By aplicar_Filtro_Nombre = By.xpath("//button[@class=\"TableCtrl-button gwt-ParCtrl-btn\" and contains(text(),'Aplicar')]");
-    
-    public DesconectarPage()
+   
+    By get_sim=By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[5]/a/span");
+    public DesconectarPage(Proceso_Desconexion pd)
     {
         page= new CostumerPage();
         soCreadas = new HashMap<>();
+        proceso_desconexion= pd;
+        
         
     }
     
@@ -77,6 +83,10 @@ public class DesconectarPage extends Base.BasePage{
     }
     public void Desconectar(String linea) throws InterruptedException{
         WebElement fact_pago2=page.obtener_BotonMenu("Facturación y pago");
+        WebElement sim= findElement(get_sim);
+        getDatosDesconexion().get(linea).setNumero(linea);
+        getDatosDesconexion().get(sim.getTagName()).setSim(sim.getTagName());
+        System.out.println(sim.getTagName());
         Wait(linkcliente);
         click(linkcliente);
         Wait(SO);
@@ -160,9 +170,12 @@ public class DesconectarPage extends Base.BasePage{
             
         }
         System.out.println(obtener_urlSO());
-        soCreadas.put(linea,obtener_urlSO());
-        System.out.println(soCreadas);
-        
+      /*  ********************************************************/
+        getDatosDesconexion().get(linea).setSO(obtener_urlSO());
+    }
+    public HashMap<String,Limpieza_Class> getDatosDesconexion()
+    {
+       return proceso_desconexion.getDatosLimpieza();
     }
     
     public WebElement obtener_linea(String linea) throws InterruptedException{
@@ -217,5 +230,12 @@ public class DesconectarPage extends Base.BasePage{
      public HashMap<String, String> getSoCreadas() {
         return soCreadas;
     }
-    
+     public String obtener_urlSIM(){
+        String url =driver.getCurrentUrl();
+        return url;
+    }
+      public String obtener_urlLinea(){
+        String url =driver.getCurrentUrl();
+        return url;
+    }
 }
