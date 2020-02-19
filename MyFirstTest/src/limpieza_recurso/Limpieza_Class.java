@@ -20,6 +20,10 @@ public class Limpieza_Class {
     public Limpieza_Class(String num)
     {
         numero = num;
+        sim = "";
+        status = "";
+        SO ="";
+        ambiente = "";
     }
     
     
@@ -30,6 +34,8 @@ public class Limpieza_Class {
     public void setNumero(String numero) {
         this.numero = numero;
     }
+    
+    
      public String getSim() {
         return sim;
     }
