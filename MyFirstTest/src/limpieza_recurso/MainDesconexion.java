@@ -27,8 +27,11 @@ public class MainDesconexion {
         String dir = f.getAbsolutePath().replace(".","");
         HandleFile hf = HandleFile.initHandleFile(dir);
         Proceso_Desconexion pd = new Proceso_Desconexion();
+       
         try {
-            pd.desconectar();
+           pd.desconectar();
+          
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(MainDesconexion.class.getName()).log(Level.SEVERE, null, ex);
         }
