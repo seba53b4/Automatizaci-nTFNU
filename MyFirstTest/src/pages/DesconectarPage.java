@@ -12,6 +12,9 @@ import java.util.List;
 import limpieza_recurso.Limpieza_Class;
 import limpieza_recurso.Proceso_Desconexion;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -43,7 +46,7 @@ public class DesconectarPage extends Base.BasePage{
     By configurar_ContratoBTN = By.xpath("//div[@class='tfn_button_panel' and a[contains(text(),'Configurar contratos')]]");
     CostumerPage page;
     By plan= By.xpath("/html/body/div[3]/div[3]/div[2]/div[1]/div[3]/div[2]/div[2]/div[2]/div/div/div/div[1]/div/div/div/div/div/div[1]/div/div/div/div[2]");
-    By desconectar= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[2]/div/div/table/tbody/tr/td[2]/div/a[5]");
+    
     ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[2]/div/div/table/tbody/tr/td[2]/div/a[5]
     By botonnextaddpp=By.cssSelector("body > div.wizard_layout.header_visible > div.top_line_2 > div.breadcrumbs > div.prev_next_box > div:nth-child(2)");
     By comentario= By.xpath("//textarea[@class=\"reason_description\"]");
@@ -51,7 +54,8 @@ public class DesconectarPage extends Base.BasePage{
     By boton_informacion_deudanopagada = By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
     By nombre_orden_venta= By.xpath("//div[@class='roe-widget-header' and h1[contains(text(),'Desconectar Servicios SO')]]");
     By body_nombre_orden=By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/table/tbody[1]");
-    
+    By desconectar= By.xpath("//a[@class=\"bt_bt\" and contains(text(),\"Desconectar\")]");
+    By deshabilitado_desconectar= By.xpath("//a[@class=\"bt_bt disabled\" and contains(text(),\"Desconectar\")]");
     By filtro_SO_nombre = By.xpath("//*[@id=\"9139371752413211533_-1\"]/span[2]");
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
     By aplicar_Filtro_Nombre = By.xpath("//button[@class=\"TableCtrl-button gwt-ParCtrl-btn\" and contains(text(),'Aplicar')]");
@@ -64,7 +68,7 @@ public class DesconectarPage extends Base.BasePage{
     By select_estado_sim= By.xpath("//td[@id=\"vv_9141687230013679726\"]");
     By get_actualizar= By.xpath("//a[contains(text(),\"Actualizar\")]");
     By get_estado_sim= By.xpath("//a[contains(text(),\"Tarjeta SIM:\")]");
-   
+    
     public DesconectarPage(Proceso_Desconexion pd)
     {
         page= new CostumerPage();
@@ -90,12 +94,13 @@ public class DesconectarPage extends Base.BasePage{
         sendKeys(linea.substring(5, 8), tercerapartelinea);
         click(botonbusuqeda);
         WebElement sim= findElement(get_sim);
-        getDatosDesconexion().get(linea).setNumero(linea);  
+    
         getDatosDesconexion().get(linea).setSim(sim.getText());
     }
     public void Desconectar(String linea) throws InterruptedException{
         WebElement fact_pago2=page.obtener_BotonMenu("Facturación y pago");
-        WebElement desconecta= findElement(desconectar);
+        
+        
         Wait(linkcliente);
         click(linkcliente);
         Wait(SO);
@@ -116,10 +121,10 @@ public class DesconectarPage extends Base.BasePage{
         Wait_element(obtener_linea(linea));
         Thread.sleep(4000);
         click(obtener_linea(linea));
-        if(desconecta == null){
+    if(esta_BotonDesconectar() == true){
         getDatosDesconexion().get(linea).setStatus("Error de linea");
         }
-        
+    else{
         Wait(desconectar);
         Thread.sleep(4000);
         click(desconectar);
@@ -158,6 +163,7 @@ public class DesconectarPage extends Base.BasePage{
         Thread.sleep(3000);
         
         if(page.validar_Deuda()){
+           
            System.out.println("HAY VALIDAR");
            Thread.sleep(5000);
            Wait(page.boton_cerrarSO);
@@ -166,10 +172,6 @@ public class DesconectarPage extends Base.BasePage{
            Thread.sleep(4000);
            click(page.boton_cerrarSO);
            obtener_SO(so);
-           
-           
-           
-                
            
         } else {
             System.out.println("NO HAY VALIDAR");
@@ -184,6 +186,7 @@ public class DesconectarPage extends Base.BasePage{
         System.out.println(obtener_urlSO());
         getDatosDesconexion().get(linea).setSO(obtener_urlSO());
         getDatosDesconexion().get(linea).setStatus("Desconexion");
+     }
     }
     public HashMap<String,Limpieza_Class> getDatosDesconexion()
     {
@@ -203,9 +206,19 @@ public class DesconectarPage extends Base.BasePage{
             if(getText(planes.get(i)).contains(conEspacios)){
                 ppactivo=planes.get(i);
             }
+           /* else
+                try {
+                 ppactivo=planes.get(i);
+                } catch (TimeoutException e) {
+                }
+           
+            }*/
+        
         }
         return ppactivo;
-    }
+     }
+     
+    
     
     public String obtener_nombre_SO(){
         WebElement nombre_so = findElement(nombre_orden_venta);
@@ -220,6 +233,7 @@ public class DesconectarPage extends Base.BasePage{
         Wait(filtro_SO_nombre);
         click(filtro_SO_nombre);
         Thread.sleep(4000);
+        findElement(filtro_input_Nombre).clear();
         sendKeys(orden,filtro_input_Nombre);
         click(aplicar_Filtro_Nombre);
         Thread.sleep(4000);
@@ -242,14 +256,39 @@ public class DesconectarPage extends Base.BasePage{
      public HashMap<String, String> getSoCreadas() {
         return soCreadas;
     }
-     public String obtener_urlSIM(){
-        String url =driver.getCurrentUrl();
-        return url;
-    }
-      public String obtener_urlLinea(){
-        String url =driver.getCurrentUrl();
-        return url;
-    }
+     public boolean esta_BotonDesconectar(){
+         
+         try{
+             WebElement no_esta_desco_boton = findElement(deshabilitado_desconectar);
+             
+             if (no_esta_desco_boton == null) {
+                 return true;
+            }
+             
+         }catch (NoSuchElementException e)
+         {
+             System.out.println(e);
+         }
+         return false;
+     }
+     /* public boolean verificar_EstadoSO(){
+      
+      
+      }*/
+      public Boolean get_estadoSOProcesado(String linea){
+          
+          String urlso=getDatosDesconexion().get(linea).getSO();
+          visit(urlso);
+          boolean so=false;
+          By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/div/div/div");
+          WebElement sos=findElement(estado_so);
+          List<WebElement>div_SO= sos.findElements(By.tagName("span"));
+          for (int i = 0; i < div_SO.size(); i++) {
+              so = getText(div_SO.get(i)).contains("Procesado"); //En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+          }
+          
+          return so;
+      }
       public void cambio_estado(String linea) throws InterruptedException{
         sendKeys(linea.substring(0, 2), primerpartelinea);
         sendKeys(linea.substring(2, 5), segundapartelinea);

@@ -10,6 +10,7 @@ import Base.BasePage;
 import Utils.HandleFile;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import org.junit.Test;
 import pages.DesconectarPage;
 import pages.LoginPage;
@@ -36,6 +37,7 @@ public class Proceso_Desconexion {
         hf = HandleFile.getHandleFile();
         datosEntrada = hf.readArchivoEntradaDesconexion();
         datosLimpieza = new HashMap<>();
+        
         cargaDatosLimpieza();
     }
     
@@ -48,11 +50,6 @@ public class Proceso_Desconexion {
         
         }
       }
-    public void busqueda()
-    {
-    
-    }
-    
     public void desconectar() throws InterruptedException{
       LoginPage lp = new LoginPage();
       DesconectarPage dp = new DesconectarPage(this);
@@ -75,12 +72,37 @@ public class Proceso_Desconexion {
                 dp.getDatosDesconexion();
                 hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
                 dp.initUrlBusqueda(entry.getKey());
-                dp.cambio_estado(num);
+                
+                //dp.cambio_estado(num);
                 //busqueda estado logico , iccid
             }
             
         }
-      
-      
+          
+                //dp.cambio_estado(num);
+                //busqueda estado logico , iccid
     }
+    public void cambio() throws InterruptedException{
+        DesconectarPage dp = new DesconectarPage(this);
+        Limpieza_Class value;
+        for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
+            for (String numero : entry.getValue()) {
+                value = datosLimpieza.get(numero);
+                if (!value.getStatus().contains("Error de linea"))
+                    if ( dp.get_estadoSOProcesado(numero) ==true) {
+
+                        value.setStatus("Desconectado");
+                        dp.cambio_estado(numero);
+                    } else
+                    {
+                        value.setStatus("Error en SO");
+                    }
+            }
+        }
+        
+        
+    }
+    
 }
+
+
