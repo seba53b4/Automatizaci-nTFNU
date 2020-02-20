@@ -47,7 +47,6 @@ public class Proceso_Desconexion {
             for (String numero : entry.getValue()) {
                 datosLimpieza.put(numero,new Limpieza_Class(numero));
             }
-        
         }
       }
     public void desconectar() throws InterruptedException{
@@ -68,13 +67,20 @@ public class Proceso_Desconexion {
                 System.out.println(num);
                 dp.initUrlBusqueda(entry.getKey());
                 dp.buscarLinea(num);
+                if(dp.obtener_estado_logicoLinea()== true){
                 dp.Desconectar(num);
                 dp.getDatosDesconexion();
-                hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
+                //hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
                 dp.initUrlBusqueda(entry.getKey());
                 
                 //dp.cambio_estado(num);
                 //busqueda estado logico , iccid
+                }
+                else
+                {
+                datosLimpieza.get(num).setStatus("Error estado logico");
+                }
+               
             }
             
         }
@@ -82,26 +88,29 @@ public class Proceso_Desconexion {
                 //dp.cambio_estado(num);
                 //busqueda estado logico , iccid
     }
-    public void cambio() throws InterruptedException{
+    public void verificar() throws InterruptedException{
         DesconectarPage dp = new DesconectarPage(this);
         Limpieza_Class value;
         for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
             for (String numero : entry.getValue()) {
                 value = datosLimpieza.get(numero);
-                if (!value.getStatus().contains("Error de linea"))
+                if (!value.getStatus().contains("Error de linea") && datosLimpieza.get(numero).getSO().length()!=0)
                     if ( dp.get_estadoSOProcesado(numero) ==true) {
 
                         value.setStatus("Desconectado");
-                        dp.cambio_estado(numero);
+                        //dp.cambio_estado(numero);
                     } else
                     {
                         value.setStatus("Error en SO");
                     }
             }
+            hf.writeArchivoSO_Desconexion(datosLimpieza);
         }
         
         
     }
+    
+    
     
 }
 

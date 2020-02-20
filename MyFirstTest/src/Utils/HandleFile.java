@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import limpieza_recurso.Limpieza_Class;
 
 /**
  *
@@ -57,14 +58,14 @@ public class HandleFile {
             while((linea = br.readLine()) != null)
             {
                 aux = linea.split(";");
-                if (isNumeric(aux[1]) && aux[1].length() == 8) {
-                    if (!map.containsKey(aux[2])) {
-                        map.put(aux[2],new LinkedList<String>());
-                        map.get(aux[2]).add(aux[1]);
+                if (isNumeric(aux[0]) && aux[0].length() == 8) {
+                    if (!map.containsKey(aux[1])) {
+                        map.put(aux[1],new LinkedList<String>());
+                        map.get(aux[1]).add(aux[0]);
                         
                     } else 
                     {
-                        map.get(aux[2]).add(aux[1]);
+                        map.get(aux[1]).add(aux[0]);
                     }
                 }
             }
@@ -75,15 +76,15 @@ public class HandleFile {
         }
         return map;
     }
-    public boolean writeArchivoSO_Desconexion(HashMap<String, String> map)
+    public boolean writeArchivoSO_Desconexion(HashMap<String, Limpieza_Class> map)
     {
-        
         File f = new File(dir+"\\Desconexion\\archivoSO.csv");
         try {
             FileOutputStream fos=new FileOutputStream(f);
             PrintWriter pw=new PrintWriter(fos);           
-            for (HashMap.Entry<String, String>entry : map.entrySet()) {
-                pw.write(entry.getKey()+";"+entry.getValue()+"\n");
+            for (HashMap.Entry<String, Limpieza_Class>entry : map.entrySet()) {
+                pw.write(entry.getKey()+";"+entry.getValue().getSO()+";"+entry.getValue().getStatus()+";"+
+                        entry.getValue().getSim()+"\n");
                 
             }
             pw.flush();

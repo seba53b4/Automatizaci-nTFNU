@@ -30,7 +30,7 @@ public class MainDesconexion {
        
         try {
            pd.desconectar();
-           pd.cambio();
+           pd.verificar();
           
         } catch (InterruptedException ex) {
             Logger.getLogger(MainDesconexion.class.getName()).log(Level.SEVERE, null, ex);
