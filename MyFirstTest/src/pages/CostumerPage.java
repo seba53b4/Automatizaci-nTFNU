@@ -593,6 +593,9 @@ By nombre_clase_boton_validar_factura_disabled=By.xpath("//div[@class='tfn_butto
 WebElement validar_fact_disable = null;
 By nombre_clase_boton_validar_factura=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Validar factura')]]");
 WebElement validar_fact = null;
+By nombre_clase_boton_nueva_factura_enabled=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Nueva factura')]]");
+WebElement nueva_fact_enable = null;
+
 
 int i=0;
     
@@ -602,6 +605,23 @@ int i=0;
                 i++;       
                 
                 System.out.println("Validar factura: "+i);
+                
+                try{
+                    nueva_fact_enable = findElement(nombre_clase_boton_nueva_factura_enabled);
+                    click(nueva_fact_enable);
+                 }catch (NoSuchElementException e)
+                     {
+                         System.out.println(e);
+                     }
+                try{
+                    loading();
+                } catch (StaleElementReferenceException e)
+                {
+                    System.out.println(e);
+                }catch (NoSuchElementException e)
+                {
+                    System.out.println(e);
+                }
                 
                 try{
                     validar_fact = findElement(nombre_clase_boton_validar_factura);

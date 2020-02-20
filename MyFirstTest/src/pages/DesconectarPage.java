@@ -70,12 +70,12 @@ public class DesconectarPage extends Base.BasePage{
     By get_estado_sim= By.xpath("//a[contains(text(),\"Tarjeta SIM:\")]");
     By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/div/div/div");
     By estado_logico_linea_usado= By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[4]");
+    
     public DesconectarPage(Proceso_Desconexion pd)
     {
         page= new CostumerPage();
         soCreadas = new HashMap<>();
         proceso_desconexion= pd;
-        
         
     }
     
@@ -168,7 +168,7 @@ public class DesconectarPage extends Base.BasePage{
             Thread.sleep(3000);
             click(page.obtener_botonenviar());
             Thread.sleep(3000);
-            
+            page.validar_Factura();
             if(page.validar_Deuda()){
                 
                 System.out.println("HAY VALIDAR");

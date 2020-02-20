@@ -33,23 +33,44 @@ public static BasePage bt;
 
 public static BasePage initBaseTest() {
   
-   if (bt == null) {
+    if (bt == null) {
         bt = new BasePage();
-      System.setProperty("webdriver.chrome.driver","C:\\Users\\ipupo\\Documents\\NetBeansProjects\\MyFirstTest\\drivers\\chromedriver.exe");
-        driver= new ChromeDriver(); 
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\seolivera\\Documents\\GitHub\\Automatizaci-nTFNU\\MyFirstTest\\drivers\\chromedriver.exe");
+        driver= new ChromeDriver();
         driver.manage().window().maximize();
-        
-        
-    }
-    
-   return bt;
+    }    
+    return bt;
     
  }  
+
+
+public void small_Wait(By e){
+
+     FluentWait wai= new FluentWait(driver);
+     wai.withTimeout(20,TimeUnit.SECONDS);
+     wai.pollingEvery(1,TimeUnit.SECONDS);
+     wai.ignoring(NoSuchElementException.class);
+     wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
+         @Override
+         public Boolean apply(WebDriver driver1) {
+             WebElement ele = driver1.findElement(e);
+             if(ele==null) {  
+                return false;
+                }                   
+                 else    
+                System.out.println("found");
+             
+                 return true;
+            
+         }
+     });  
+}
+
 public void Wait(By e){
 
      FluentWait wai= new FluentWait(driver);
-     wai.withTimeout(40,TimeUnit.SECONDS);
-     wai.pollingEvery(3,TimeUnit.SECONDS);
+     wai.withTimeout(30,TimeUnit.SECONDS);
+     wai.pollingEvery(2,TimeUnit.SECONDS);
      wai.ignoring(NoSuchElementException.class);
      wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
          @Override
@@ -91,60 +112,49 @@ public WebDriver chromeDriverConnection(){
 //System.setProperty("webdriver.chrome.driver","C:\\Users\\sdominguez\\Documents\\NetBeansProjects\\MyFirstTest\\drivers\\chromedriver.exe");
 
 return driver;
-  }
+}
 
 public WebElement findElement(By locator){
-return driver.findElement(locator);
-  } 
+    return driver.findElement(locator);
+}
 
 public List<WebElement> findElements(By locator){
-return driver.findElements(locator);
-  }
+    return driver.findElements(locator);
+}
 
 public String getText(By locator){
-return driver.findElement(locator).getText();
-  }
+    return driver.findElement(locator).getText();
+}
 
 public String getText(WebElement element){
-return element.getText();
-  }
+    return element.getText();
+}
 
 public void sendKeys(String inputText,By locator){
-driver.findElement(locator).sendKeys(inputText);
-  }
+    driver.findElement(locator).sendKeys(inputText);
+}
 
 public void click(By locator){
-driver.findElement(locator).click();
-  }
+    driver.findElement(locator).click();
+}
 
 public void click(WebElement element){
-element.click();
+    element.click();
 }
 
 public Boolean isDisplayed(By locator){
-   try{
-return driver.findElement(locator).isDisplayed();
-   }catch (Exception e){
-   return false;
-   }
-   
- }
+    try{
+        return driver.findElement(locator).isDisplayed();
+    }catch (Exception e){
+        return false;
+    }
+    
+}
 
 public void visit(String url){
-driver.get(url);
+    driver.get(url);
 }
-public WebElement esperaElement(By locator)
-{
-    WebElement wb;
 
-    while (true) {
-        wb = driver.findElement(locator);
-        if ( !(wb == null)) {
-            break;
-        }
-    }
-    return wb;
-}
 }
 
 
