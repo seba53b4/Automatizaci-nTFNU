@@ -35,12 +35,12 @@ public class LoginPage extends Base.BasePage{
      click(linknavegador);
      
     }
-    public void signIn_Jit(){
+    public void signIn_Jit() throws InterruptedException{
         
    click(userNT);
     if(isDisplayed(user)){
     sendKeys("temu\\ipupo",user);
-    sendKeys("Movistar.12",pass);
+    sendKeys("Movistar.123",pass);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
@@ -51,7 +51,7 @@ public class LoginPage extends Base.BasePage{
    click(userNTpp);
     if(isDisplayed(user)){
     sendKeys("temu\\ipupo",user);
-    sendKeys("Movistar.12",pass);
+    sendKeys("Movistar.123",pass);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");

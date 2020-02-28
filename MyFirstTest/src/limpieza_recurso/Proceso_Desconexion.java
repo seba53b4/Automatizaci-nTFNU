@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pages.DesconectarPage;
 import pages.LoginPage;
 
@@ -67,7 +69,9 @@ public class Proceso_Desconexion {
                 System.out.println(num);
                 dp.initUrlBusqueda(entry.getKey());
                 dp.buscarLinea(num);
-                if(dp.obtener_estado_logicoLinea()== true){
+                if(dp.obtener_estado_logicoLinea()== true && 
+                        !dp.obtener_nombreCliente().contains("ADOVAL S.A.")){
+                dp.set_SIM(num);
                 dp.Desconectar(num);
                 dp.getDatosDesconexion();
                 //hf.writeArchivoSO_Desconexion(dp.getSoCreadas());

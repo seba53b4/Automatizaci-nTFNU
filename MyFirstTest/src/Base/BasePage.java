@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,7 +37,7 @@ public static BasePage initBaseTest() {
   
     if (bt == null) {
         bt = new BasePage();
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\seolivera\\Documents\\GitHub\\Automatizaci-nTFNU\\MyFirstTest\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\ipupo\\Documents\\GitHub\\Automatizaci-nTFNU\\MyFirstTest\\drivers\\chromedriver.exe");
         driver= new ChromeDriver();
         driver.manage().window().maximize();
     }    
@@ -152,7 +154,17 @@ public Boolean isDisplayed(By locator){
 }
 
 public void visit(String url){
+    
     driver.get(url);
+    Alert a = null;
+    try
+    {
+        a = driver.switchTo().alert();
+        a.accept();
+    } catch (NoAlertPresentException e){
+        System.out.println(e+ "Error en visit");
+    }
+    
 }
 
 }

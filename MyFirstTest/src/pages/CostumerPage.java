@@ -101,7 +101,7 @@ public class CostumerPage extends Base.BasePage{
     By lista_plancambio_prepago= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]");
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div");
     By boton_progress = By.xpath("/html/body/div[9]");
-   
+    DesconectarPage dp;
     public CostumerPage() {
        super(); 
         
@@ -308,7 +308,7 @@ public void seleccionar_PosPR(String nombre_plan) {
  
 }
 
-public void obtener_PPActivo(String nombre_plan) throws InterruptedException{
+public void obtener_PPActivo(String nombre_plan,String linea) throws InterruptedException{
 WebElement ppactivo = null;
     Wait(productosasociados);
     Thread.sleep(3000);
@@ -319,7 +319,7 @@ WebElement tableproductasociados= findElement(productosasociados);
     for (int i = 0; i < planes.size(); i++) {
             if(getText(planes.get(i)).contains(nombre_plan)){
                 ppactivo=planes.get(i);
-            }     
+            }
     }
     
     Wait_element(ppactivo);
