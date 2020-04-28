@@ -5,6 +5,8 @@
  */
 package pages;
 
+import Utils.EnterpriseClient;
+import Utils.Plan;
 import java.awt.Desktop;
 import java.sql.Driver;
 import java.time.chrono.ThaiBuddhistChronology;
@@ -41,7 +43,8 @@ public class CostumerPage extends Base.BasePage{
     By stringAgente= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]/div[1]/div[1]/div[1]");
     By recientes = By.xpath("//*[@id=\"gen_menu_3\"]");
     By botonCrear= By.xpath("//*[@id=\"ui-id-5\"]/div/div[2]/table/tbody/tr[2]/td/div/div[2]/div/div/div/div/div[1]/button");
-    By Lis_planes= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]");
+    By Lis_planes= By.cssSelector("  body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)");
+    //body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)
     
     
    
@@ -50,24 +53,27 @@ public class CostumerPage extends Base.BasePage{
     By table_plc= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[3]/table");
     By table_plr = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[4]");
     
-    By productosasociados=By.xpath("/html/body/div[3]/div[3]/div[2]/div[1]/div[3]/div[2]/div[2]");
-   ///html/body/div[3]/div[3]/div[2]/div[1]/div[3]/div[2]/div[2]
+    By productosasociados=By.cssSelector("body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.left_col > div.left_col__inner > div.left_col__inner-wrap > div:nth-child(2)");
     By seleccionarPLTEJ=By.className("roe-widget-content");
-    By msisdn = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input");
+    By msisdn = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[6]/td[2]/div/span/div/div/div[1]/input");
     By seleccionarmsisdn= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]");
+    By iccidPPPLKMIG= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div/div/div[1]/input");
+    By selectICCIDPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]");
     
-    By iccid= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[7]/td[2]/div/div/div/div[1]/input");
+    By msidnPPPLKMIG=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
+    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input
+    By selectmsidnPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div");
+    By iccid= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div/div/div[1]/input");
     By iccid_posp=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[1]/td[2]/div/div/div/div[1]/input");
     By iccid_plr= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[2]/div/div/div/div[1]/input");
     By seleccionariccid= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]");
     By reparacion_pantalla= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div");
-    //By reparacion_pantalla_plr= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[11]/div[1]");
-    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[11]/div[1]/div/input
-    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[11]/div[1]/div/input
+    
     By botonnextaddpp=By.cssSelector("body > div.wizard_layout.header_visible > div.top_line_2 > div.breadcrumbs > div.prev_next_box > div:nth-child(2)");
   
     By botonfact_pago= By.xpath("/html/body/div[3]/div[2]");
+    By boton_revision1=By.cssSelector("body > div.wizard_layout.header_visible > div.top_line_2 > div.breadcrumbs > ul > li:nth-child(4)");
  
     By cuenta_facturacion=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/button[1]");
     By cuenta_fact_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/button[2]");
@@ -91,7 +97,10 @@ public class CostumerPage extends Base.BasePage{
     By list_botonenviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]");
     By boton_enviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[11]");
     
-    By boton_factSinPagar= By.xpath("/html/body/div[10]/div/div/div[3]/div/button[1]");
+    By boton_factSinPagar= By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'][@aria-disabled='false'and span[contains(text(),'Sí')]] ");
+    ///html/body/div[7]/div/div/div[3]/div/button[1]
+    //class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+    //aria-disabled="false"
     
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
     By opcion_cambiado= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]");
@@ -102,14 +111,70 @@ public class CostumerPage extends Base.BasePage{
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div");
     By boton_progress = By.xpath("/html/body/div[9]");
     DesconectarPage dp;
+    ClientPage cp;
     public CostumerPage() {
        super(); 
         
     }
+     public Plan AltaPP(Plan newPlan) throws InterruptedException {
+        return AltaPP(newPlan,"");
+    }
+    public Plan AltaPP(Plan newPlan,String env) throws InterruptedException{
+        seleccionar_Canal(newPlan, env);
+        seleccionar_PP(newPlan);
+        obtener_PPActivo(newPlan, "");
+        iccid_MSISDN_PP(newPlan);
+    return newPlan;
+    
+    }
+      public Plan AltaPosP(Plan newPlan) throws InterruptedException {
+        return AltaPP(newPlan, "");
+    }
+    public Plan AltaPosP(Plan newPlan,String env) throws InterruptedException{
+        get_Type_PlanPos(newPlan, env);
+    return newPlan;
+    
+    }
+    public Plan get_Type_PlanPos(Plan newPlan,String env) throws InterruptedException{
+    
+    if(newPlan.getName().contains("PLR")){
+        seleccionar_Canal(newPlan, env);
+        seleccionar_PosPR(newPlan);
+        obtener_PPActivo(newPlan, env);
+        iccid_MSISDN_PosPLR(newPlan);
+    }
+    else{
+        seleccionar_Canal(newPlan, env);
+        seleccionar_PosPC(newPlan);
+        obtener_PPActivo(newPlan, env);
+        iccid_MSISDN_PosPLC(newPlan);
+    
+    }
+    return newPlan;
+    }
+     public Plan cambioPlan(Plan newPlan) throws InterruptedException {
+        return cambioPlan(newPlan, "");
+     }
+    public Plan cambioPlan(Plan newPlan,String env) throws InterruptedException{
+        seleccionar_CanalOrder(newPlan, env);
+        obtener_PPActivo(newPlan, "");
+        cambio_Plan(newPlan);
+        Terminar_Cambio_Plan();
+    return newPlan;
+    }
+     public Plan simCardLost(Plan newPlan) throws InterruptedException {
+        return simCardlost(newPlan,"");
+     }
+    public Plan simCardlost(Plan newPlan,String env) throws InterruptedException{
+        seleccionar_CanalOrder(newPlan, env);
+        obtener_PPActivo(newPlan, env);
+        select_SIMCardLost();
+    return newPlan;
+    }
     /*Para Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida*/
-   public void seleccionar_CanalOrder(String object_id) throws InterruptedException{
+   public void seleccionar_CanalOrder(Plan newPlan,String env) throws InterruptedException{
      
-       visit("https://noprd-jit-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ object_id);
+       visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
         Wait(nuevaSO);
         click(nuevaSO);
         Wait(canaldistribucion);
@@ -160,23 +225,23 @@ public class CostumerPage extends Base.BasePage{
    
    }
    /*Cambio Plan*/
-   public void cambio_Plan(String nombre_plan,String tipo_plan) throws InterruptedException{
+   public void cambio_Plan(Plan newPlan) throws InterruptedException{
       
         Wait(opcion_cambiado);
         System.out.println(opcion_cambiado);
         click(opcion_cambiado);
         WebElement select =null;
-        switch (tipo_plan) {
+        switch (newPlan.getName_change_plan()) {
            case "PP":
-               select = this.Obtener_cambioPP(nombre_plan);
+               select = this.Obtener_cambioPP(newPlan.getName());
                click(select);
                break;
            case "PLC":
-               select= this.Obtener_cambioPLC(nombre_plan);
+               select= this.Obtener_cambioPLC(newPlan.getName());
                click(select);
                break;
            case "PLR":
-               select = this.Obtener_cambioPLR(nombre_plan);
+               select = this.Obtener_cambioPLR(newPlan.getName());
                click(select);
                break;
            default:
@@ -239,10 +304,21 @@ public class CostumerPage extends Base.BasePage{
    
    }
     /*Para Test Alta Cliente y Plan*/
-    public void seleccionar_Canal(String object_id) throws InterruptedException{
+      public void initUrlBusqueda(String env){
+        if (env.toLowerCase() != "preprod") {
+            
+            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+            
+        } else
+        {
+             visit("https://pretoms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+        }
         
-        click(recientes);
-        visit("https://noprd-jit-toms.temu.com.uy:7002/ncobject.jsp?id="+ object_id);//9155882510113704246");//fichero Seleccionar cliente
+    }
+    public void seleccionar_Canal(Plan newPlan,String env) throws InterruptedException{
+        
+        //click(recientes);
+        visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newPlan.getObject_id());//9155882510113704246");//fichero Seleccionar cliente
         Wait(SO);
         click(SO);
         Wait(nuevaSO);
@@ -258,15 +334,16 @@ public class CostumerPage extends Base.BasePage{
     }
      
 
-public void seleccionar_PP(String nombre_plan) throws InterruptedException {
+public void seleccionar_PP(Plan newPlan) throws InterruptedException {
    
-   Wait_element(obtenerList_Planes("PrePagos"));
+   loading();
+    Wait_element(obtenerList_Planes("PrePagos"));
    click(obtenerList_Planes("PrePagos"));
    Wait(table);
    WebElement tablePP=findElement(table);
    List<WebElement> pp= tablePP.findElements(By.tagName("span"));
             for (int j = 0; j < pp.size(); j++) {
-            if(getText(pp.get(j)).contains(nombre_plan)){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(getText(pp.get(j)).contains(newPlan.getName())){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 Wait_element(pp.get(j));
                 Thread.sleep(4000);
                 click(pp.get(j));
@@ -275,7 +352,7 @@ public void seleccionar_PP(String nombre_plan) throws InterruptedException {
           }          
  
 }
-public void seleccionar_PosPC(String nombre_plan) {
+public void seleccionar_PosPC(Plan newPlan) {
    
    Wait_element(obtenerList_Planes("Cuenta Controlada"));
    click(obtenerList_Planes("Cuenta Controlada"));
@@ -283,14 +360,14 @@ public void seleccionar_PosPC(String nombre_plan) {
    WebElement tablePP=findElement(table_plc);
    List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
             for (int j = 0; j < ppc.size(); j++) {
-            if(getText(ppc.get(j)).contains(nombre_plan)){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(getText(ppc.get(j)).contains(newPlan.getName())){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 click(ppc.get(j));
                 break;
             } 
           }          
  
 }
-public void seleccionar_PosPR(String nombre_plan) {
+public void seleccionar_PosPR(Plan newPlan) {
    WebElement plr=null;
    Wait_element(obtenerList_Planes("Regulares"));
    click(obtenerList_Planes("Regulares"));
@@ -298,7 +375,7 @@ public void seleccionar_PosPR(String nombre_plan) {
    WebElement tablePP=findElement(table_plr);
    List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
             for (int j = 0; j < ppc.size(); j++) {
-            if(getText(ppc.get(j)).contains(nombre_plan)){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(getText(ppc.get(j)).contains(newPlan.getName())){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 plr=ppc.get(j);      
                 break;
             } 
@@ -308,40 +385,55 @@ public void seleccionar_PosPR(String nombre_plan) {
  
 }
 
-public void obtener_PPActivo(String nombre_plan,String linea) throws InterruptedException{
+public void obtener_PPActivo(Plan newPlan,String linea) throws InterruptedException{
 WebElement ppactivo = null;
     Wait(productosasociados);
-    Thread.sleep(3000);
-    System.out.println("prod asociados "+productosasociados);   
-WebElement tableproductasociados= findElement(productosasociados);
-   List<WebElement> planes= tableproductasociados.findElements(By.tagName("span"));
-   
-    for (int i = 0; i < planes.size(); i++) {
-            if(getText(planes.get(i)).contains(nombre_plan)){
-                ppactivo=planes.get(i);
-            }
+    Thread.sleep(3000);   
+    WebElement tableproductasociados= findElement(productosasociados);
+    List<WebElement> planeContainers = tableproductasociados.findElements(By.tagName("span"));
+    for (int i = 0; i < planeContainers.size(); i++) {
+        WebElement spanContainer = planeContainers.get(i);
+       if (getText(spanContainer).contains(newPlan.getName())) {
+           click(spanContainer);
+           break;
+       }
     }
-    
-    Wait_element(ppactivo);
-    Thread.sleep(8000);
-    click(ppactivo);
    }
-public void iccid_MSISDN_PP() throws InterruptedException{
+public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     
    
    WebElement siguiente=findElement(botonnextaddpp);
     WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
+   // WebElement iccid1=findElement(iccid);
+    if(newPlan.getName().contains("PLKMIG")){
+        Wait(iccidPPPLKMIG);
+        sendKeys(newPlan.getICCID(),iccidPPPLKMIG);
+        Thread.sleep(2000);
+        findElement(selectICCIDPPPLKMIG);
+        click(selectICCIDPPPLKMIG);
+        Wait(msidnPPPLKMIG);
+        Thread.sleep(4000);
+        sendKeys(newPlan.getMSISDN(),msidnPPPLKMIG);
+        Thread.sleep(2000);
+        findElement(selectmsidnPPPLKMIG);
+        click(selectmsidnPPPLKMIG);
+    }
+    else{
     Wait(iccid);
-    sendKeys("89598076103021044266", iccid); // 89598071102044547292
+    sendKeys(newPlan.getICCID(),iccid); // 89598071102044547292
+    findElement(seleccionariccid);
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
-    Wait(msisdn);
+    WebElement msisdn1=findElement(msisdn);
+   // Wait(msisdn);
     Thread.sleep(4000);
-    sendKeys("93590328", msisdn); // 95728402
+    sendKeys(newPlan.getMSISDN(), msisdn1); // 95728402
+    findElement(seleccionarmsisdn);
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
+    }
     Wait_element(siguiente);
     Thread.sleep(4000);
     siguiente.click();
@@ -359,31 +451,47 @@ public void iccid_MSISDN_PP() throws InterruptedException{
     Thread.sleep(20000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
-   if (fact_sinpagar()!=null){
-     Thread.sleep(8000);
-      Wait(boton_factSinPagar);
-       Thread.sleep(8000);
-     click(boton_factSinPagar);
-    }
-   else{
-        Thread.sleep(5000);
-        Wait(boton_cerrarSO);
-        click(boton_cerrarSO);
-        }
+   if(validar_Deuda()){
+                    
+                    System.out.println("HAY VALIDAR");
+                    Thread.sleep(5000);
+                    Wait(boton_cerrarSO);
+                    String so = dp.obtener_nombre_SO();
+                    System.out.println(dp.obtener_nombre_SO());
+                    Thread.sleep(4000);
+                    click(boton_cerrarSO);
+                    dp.obtener_SO(so);
+                    
+                } else {
+                    System.out.println("NO HAY VALIDAR");
+                    Thread.sleep(5000);
+                    Wait(boton_cerrarSO);
+                    String so = dp.obtener_nombre_SO();
+                    System.out.println(dp.obtener_nombre_SO());
+                    click(boton_cerrarSO);
+                    dp.obtener_SO(so);
+                    
+                }
+         String url_SO=dp.obtener_urlSO();
+         newPlan.setUrlSO(url_SO);
+         String statusSO=get_estadoSO(newPlan);
+         newPlan.setStatuSO(statusSO);
+         
+            
  }
- public void iccid_MSISDN_PosPLC() throws InterruptedException{
+ public void iccid_MSISDN_PosPLC(Plan newPlan) throws InterruptedException{
     
  
    WebElement siguiente=findElement(botonnextaddpp);
     WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
     Wait(iccid_posp);
-    sendKeys("89598076103021021090", iccid_posp); // 89598071102044547292
+   sendKeys(newPlan.getICCID(), iccid_posp); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msidn_posp);
     Thread.sleep(4000);
-    sendKeys("93571532", msidn_posp); // 95728402
+    sendKeys(newPlan.getMSISDN(), msidn_posp); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -438,7 +546,7 @@ public void iccid_MSISDN_PP() throws InterruptedException{
  
  
  
-public void iccid_MSISDN_PosPLR() throws InterruptedException{
+public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
     
  
    WebElement siguiente=findElement(botonnextaddpp);
@@ -446,13 +554,13 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
     
     
     Wait(iccid_plr);
-    sendKeys("89598076103021044555", iccid_plr); // 89598071102044547292
+    sendKeys(newPlan.getICCID(), iccid_plr); // 89598071102044547292
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
     Wait(msidn_posp);
     Thread.sleep(4000);
-    sendKeys("93594532", msidn_posp); // 95728402
+   sendKeys(newPlan.getMSISDN(), msidn_posp); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
@@ -535,7 +643,7 @@ public void iccid_MSISDN_PosPLR() throws InterruptedException{
   */
 public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
  WebElement pp=null;   
-   Wait(Lis_planes);
+  Wait(Lis_planes);
  WebElement obtener_pp= findElement(Lis_planes);
  List<WebElement> list_obtenerpp= obtener_pp.findElements(By.tagName("div"));
  for (int i = 0; i < list_obtenerpp.size(); i++) {
@@ -564,14 +672,14 @@ public Boolean validar_Deuda()
 {
    Boolean ret=false;
     try{
-    By validar_deuda = By.xpath("/html/body/div[8]/div/div");
-    WebElement validar_deuda_elem = findElement(validar_deuda);
-    validar_deuda_elem=null;
+    //By validar_deuda = By.xpath("/html/body/div[8]/div/div");
+    //WebElement validar_deuda_elem = findElement(validar_deuda);
+    WebElement validar_deuda_elem=null;
     By button_yes = By.xpath("//button[@aria-disabled='false' and span[contains(text(),'Sí')]]"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
     WebElement boton= findElement(button_yes);
    
      
-        System.out.println(boton);
+        System.out.println("boton cartel deuda-->"+boton);
  
         if (validar_deuda_elem == null) {
            
@@ -584,7 +692,9 @@ public Boolean validar_Deuda()
                      {
                          System.out.println(e);
                      }
+        System.out.println("valor retorno Validad Deuda-->"+ret);
         return ret;
+ 
         }
         
 public void validar_Factura() throws InterruptedException
@@ -748,8 +858,8 @@ for (WebElement wb : facturacreada) {
         Wait(boton_crear_nuevacuenta_facturacion_pp);
         click(boton_crear_nuevacuenta_facturacion_pp);
         Thread.sleep(4000);
-        Wait_element(obtener_BotonMenu("Revisión"));
-        click(obtener_BotonMenu("Revisión"));
+        WebElement boton_rev= findElement(boton_revision1);
+        click(boton_rev);
             
     }else {
      
@@ -1010,7 +1120,21 @@ WebElement tableproductasociados= findElement(productosasociados);
     Wait_element(ppactivo);       
     click(ppactivo); 
 }*/
+  public String get_estadoSO(Plan newPlan){
+          
+          String urlso=newPlan.getUrlSO();
+          visit(urlso);
+          String so="";
+          Wait(dp.estado_so);
+          WebElement sos=findElement(dp.estado_so);
+          List<WebElement>div_SO= sos.findElements(By.tagName("span"));
+          for (int i = 0; i < div_SO.size(); i++) {
+              so=getText(div_SO.get(i));
 
+          }
+          
+          return so;
+      }
 
 }
 

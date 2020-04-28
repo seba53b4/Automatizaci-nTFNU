@@ -132,6 +132,9 @@ public String getText(WebElement element){
     return element.getText();
 }
 
+public void sendKeys(String inputText,WebElement locator){
+    locator.sendKeys(inputText);
+}
 public void sendKeys(String inputText,By locator){
     driver.findElement(locator).sendKeys(inputText);
 }

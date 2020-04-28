@@ -5,12 +5,20 @@
  */
 package pages;
 
+import Utils.Client;
+import Utils.EnterpriseClient;
 import java.awt.Desktop;
+import java.util.HashMap;
 import java.util.List;
+import limpieza_recurso.Limpieza_Class;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+
+
+
+
 
 /**
  *
@@ -50,32 +58,76 @@ public class ClientPage extends Base.BasePage{
      By obtener_direccion_CE= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By obtener_direccion= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By boton_crear=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]/button");
-     public void crear_Cliente_Residencial() throws InterruptedException{
-    
-    Actions action=new Actions(driver);     
-    WebElement cliente_resi=findElement(creacion_rapida);
-    action.moveToElement(cliente_resi).build().perform();
-    Thread.sleep(2000); 
-    click(opcion_ClienteRe);
-    Thread.sleep(2000);
-    sendKeys("Nativo", nombR);
-    sendKeys("Test_3", apellidoR);
-    Thread.sleep(2000);
-    click(categoria_cliente);
-    obtener_CR();
-    sendKeys("k16500232301", numero_doc);
-    sendKeys("18 de julio", direccion_cliente);
-    Thread.sleep(4000);
-    Wait(obtener_direccion);
-    Thread.sleep(2000);
-    click(obtener_direccion);
-    Wait(boton_crear);
-    Thread.sleep(2000);
-    click(boton_crear);
-    Thread.sleep(4000);
-    
+     By popup_cliente_existente = By.xpath("/html/body/div[33]/div/div[2]");
+     
+     
+     
+    public void initUrlBusqueda(String env){
+        if (env.toLowerCase() != "preprod") {
+            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+            
+        } else
+        {
+             visit("https://pretoms.temu.com.uy/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
+        }
+        
     }
-      public void crear_Cliente_Empresarial() throws InterruptedException{
+    
+    public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException {
+        return crear_Cliente_Residencial(newClient, false);
+    }
+    public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException
+    { 
+        Actions action=new Actions(driver);     
+        WebElement cliente_resi=findElement(creacion_rapida);
+        action.moveToElement(cliente_resi).build().perform();
+        Thread.sleep(2000); 
+        click(opcion_ClienteRe);
+        Thread.sleep(2000);
+        sendKeys(newClient.getName(), nombR);
+        sendKeys(newClient.getSecondName(), apellidoR);
+        Thread.sleep(2000);
+        click(categoria_cliente);
+        obtener_CR();
+        sendKeys(newClient.getDni(), numero_doc);
+        sendKeys(newClient.getAddress(), direccion_cliente);
+        Thread.sleep(4000);
+        Wait(obtener_direccion);
+        Thread.sleep(2000);
+        click(obtener_direccion);
+        Wait(boton_crear);
+        Thread.sleep(2000);
+        click(boton_crear);
+        Thread.sleep(5000);
+        // 1- existe el cliente (se muestra popup POSIBLES DUPLICADOS)
+        // entonces ejecuto el flujo correspondiente a Cliente Duplicado
+        List<WebElement> existentElements = findElements(popup_cliente_existente);
+        Thread.sleep(2000);
+        if (existentElements.size() > 0) {
+            System.out.println("Duplicated Client");
+            if(handleDuplicate) {
+                //ejecuto el flujo para duplicados
+            }
+        }
+        // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
+        // objeto Cliente
+        else {
+            String clientId = getClientIdByUrl(driver.getCurrentUrl());
+            newClient.setClientId(clientId);
+        }
+        
+        return newClient;
+    }
+    
+    public String getClientIdByUrl(String url){
+        String[] urlSplitted = url.split("id=");
+        return urlSplitted[1];
+    }
+     public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient) throws InterruptedException {
+        return crear_Cliente_Empresarial(newClient, false);
+    }
+    
+    public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient, boolean handleDuplicate) throws InterruptedException{
     
     Actions action=new Actions(driver);     
     WebElement cliente_resi=findElement(creacion_rapida);
@@ -84,14 +136,14 @@ public class ClientPage extends Base.BasePage{
     Wait(opcion_ClienteEm);
     click(opcion_ClienteEm);
     Thread.sleep(2000);
-    sendKeys("Nativo", nombreE);
-    sendKeys("213975190053", RUT);
+    sendKeys(newClient.getName(), nombreE);
+    sendKeys(newClient.getRut(), RUT);
     Thread.sleep(2000);
     click(categoria_CE);
     Wait_element(obtener_Categoria_Em());
     Thread.sleep(3000);
     click(obtener_Categoria_Em());
-    sendKeys("18 de julio", direccion_CE);
+    sendKeys(newClient.getAddress(), direccion_CE);
     Thread.sleep(4000);
     click(obtener_direccion_CE);
     Wait(contacto_primario);
@@ -109,12 +161,28 @@ public class ClientPage extends Base.BasePage{
     click(obtener_rol_contacto_primario);
     
     //click(obtener_direccion_CE);
-    
    
     click(boton_crear);
-    
+     // 1- existe el cliente (se muestra popup POSIBLES DUPLICADOS)
+        // entonces ejecuto el flujo correspondiente a Cliente Duplicado
+        List<WebElement> existentElements = findElements(popup_cliente_existente);
+        Thread.sleep(2000);
+        if (existentElements.size() > 0) {
+            System.out.println("Duplicated Client");
+            if(handleDuplicate) {
+                //ejecuto el flujo para duplicados
+            }
+        }
+        // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
+        // objeto Cliente
+        else {
+            String clientId = getClientIdByUrl(driver.getCurrentUrl());
+            newClient.setClientId(clientId);
+        }
+        
+        return newClient;
     }
-     
+    
     public void obtener_CR() throws InterruptedException {//metodo utilizado
      
      
@@ -140,7 +208,7 @@ public class ClientPage extends Base.BasePage{
         }
  return cc;
     }
-       public WebElement obtener_Categoria_Em(){//metodo utilizado
+    public WebElement obtener_Categoria_Em(){//metodo utilizado
     WebElement cc=null;  
     Wait(table_categoria_empresarial);
     WebElement obtener_cc= findElement(table_categoria_empresarial);
@@ -153,7 +221,7 @@ public class ClientPage extends Base.BasePage{
  return cc;
     }
     
-   public WebElement obtener_TipoDoc(){
+    public WebElement obtener_TipoDoc(){
     WebElement td=null;   
     WebElement obtener_td= findElement(list_td);
     List<WebElement> list_obtenertd= obtener_td.findElements(By.tagName("div"));

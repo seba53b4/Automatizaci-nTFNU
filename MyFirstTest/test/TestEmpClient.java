@@ -1,5 +1,11 @@
 
 import Base.BasePage;
+import Utils.Client;
+import Utils.EnterpriseClient;
+import Utils.HandleFile;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -18,24 +24,38 @@ import pages.LoginPage;
  */
 public class TestEmpClient extends Base.BaseTest {
  
-     ClientPage cp;
+     private ClientPage cp;
+     private HandleFile hf;
+     private LoginPage lp;
+     HashMap<String, List<EnterpriseClient>> datosClient;
      
-    public TestEmpClient() {
-        
-        cp = new ClientPage();   
-    }
     @Test
-    public void altaClienteP() throws InterruptedException{
-    BasePage.initBaseTest();
-    LoginPage lp = new LoginPage();
-    lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
-    lp.Nav();
-    lp.signIn();
-    cp.crear_Cliente_Empresarial();
-    
-        Thread.sleep(4000);
-        super.CerrarNavegador();
-        //System.out.println(cp.obtener_CR());
+    public void altaClienteP() throws InterruptedException, Exception{
+   BasePage.initBaseTest();
+        this.cp = new ClientPage();
+        this.lp = new LoginPage();
+        this.hf = new HandleFile();
+        List<EnterpriseClient> realClients = new ArrayList<>();
+        HashMap<String, List<EnterpriseClient>> dataSource = this.hf.readRegisterDataSource("new_enterprise_client");
+        if (!dataSource.isEmpty()) {
+            for (HashMap.Entry<String, List<EnterpriseClient>> entry : dataSource.entrySet()) {
+                String enviroment = entry.getKey();
+                this.cp.initUrlBusqueda(enviroment);
+                this.lp.Nav();
+                this.lp.signIn();
+                List<EnterpriseClient> newClients = entry.getValue();
+                for (int i = 0; i < newClients.size(); i++) {
+                    EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(newClients.get(i));
+                    if (newClient.getClientId() != null) {
+                        realClients.add(newClient);
+                    }
+                }
+            }
+        }
+        // only save in spreadsheet the real Clients
+        if (realClients.size() > 0) {
+            this.hf.generateRegisteredEntClientDatasource(realClients);
+        }
     
     }
        

@@ -39,8 +39,10 @@ public class AAPage extends Base.BasePage{
         this.visit("http://10.24.167.216/AltamirA/bowe/bw_co_Movistar");
         Wait(login_volver);
         click(login_volver);
-        this.sendKeys("isecco", user_login);
-        this.sendKeys("Movistar.1", user_pass);
+        WebElement user_login1=findElement(user_login);
+        WebElement user_pass1=findElement(user_pass);
+        this.sendKeys("isecco", user_login1);
+        this.sendKeys("Movistar.1", user_pass1);
         click(boton_entrar);
     }
     
@@ -51,7 +53,8 @@ public class AAPage extends Base.BasePage{
         visit("http://10.24.167.216/AltamirA/bowe/bw_co_CargaSituacionActual?ID=infoSituacionActual");
         //Wait(consulta_SitActual);
         //click(consulta_SitActual);
-        sendKeys(num, input_Telefono);
+        WebElement input_telef =findElement(input_Telefono);
+        sendKeys(num, input_telef);
         click(boton_Buscar);
         WebElement wb = seleccionarEstadoActual("PRE");
         

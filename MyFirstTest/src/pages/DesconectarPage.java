@@ -52,7 +52,7 @@ public class DesconectarPage extends Base.BasePage{
     By comentario= By.xpath("//textarea[@class=\"reason_description\"]");
     By aceptardesconexion=By.xpath("//button[@class=\"ok-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only\" and span[contains(text(),'Desconectar')]]");
     By boton_informacion_deudanopagada = By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
-    By nombre_orden_venta= By.xpath("//div[@class='roe-widget-header' and h1[contains(text(),'Desconectar Servicios SO')]]");
+    By nombre_orden_venta= By.xpath("//div[@class='roe-widget-header' and h1[contains(text(),'Servicios SO')]]");
     By body_nombre_orden=By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/table/tbody[1]");
     By desconectar= By.xpath("//a[@class=\"bt_bt\" and contains(text(),\"Desconectar\")]");
     By deshabilitado_desconectar= By.xpath("//a[@class=\"bt_bt disabled\" and contains(text(),\"Desconectar\")]");
@@ -60,7 +60,7 @@ public class DesconectarPage extends Base.BasePage{
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
     By aplicar_Filtro_Nombre = By.xpath("//button[@class=\"TableCtrl-button gwt-ParCtrl-btn\" and contains(text(),'Aplicar')]");
    
-    public  By get_sim=By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[5]/a/span");
+    By get_sim=By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[5]/a/span");
   
     By get_linea= By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[2]/a");
     By get_editar= By.xpath("//a[contains(text(),\"Editar\")]");
@@ -236,6 +236,7 @@ public class DesconectarPage extends Base.BasePage{
     public String obtener_nombre_SO(){
         WebElement nombre_so = findElement(nombre_orden_venta);
         String nombre_orden= getText(nombre_so);
+        System.out.println("nombre SO"+ nombre_orden);
         return nombre_orden.substring(0, 36);
     }
     

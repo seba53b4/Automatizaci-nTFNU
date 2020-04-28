@@ -39,8 +39,8 @@ public class LoginPage extends Base.BasePage{
         
    click(userNT);
     if(isDisplayed(user)){
-    sendKeys("temu\\ipupo",user);
-    sendKeys("Movistar.123",pass);
+    //sendKeys("temu\\ipupo",user);
+    //sendKeys("Movistar.123",pass);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
@@ -50,8 +50,10 @@ public class LoginPage extends Base.BasePage{
         
    click(userNTpp);
     if(isDisplayed(user)){
-    sendKeys("temu\\ipupo",user);
-    sendKeys("Movistar.123",pass);
+     WebElement user1=findElement(user);
+     WebElement pass1=findElement(pass);
+    sendKeys("temu\\ipupo",user1);
+    sendKeys("Movistar.123",pass1);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
