@@ -53,7 +53,7 @@ public class LoginPage extends Base.BasePage{
      WebElement user1=findElement(user);
      WebElement pass1=findElement(pass);
     sendKeys("temu\\ipupo",user1);
-    sendKeys("Movistar.123",pass1);
+    sendKeys("Movistar.1234",pass1);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
