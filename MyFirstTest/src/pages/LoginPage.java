@@ -25,10 +25,39 @@ public class LoginPage extends Base.BasePage{
     ///html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]/div
     By userNTpp=By.xpath("/html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]");
     
+    private static LoginPage loginP;
+    private String usuario;
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    private String password;
+    
     public LoginPage() {
        super();
     }
+    
+    public static LoginPage initLoginPage()
+    {
+        if (loginP == null) {
+            loginP = new LoginPage();
+        }
+        return loginP;
+    }
+    
+    
     
     public void Nav(){
      click(botonnavegador);
