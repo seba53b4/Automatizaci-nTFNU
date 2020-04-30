@@ -338,7 +338,7 @@ public class CostumerPage extends Base.BasePage{
         Wait(canaldistribucion);
         Thread.sleep(4000);
         click(canaldistribucion);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Wait_element(seleccionar_CanalX());
         click(seleccionar_CanalX());
         Thread.sleep(2000);

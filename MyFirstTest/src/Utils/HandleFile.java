@@ -57,7 +57,7 @@ public class HandleFile {
     }
     
     public HandleFile() {
-        this.testExternalSourceBaseDir = System.getProperty("user.dir") + "\\..\\";
+        this.testExternalSourceBaseDir = System.getProperty("user.dir") + "\\";
     }
     
     public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
@@ -393,6 +393,7 @@ public class HandleFile {
        try {
             HashMap<String, List<EnterpriseClient>> sourceMap = new HashMap<String, List<EnterpriseClient>>();
             File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            System.out.println(sourceFile.getAbsolutePath());
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -456,6 +457,7 @@ public class HandleFile {
       try {
             
             File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            System.out.println(sourceFile.getAbsolutePath());
             if (sourceFile.exists() && clients.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
