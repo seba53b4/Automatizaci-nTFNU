@@ -112,6 +112,8 @@ public class CostumerPage extends Base.BasePage{
     By lista_plancambio_controlada= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]");
     By lista_plancambio_prepago= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]");
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[12]/td[2]/div/div/select");
+    By select_sim_card_pp=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/div/select");
+    By select_simcard_plc=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[2]/div/div/select");
     By boton_progress = By.xpath("/html/body/div[9]");
     By filtro_SO_nombre = By.xpath("//*[@id=\"9139371752413211533_-1\"]/span[2]");
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
@@ -180,7 +182,8 @@ public class CostumerPage extends Base.BasePage{
     public Plan simCardlost(Plan newPlan,String env) throws InterruptedException{
         seleccionar_CanalOrder(newPlan, env);
         obtener_PPActivo(newPlan, env);
-        select_SIMCardLost();
+        select_SIMCardLost(newPlan);
+        Terminar(newPlan);
     return newPlan;
     }
     /*Para Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida*/
@@ -199,22 +202,51 @@ public class CostumerPage extends Base.BasePage{
         click(botonCrear);      
    }
    
-   public void select_SIMCardLost(){
+   public void select_SIMCardLost(Plan newPlan){
    
    WebElement simcardlost= null;
-   Wait(select_SIMCardLost);
-   WebElement sim=findElement(select_SIMCardLost);
-   List<WebElement>lista_sim=sim.findElements(By.tagName("option"));
-   for(int i=0;i<lista_sim.size();i++){
-   
-    if(getText(lista_sim.get(i)).contains("Yes")){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-               simcardlost=lista_sim.get(i);
+  
+   if(newPlan.getName().contains("PLTT") || (newPlan.getName().contains("PLGP")) || (newPlan.getName().contains("PLK")) ){
+       Wait(select_sim_card_pp);
+    WebElement simPP=findElement(select_sim_card_pp);
+    List<WebElement>lista_simPp=simPP.findElements(By.tagName("option"));   
+     for(int i=0;i<lista_simPp.size();i++){
+    if(lista_simPp.get(i).getText().contains("Yes")){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+               simcardlost=lista_simPp.get(i);
+                break;
+            } 
+          }
+       click(simcardlost);   
+   }
+   if(newPlan.getName().contains("PLC0") || (newPlan.getName().contains("PLC1")) || (newPlan.getName().contains("PLC2")) || (newPlan.getName().contains("PLC3"))){
+   Wait(select_simcard_plc);
+   WebElement simPosp=findElement(select_simcard_plc);
+   List<WebElement>lista_simPosp=simPosp.findElements(By.tagName("option"));
+    for(int i=0;i<lista_simPosp.size();i++){
+    if(lista_simPosp.get(i).getText().contains("Yes")){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+               simcardlost=lista_simPosp.get(i);
                 break;
             } 
           }
        click(simcardlost);
+   
    }
-   public void Terminar() throws InterruptedException{
+   else{
+   Wait(select_SIMCardLost);
+   WebElement simPosp=findElement(select_SIMCardLost);
+   List<WebElement>lista_simPosp=simPosp.findElements(By.tagName("option"));
+    for(int i=0;i<lista_simPosp.size();i++){
+    if(lista_simPosp.get(i).getText().contains("Yes")){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+               simcardlost=lista_simPosp.get(i);
+                break;
+            } 
+          }
+       click(simcardlost);
+    }
+   }
+ 
+      
+   public void Terminar(Plan newPlan) throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
    WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
   
@@ -232,8 +264,15 @@ public class CostumerPage extends Base.BasePage{
     click(obtener_botonenviar());
     Thread.sleep(5000);
     Wait(boton_cerrarSO);
+    String so = obtener_nombre_SO();
     Thread.sleep(5000);
    click(boton_cerrarSO);
+   obtener_SO(so);
+   String url_SO=obtener_urlSO();
+   newPlan.setUrlSO(url_SO);
+   String statusSO=get_estadoSO(newPlan);
+   newPlan.setStatuSO(statusSO);
+   newPlan.setName(newPlan.getName()); 
    
    }
    /*Cambio Plan*/
