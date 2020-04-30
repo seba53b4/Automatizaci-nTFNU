@@ -33,7 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class HandleFile {
     
-    private String testSourceBaseDir;
+    private String testExternalSourceBaseDir;
     private String dir;
     private static HandleFile hf;
     Client client;
@@ -57,7 +57,7 @@ public class HandleFile {
     }
     
     public HandleFile() {
-        this.testSourceBaseDir = System.getProperty("user.dir") + "\\test_data_source";
+        this.testExternalSourceBaseDir = System.getProperty("user.dir") + "\\..\\";
     }
     
     public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
@@ -230,6 +230,7 @@ public class HandleFile {
         
         
     }
+    
     //Registrar casos de pruebas
     public HashMap readRegisterDataSource(String registerCase) throws Exception {
        try {
@@ -262,7 +263,7 @@ public class HandleFile {
     public HashMap<String, List<Client>> getNewClientDatSource() throws Exception {
        try {
             HashMap<String, List<Client>> sourceMap = new HashMap<String, List<Client>>();
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -321,7 +322,7 @@ public class HandleFile {
     public void generateRegisteredRClientDatasource(List<Client> clients) throws Exception{
       try {
             
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists() && clients.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -391,7 +392,7 @@ public class HandleFile {
     public HashMap<String, List<EnterpriseClient>> getNewEntClientDatSource() throws Exception {
        try {
             HashMap<String, List<EnterpriseClient>> sourceMap = new HashMap<String, List<EnterpriseClient>>();
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -454,7 +455,7 @@ public class HandleFile {
     public void generateRegisteredEntClientDatasource(List<EnterpriseClient> clients) throws Exception{
       try {
             
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists() && clients.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -524,7 +525,7 @@ public class HandleFile {
     public HashMap<String, List<Plan>> getNewPlanDatSource() throws Exception {
        try {
             HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -584,7 +585,7 @@ public class HandleFile {
     public void generateRegisteredNewPlanDatasource(List<Plan> plan) throws Exception{
       try {
             
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists() && plan.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -641,7 +642,7 @@ public class HandleFile {
     public HashMap<String, List<Plan>> getChangePlanDatSource() throws Exception {
        try {
             HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -699,7 +700,7 @@ public class HandleFile {
     public void generateRegisteredChangedPlanDatasource(List<Plan> plan) throws Exception{
       try {
             
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists() && plan.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -756,7 +757,7 @@ public class HandleFile {
     public HashMap<String, List<Plan>> getSimCardLostPlanDatSource() throws Exception {
        try {
             HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -810,7 +811,7 @@ public class HandleFile {
      public void generateRegisteredSimCardLostDatasource(List<Plan> plan) throws Exception{
       try {
             
-            File sourceFile = new File(this.testSourceBaseDir + "\\register\\registers.xlsx");
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
             if (sourceFile.exists() && plan.size() > 0){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  

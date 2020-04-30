@@ -58,7 +58,8 @@ public class CostumerPage extends Base.BasePage{
     By seleccionarPLTEJ=By.className("roe-widget-content");
     By msisdn = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input");
-   ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input
+    By msidn_posplr=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input");
+    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input
     By seleccionarmsisdn= By.xpath("/html/body/div[4]/div[2]/div[1]/div");
     By iccidPPPLKMIG= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div/div/div[1]/input");
     By selectICCIDPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]");
@@ -110,7 +111,7 @@ public class CostumerPage extends Base.BasePage{
     //html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]
     By lista_plancambio_controlada= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]");
     By lista_plancambio_prepago= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]");
-    By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div");
+    By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[12]/td[2]/div/div/select");
     By boton_progress = By.xpath("/html/body/div[9]");
     By filtro_SO_nombre = By.xpath("//*[@id=\"9139371752413211533_-1\"]/span[2]");
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
@@ -147,12 +148,16 @@ public class CostumerPage extends Base.BasePage{
     if(newPlan.getName().contains("PLR")){
         seleccionar_Canal(newPlan, env);
         seleccionar_PosPR(newPlan);
+        loading();
+        Thread.sleep(5000);
         obtener_PPActivo(newPlan, env);
         iccid_MSISDN_PosPLR(newPlan);
     }
     else{
         seleccionar_Canal(newPlan, env);
         seleccionar_PosPC(newPlan);
+        loading();
+        Thread.sleep(5000);
         obtener_PPActivo(newPlan, env);
         iccid_MSISDN_PosPLC(newPlan);
     
@@ -165,8 +170,8 @@ public class CostumerPage extends Base.BasePage{
     public Plan cambioPlan(Plan newPlan,String env) throws InterruptedException{
         seleccionar_CanalOrder(newPlan, env);
         obtener_PPActivo(newPlan, "");
-        cambio_Plan(newPlan);
-        Terminar_Cambio_Plan();
+        cambiar_Plan(newPlan);
+        Terminar_Cambio_Plan(newPlan);
     return newPlan;
     }
      public Plan simCardLost(Plan newPlan) throws InterruptedException {
@@ -232,51 +237,44 @@ public class CostumerPage extends Base.BasePage{
    
    }
    /*Cambio Plan*/
-   public void cambio_Plan(Plan newPlan) throws InterruptedException{
+   public void cambiar_Plan(Plan newPlan) throws InterruptedException{
       
         Wait(opcion_cambiado);
         System.out.println(opcion_cambiado);
         click(opcion_cambiado);
         WebElement select =null;
-        switch (newPlan.getName_change_plan()) {
+        System.out.println("nombre plan a cambiar-->"+newPlan.getName_change_plan());
+       /* switch (newPlan.getName_change_plan()) {
            case "PP":
-               select = this.Obtener_cambioPP(newPlan.getName());
+               WebElement select = this.Obtener_cambioPP(newPlan.getName_change_plan());
                click(select);
                break;
            case "PLC":
-               select= this.Obtener_cambioPLC(newPlan.getName());
+               select= this.Obtener_cambioPLC(newPlan.getName_change_plan());
                click(select);
                break;
            case "PLR":
-               select = this.Obtener_cambioPLR(newPlan.getName());
+               select = this.Obtener_cambioPLR(newPlan.getName_change_plan());
                click(select);
                break;
-           default:
-               throw new AssertionError();
+       }*/
+       if(newPlan.getName_change_plan().contains("PTT") || (newPlan.getName_change_plan().contains("PLGP")) || (newPlan.getName_change_plan().contains("PLK")) ){
+        select = this.Obtener_cambioPP(newPlan.getName_change_plan());
+               click(select);
        }
-        
+       if(newPlan.getName_change_plan().contains("PLC0") || (newPlan.getName_change_plan().contains("PLC1")) || (newPlan.getName_change_plan().contains("PLC2")) || (newPlan.getName_change_plan().contains("PLC3"))){
+       select= this.Obtener_cambioPLC(newPlan.getName_change_plan());
+               click(select);
+       }
+       else{
+       select = this.Obtener_cambioPLR(newPlan.getName_change_plan());
+               click(select);
+       }    
    }
    
-     public void Terminar_Cambio_Plan() throws InterruptedException{
+     public void Terminar_Cambio_Plan(Plan newPlan) throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
    WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
-  
-      Thread.sleep(8000);
-     try{
-         if (reparacion_Pantalla()==true) {
-         Wait_element(elemento_reparacion_Pantalla());
-         Thread.sleep(4000);
-         click(elemento_reparacion_Pantalla());
-     }      
-     }
-     catch (StaleElementReferenceException e)
-    {
-        System.out.println(e);
-    }catch (NoSuchElementException e)
-    {
-        System.out.println(e);
-    } 
-      
    Thread.sleep(4000);
    Wait_element(siguiente);
    siguiente.click();
@@ -306,8 +304,15 @@ public class CostumerPage extends Base.BasePage{
     click(obtener_botonenviar());
     Thread.sleep(5000);
     Wait(boton_cerrarSO);
+    String so = obtener_nombre_SO();
     Thread.sleep(5000);
    click(boton_cerrarSO);
+   obtener_SO(so);
+   String url_SO=obtener_urlSO();
+   newPlan.setUrlSO(url_SO);
+   String statusSO=get_estadoSO(newPlan);
+   newPlan.setStatuSO(statusSO);
+   newPlan.setName(newPlan.getName()); 
    
    }
     /*Para Test Alta Cliente y Plan*/
@@ -336,6 +341,8 @@ public class CostumerPage extends Base.BasePage{
         Thread.sleep(2000);
         Wait_element(seleccionar_CanalX());
         click(seleccionar_CanalX());
+        Thread.sleep(2000);
+        findElement(botonCrear);
         Wait(botonCrear);
         click(botonCrear);
     }
@@ -395,12 +402,14 @@ public void seleccionar_PosPR(Plan newPlan) {
 public void obtener_PPActivo(Plan newPlan,String linea) throws InterruptedException{
 WebElement ppactivo = null;
     Wait(productosasociados);
-    Thread.sleep(3000);   
+    Thread.sleep(5000);   
     WebElement tableproductasociados= findElement(productosasociados);
     List<WebElement> planeContainers = tableproductasociados.findElements(By.tagName("span"));
     for (int i = 0; i < planeContainers.size(); i++) {
         WebElement spanContainer = planeContainers.get(i);
-       if (getText(spanContainer).contains(newPlan.getName())) {
+        System.out.println("nombre plan-->"+getText(spanContainer));
+        System.out.println("nombre plan entrado-->"+newPlan.getName());
+       if (spanContainer.getText().contains(newPlan.getName())) {
            click(spanContainer);
            break;
        }
@@ -492,6 +501,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
     WebElement fact_pago2=obtener_BotonMenu("Facturación y pago");
     Thread.sleep(2000);
+    loading();
     Wait(iccid_posp);
     findElement(iccid_posp);
     sendKeys(newPlan.getICCID(), iccid_posp); // 89598071102044547292
@@ -521,7 +531,8 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     click(boton_contrato);
     
     this.confirmarContrato();
-    Thread.sleep(2000);
+    loading();
+    Thread.sleep(5000);
     findElement(generar_contrato);
     Wait(generar_contrato);
     click(generar_contrato);
@@ -583,18 +594,14 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
     Wait(seleccionariccid);
     Thread.sleep(2000);
     click(seleccionariccid);
-    Wait(msidn_posp);
+    findElement(msidn_posplr);
+    Wait(msidn_posplr);
     Thread.sleep(4000);
-   sendKeys(newPlan.getMSISDN(), msidn_posp); // 95728402
+   sendKeys(newPlan.getMSISDN(), msidn_posplr); // 95728402
     Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     click(seleccionarmsisdn);
     Thread.sleep(6000);
-     if (reparacion_Pantalla()==true) {
-         Thread.sleep(3000);
-         click(elemento_reparacion_Pantalla());
-     }
-    Thread.sleep(4000);
     Wait_element(siguiente);
     Thread.sleep(4000);
     siguiente.click();
