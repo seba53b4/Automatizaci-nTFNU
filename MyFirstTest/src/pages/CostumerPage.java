@@ -428,6 +428,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     else{
     Wait(iccid);
     sendKeys(newPlan.getICCID(),iccid); // 89598071102044547292
+    Wait(seleccionariccid);
     findElement(seleccionariccid);
     Wait(seleccionariccid);
     Thread.sleep(2000);
