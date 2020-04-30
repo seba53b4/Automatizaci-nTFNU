@@ -218,7 +218,7 @@ public class CostumerPage extends Base.BasePage{
           }
        click(simcardlost);   
    }
-   if(newPlan.getName().contains("PLC0") || (newPlan.getName().contains("PLC1")) || (newPlan.getName().contains("PLC2")) || (newPlan.getName().contains("PLC3"))){
+   if(newPlan.getName().contains("C0") || (newPlan.getName().contains("C1")) || (newPlan.getName().contains("C2")) || (newPlan.getName().contains("C3"))){
    Wait(select_simcard_plc);
    WebElement simPosp=findElement(select_simcard_plc);
    List<WebElement>lista_simPosp=simPosp.findElements(By.tagName("option"));
@@ -297,11 +297,11 @@ public class CostumerPage extends Base.BasePage{
                click(select);
                break;
        }*/
-       if(newPlan.getName_change_plan().contains("PTT") || (newPlan.getName_change_plan().contains("PLGP")) || (newPlan.getName_change_plan().contains("PLK")) ){
+       if(newPlan.getName_change_plan().contains("PLTT") || (newPlan.getName_change_plan().contains("PLGP")) || (newPlan.getName_change_plan().contains("PLK")) ){
         select = this.Obtener_cambioPP(newPlan.getName_change_plan());
                click(select);
        }
-       if(newPlan.getName_change_plan().contains("PLC0") || (newPlan.getName_change_plan().contains("PLC1")) || (newPlan.getName_change_plan().contains("PLC2")) || (newPlan.getName_change_plan().contains("PLC3"))){
+       if(newPlan.getName_change_plan().contains("C0") || (newPlan.getName_change_plan().contains("C1")) || (newPlan.getName_change_plan().contains("C2")) || (newPlan.getName_change_plan().contains("C3"))){
        select= this.Obtener_cambioPLC(newPlan.getName_change_plan());
                click(select);
        }
@@ -321,8 +321,15 @@ public class CostumerPage extends Base.BasePage{
    Thread.sleep(4000);
    fact_pago2.click();
    Thread.sleep(4000);
+   if(getTypePlanReal(newPlan).equals("prepago") && getTypePlanCambio(newPlan).equals("pospago")){
+   obtener_factcreada_posp();
+   }
+   /*
    Wait_element(obtener_BotonMenu("Revisión"));
-   click(obtener_BotonMenu("Revisión"));
+   click(obtener_BotonMenu("Revisión"));*/
+    if(getTypePlanReal(newPlan).equals("pospago") && getTypePlanCambio(newPlan).equals("prepago")){
+    obtener_factcreada_pp();
+   }
     Thread.sleep(4000);
     Wait(boton_contrato);
     click(boton_contrato);
@@ -1132,7 +1139,7 @@ public WebElement Obtener_cambioPLR(String nombre_plan){//utilizado
      WebElement cambio_prepago=findElement(lista_plancambio_prepago);
     List<WebElement>lista_prepago= cambio_prepago.findElements(By.tagName("span"));
      for (int j = 0; j < lista_prepago.size(); j++) {
-            if(getText(lista_prepago.get(j)).contains(nombre_plan)) {//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(lista_prepago.get(j).getText().contains(nombre_plan)) {//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
             
                 pp=lista_prepago.get(j);
                 break; 
@@ -1251,9 +1258,34 @@ WebElement tableproductasociados= findElement(productosasociados);
         String nombre_orden= getText(nombre_so);
         System.out.println("nombre SO"+ nombre_orden);
         return nombre_orden.substring(0, 30);
+    }   
+   public String getTypePlanReal(Plan newPlan){
+   String type="";
+    if(newPlan.getName().contains("PLTT") || (newPlan.getName().contains("PLGP")) || (newPlan.getName().contains("PLK")) ){
+        type="prepago";
+       }
+       else
+    {
+       type="pospago";
     }
-
+   
+   return type;
 }
+    public String getTypePlanCambio(Plan newPlan){
+   String type="";
+    if(newPlan.getName_change_plan().contains("PLTT") || (newPlan.getName_change_plan().contains("PLGP")) || (newPlan.getName_change_plan().contains("PLK")) ){
+        type="prepago";
+       }
+       else
+    {
+       type="pospago";
+    }
+   
+   return type;
+}
+   
+}
+
 
 
 
