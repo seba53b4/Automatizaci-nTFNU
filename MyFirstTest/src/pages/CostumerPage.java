@@ -453,8 +453,6 @@ WebElement ppactivo = null;
     List<WebElement> planeContainers = tableproductasociados.findElements(By.tagName("span"));
     for (int i = 0; i < planeContainers.size(); i++) {
         WebElement spanContainer = planeContainers.get(i);
-        System.out.println("nombre plan-->"+getText(spanContainer));
-        System.out.println("nombre plan entrado-->"+newPlan.getName());
        if (spanContainer.getText().contains(newPlan.getName())) {
            click(spanContainer);
            break;
