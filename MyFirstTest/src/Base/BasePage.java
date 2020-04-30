@@ -37,7 +37,7 @@ public static BasePage initBaseTest() {
   
     if (bt == null) {
         bt = new BasePage();
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\ipupo\\Documents\\GitHub\\Automatizaci-nTFNU\\MyFirstTest\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
         driver= new ChromeDriver();
         driver.manage().window().maximize();
     }    

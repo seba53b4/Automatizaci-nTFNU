@@ -384,7 +384,7 @@ public class CostumerPage extends Base.BasePage{
         Wait(canaldistribucion);
         Thread.sleep(4000);
         click(canaldistribucion);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Wait_element(seleccionar_CanalX());
         click(seleccionar_CanalX());
         Thread.sleep(2000);
@@ -481,6 +481,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     else{
     Wait(iccid);
     sendKeys(newPlan.getICCID(),iccid); // 89598071102044547292
+    Wait(seleccionariccid);
     findElement(seleccionariccid);
     Wait(seleccionariccid);
     Thread.sleep(2000);

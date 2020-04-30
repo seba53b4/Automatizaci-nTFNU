@@ -37,7 +37,7 @@ public class ClientPage extends Base.BasePage{
      By categoria_cliente=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div");
      By categoria_CE=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[4]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
      By table_categoria_empresarial=By.xpath("/html/body/div[34]/div[2]/div[1]/div[2]");
-     By list_cc= By.xpath("/html/body/div[34]");
+     By list_cc= By.xpath("/html/body/div[34]/div[2]/div[1]");   //"/html/body/div[34]");
     
      By obtener_tipoDoc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
    
@@ -144,7 +144,8 @@ public class ClientPage extends Base.BasePage{
     Thread.sleep(3000);
     click(obtener_Categoria_Em());
     sendKeys(newClient.getAddress(), direccion_CE);
-    Thread.sleep(4000);
+    Thread.sleep(2000);
+    Wait(obtener_direccion_CE);
     click(obtener_direccion_CE);
     Wait(contacto_primario);
     Thread.sleep(4000);
@@ -202,7 +203,7 @@ public class ClientPage extends Base.BasePage{
     WebElement obtener_cc= findElement(list_cc);
     List<WebElement> list_obtenercc= obtener_cc.findElements(By.tagName("div"));
     for (int i = 0; i < list_obtenercc.size(); i++) {
-            if(getText(list_obtenercc.get(i)).equals("Particulares - Valor"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(list_obtenercc.get(i).getText().equals("Particulares - Valor"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 cc=list_obtenercc.get(i);
         
         }
@@ -212,9 +213,9 @@ public class ClientPage extends Base.BasePage{
     WebElement cc=null;  
     Wait(table_categoria_empresarial);
     WebElement obtener_cc= findElement(table_categoria_empresarial);
-    List<WebElement> list_obtenercc= obtener_cc.findElements(By.tagName("div"));
+    List<WebElement> list_obtenercc= obtener_cc.findElements(By.className("refsel_name")); //tagName("div"));
     for (int i = 0; i < list_obtenercc.size(); i++) {
-            if(getText(list_obtenercc.get(i)).contains("Empresas - Pymes A"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(getText(list_obtenercc.get(i)).contains("Pymes"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 cc=list_obtenercc.get(i);
         
         }
@@ -234,11 +235,14 @@ public class ClientPage extends Base.BasePage{
     } 
     public WebElement obtener_ContactoPrimario(){
     WebElement cp=null;
-   Wait(table_contacto_primario);
-    WebElement obtener_cp= findElement(table_contacto_primario);
-    List<WebElement> list_obtenertd= obtener_cp.findElements(By.tagName("div"));
+    By tablacontacto = By.className("refsel_table");
+    Wait(tablacontacto);//table_contacto_primario);
+    
+    WebElement obtener_cp= findElement(tablacontacto);//table_contacto_primario);
+    
+    List<WebElement> list_obtenertd= obtener_cp.findElements(By.className("refsel_name"));//tagName("div"));
     for (int i = 0; i < list_obtenertd.size(); i++) {
-            if(getText(list_obtenertd.get(i)).contains("IVANNA TROVATTO"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
+            if(list_obtenertd.get(i).getText().contains("TROVATTO"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 cp=list_obtenertd.get(i);
         
         }

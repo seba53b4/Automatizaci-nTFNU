@@ -29,10 +29,10 @@ public class TestAA  extends Base.BaseTest{
     public void validarTestAA() throws InterruptedException
     {
         ap.logIN();
-        Assert.assertTrue(ap.consultaEstado("95838603","TOMS"));
+        Assert.assertTrue(ap.consultaEstado("95899424","TOMS"));
         
         Thread.sleep(4000);
-        super.CerrarNavegador();
+        //super.CerrarNavegador();
     }
      
     
