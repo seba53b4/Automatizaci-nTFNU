@@ -4,9 +4,11 @@ MyFirstTest/build/
 MyFirstTest/nbproject/private
 MyFirstTest/dist/
 
-# Class Files #
+# Type of Files #
 MyFirstTest/*.class
-MyFirstTest/registers.xlsx
+MyFirstTest/*.xlsx
 *.xlsx
+
 # Package Files #
 
+MyFirstTest/registers.xlsx
