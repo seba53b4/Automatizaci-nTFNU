@@ -1,11 +1,12 @@
 
 #Folders
-/build/
-/nbproject/private
-/dist/
+MyFirstTest/build/
+MyFirstTest/nbproject/private
+MyFirstTest/dist/
 
 # Class Files #
-*.class
-
+MyFirstTest/*.class
+MyFirstTest/registers.xlsx
+*.xlsx
 # Package Files #
 
