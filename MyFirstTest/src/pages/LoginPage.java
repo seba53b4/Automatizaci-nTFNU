@@ -5,10 +5,13 @@
  */
 package pages;
 
+import static Base.BasePage.driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
@@ -21,7 +24,8 @@ public class LoginPage extends Base.BasePage{
     By user = By.xpath("//*[@id=\"userNameInput\"]");
     By pass = By.xpath("//*[@id=\"passwordInput\"]");
     By botonlog = By.xpath("//*[@id=\"submitButton\"]");
-    By userNT= By.xpath("//div[@class=\"buttonInner\" and a[contains(text(),\"Inicie sesión como usuario de NT\")] ]");
+    By userNT= By.xpath("//div[@class='buttonInner' and a[contains(text(),'Inicie sesión como usuario de NT')]]");
+    By userNT_preprod=By.xpath("//a[@href='#' and contains(text(),'Inicie sesión como usuario de NT')]");
     ///html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]/div
     By userNTpp=By.xpath("/html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]");
     
@@ -59,25 +63,36 @@ public class LoginPage extends Base.BasePage{
     
     
     
-    public void Nav(){
-     click(botonnavegador);
-     click(linknavegador);
+    public void Nav(String env){
+       
      
+     if(env.contains("preprod")){
+     Boolean nav= new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.invisibilityOfElementLocated(botonnavegador)); 
+      Boolean link= new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.invisibilityOfElementLocated(linknavegador));
+     }
+     else{
+         click(botonnavegador);
+         click(linknavegador); 
+     }  
     }
-    public void signIn_Jit() throws InterruptedException{
+    public void signIn_preprod() throws InterruptedException{
         
-   click(userNT);
+    click(userNT_preprod);
     if(isDisplayed(user)){
-    //sendKeys("temu\\ipupo",user);
-    //sendKeys("Movistar.123",pass);
+     WebElement user1=findElement(user);
+     WebElement pass1=findElement(pass);
+    sendKeys("temu\\ipupo",user1);
+    sendKeys("Movistar.1234",pass1);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
     }
    } 
     public void signIn(){
-        
-   click(userNTpp);
+    Wait_Click(userNT);
+    click(userNTpp);
     if(isDisplayed(user)){
      WebElement user1=findElement(user);
      WebElement pass1=findElement(pass);

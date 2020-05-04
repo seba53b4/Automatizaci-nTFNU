@@ -46,8 +46,13 @@ public class TestAltaPosP extends Base.BaseTest {
             for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
                 String enviroment = entry.getKey();
                 this.ap.initUrlBusqueda(enviroment);
-                this.lp.Nav();
+                this.lp.Nav(enviroment);
+                if(enviroment.contains("preprod")){
+                this.lp.signIn_preprod();
+                }
+                else{
                 this.lp.signIn();
+                }
                 List<Plan> newPlans = entry.getValue();
                 for (int i = 0; i < newPlans.size(); i++) {
                   Plan newPlan = this.ap.AltaPosP(newPlans.get(i),enviroment);
