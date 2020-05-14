@@ -84,12 +84,16 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(2000); 
         click(opcion_ClienteRe);
         Thread.sleep(2000);
+        findElement(nombR);
         sendKeys(newClient.getName(), nombR);
+        findElement(apellidoR);
         sendKeys(newClient.getSecondName(), apellidoR);
         Thread.sleep(2000);
         click(categoria_cliente);
         obtener_CR();
+        findElement(numero_doc);
         sendKeys(newClient.getDni(), numero_doc);
+        findElement(direccion_cliente);
         sendKeys(newClient.getAddress(), direccion_cliente);
         Thread.sleep(4000);
         Wait(obtener_direccion);
@@ -112,6 +116,7 @@ public class ClientPage extends Base.BasePage{
         // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
         // objeto Cliente
         else {
+            Thread.sleep(5000);
             String clientId = getClientIdByUrl(driver.getCurrentUrl());
             newClient.setClientId(clientId);
         }

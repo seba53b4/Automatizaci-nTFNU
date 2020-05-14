@@ -100,7 +100,7 @@ public class DesconectarPage extends Base.BasePage{
       //  getDatosDesconexion().get(linea).setSim(sim.getText());
     }
     public void Desconectar(String linea) throws InterruptedException{
-        WebElement fact_pago2=page.obtener_BotonMenu("Facturación y pago");
+        WebElement fact_pago2=findElement(page.botonfact_pago);
         //WebElement esta_desco_boton = findElement(deshabilitado_desconectar);
         Wait(linkcliente);
         click(linkcliente);
@@ -145,9 +145,9 @@ public class DesconectarPage extends Base.BasePage{
             click(aceptardesconexion);
             
             Thread.sleep(4000);
-            Wait_element(page.obtener_BotonMenu("Revisión"));
+            Wait_element(findElement(page.boton_revision));
             Thread.sleep(6000);
-            click(page.obtener_BotonMenu("Revisión"));
+            click(findElement(page.boton_revision));
             if(existe_Añadido(linea)){
                 getDatosDesconexion().get(linea).setStatus("Linea añadida por error de SO");
             }
@@ -160,9 +160,9 @@ public class DesconectarPage extends Base.BasePage{
                 Thread.sleep(5000);
                 click(page.generar_contrato);
                 page.loading();
-                Wait(page.firmar_contrato);
+//                Wait(page.firmar_contrato);
                 Thread.sleep(8000);
-                click(page.firmar_contrato);
+ //               click(page.firmar_contrato);
                 Thread.sleep(8000);
                 Wait(page.boton_confirmar_firma);
                 Thread.sleep(4000);

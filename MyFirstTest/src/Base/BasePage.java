@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -18,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,27 +71,20 @@ public void small_Wait(By e){
 }
 
 public void Wait(By e){
-
-     FluentWait wai= new FluentWait(driver);
-     wai.withTimeout(30,TimeUnit.SECONDS);
-     wai.pollingEvery(2,TimeUnit.SECONDS);
-     wai.ignoring(NoSuchElementException.class);
-     wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
-         @Override
-         public Boolean apply(WebDriver driver1) {
-             WebElement ele = driver1.findElement(e);
-             if(ele==null) {  
-                return false;
-                }                   
-                 else    
-                System.out.println("found");
-             
-                 return true;
-            
-         }
-     });  
+  // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+WebElement firstResult = new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.visibilityOfElementLocated(e));
+// Imprime en pantalla el primer resultado
+System.out.println(firstResult.getText());  
 }
-public void Wait_element(WebElement e){ 
+public void Wait_Click(By e){
+  // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+WebElement firstResult = new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.elementToBeClickable(e));
+// Imprime en pantalla el primer resultado
+System.out.println(firstResult.getText());  
+}
+public void Wait_element_progress(WebElement e){ 
 
     FluentWait wai= new FluentWait(driver);
      wai.withTimeout(60,TimeUnit.SECONDS);
@@ -110,6 +105,23 @@ public void Wait_element(WebElement e){
          }
      });  
 }
+public void Wait_element(WebElement e){ 
+
+      // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+WebElement firstResult = new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.visibilityOf(e));
+// Imprime en pantalla el primer resultado
+System.out.println(firstResult.getText());  
+}
+public void Wait_element_Click(WebElement e){ 
+
+      // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+WebElement firstResult = new WebDriverWait(driver, 10)
+        .until(ExpectedConditions.elementToBeClickable(e));
+// Imprime en pantalla el primer resultado
+System.out.println(firstResult.getText());  
+}
+
 public WebDriver chromeDriverConnection(){
 //System.setProperty("webdriver.chrome.driver","C:\\Users\\sdominguez\\Documents\\NetBeansProjects\\MyFirstTest\\drivers\\chromedriver.exe");
 
