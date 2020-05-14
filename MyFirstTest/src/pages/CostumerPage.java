@@ -43,7 +43,7 @@ public class CostumerPage extends Base.BasePage{
     By elementoAgente= By.xpath("//*[@id=\"id_refsel1965777193_div\"]/div/input");
     By stringAgente= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]/div[1]/div[1]/div[1]");
     By recientes = By.xpath("//*[@id=\"gen_menu_3\"]");
-    By botonCrear= By.xpath("//*[@id=\"ui-id-5\"]/div/div[2]/table/tbody/tr[2]/td/div/div[2]/div/div/div/div/div[1]/button");
+    By botonCrear= By.xpath("//button[@class='TableCtrl-button ParCtrl-editButton' and contains(text(),'Crear')]");
     By Lis_planes= By.cssSelector("  body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)");
     //body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)
     
@@ -59,7 +59,7 @@ public class CostumerPage extends Base.BasePage{
     By msisdn = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posplr=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input");
-    ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input
+    
     By seleccionarmsisdn= By.xpath("/html/body/div[4]/div[2]/div[1]/div");
     By iccidPPPLKMIG= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div/div/div[1]/input");
     By selectICCIDPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]");
@@ -102,14 +102,12 @@ public class CostumerPage extends Base.BasePage{
     By boton_enviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[11]");
     
     By boton_factSinPagar= By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'][@aria-disabled='false'and span[contains(text(),'Sí')]] ");
-    ///html/body/div[7]/div/div/div[3]/div/button[1]
-    //class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-    //aria-disabled="false"
+    
     By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/div/div/div");
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
     By opcion_cambiado= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
-    //html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]
+    
     By lista_plancambio_controlada= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]");
     By lista_plancambio_prepago= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[3]");
     By select_SIMCardLost= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[12]/td[2]/div/div/select");
@@ -172,7 +170,9 @@ public class CostumerPage extends Base.BasePage{
      }
     public Plan cambioPlan(Plan newPlan,String env) throws InterruptedException{
         seleccionar_CanalOrder(newPlan, env);
+        loading();
         obtener_PPActivo(newPlan, "");
+        loading();
         cambiar_Plan(newPlan);
         Terminar_Cambio_Plan(newPlan);
     return newPlan;
@@ -278,9 +278,7 @@ public class CostumerPage extends Base.BasePage{
    }
    /*Cambio Plan*/
    public void cambiar_Plan(Plan newPlan) throws InterruptedException{
-      
-       loading();
-        System.out.println(opcion_cambiado);
+     
         Wait_Click(opcion_cambiado);
         click(opcion_cambiado);
         WebElement select =null;
@@ -322,17 +320,19 @@ public class CostumerPage extends Base.BasePage{
    //Wait_element(fact_pago2);
    Thread.sleep(6000);
    Wait_element_Click(fact_pago2);
-   click(fact_pago2);
    Thread.sleep(4000);
+   click(fact_pago2);
+   
    if(getTypePlanReal(newPlan).equals("prepago") && getTypePlanCambio(newPlan).equals("pospago")){
    obtener_factcreada_posp();
    }
 
     if(getTypePlanReal(newPlan).equals("pospago") && getTypePlanCambio(newPlan).equals("prepago")){
-    obtener_factcreada_pp();
+    obtener_factcreada_pp_cambio();
    }
     //Wait_element(obtener_BotonMenu("Revisión"));
     Wait_Click(boton_revision);
+    Thread.sleep(5000);
     click(boton_revision);
     Thread.sleep(4000);
     //Wait(boton_contrato);
@@ -355,10 +355,20 @@ public class CostumerPage extends Base.BasePage{
     click(boton_confirmar_firma);
     Wait_Click(boton_guardar_firma);
     click(boton_guardar_firma);
-   Wait_element(obtener_botonenviar());
-    Thread.sleep(10000);
+     validar_Factura();
+    Wait_element(obtener_botonenviar());
+    Thread.sleep(2000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
+   if(validar_Deuda()){
+     System.out.println("HAY VALIDAR");
+      Thread.sleep(5000);    
+                }
+   else 
+   {
+ System.out.println("NO HAY VALIDAR");
+ Thread.sleep(5000);             
+                }
     //Wait(boton_cerrarSO);
     String so = obtener_nombre_SO();
     Thread.sleep(5000);
@@ -1036,6 +1046,59 @@ for (WebElement wb : facturacreada) {
     }
     
  }
+public void obtener_factcreada_pp_cambio() throws InterruptedException{//metodos utilizados
+    WebElement factura_creada = null;
+  Wait(cuenta_facturacion_creada);
+WebElement fc= findElement(cuenta_facturacion_creada);
+List<WebElement> facturacreada= fc.findElements(By.tagName("div"));
+  Wait(servicios_lista);
+WebElement serv_list=findElement(servicios_lista);
+List<WebElement> serviciolist= serv_list.findElements(By.tagName("option"));
+boolean hay= false;    
+for (WebElement wb : facturacreada) {
+        if(getText(wb).contains("Prepago")){
+           hay = true;
+           
+           break;
+        }
+    }
+
+    if (!hay) {
+       
+       Wait(cuenta_facturacion);
+        click(cuenta_facturacion);
+        Thread.sleep(2000);
+        findElement(boton_crear_nuevacuenta_facturacion_pp);
+        Wait(boton_crear_nuevacuenta_facturacion_pp);
+        click(boton_crear_nuevacuenta_facturacion_pp);
+        Thread.sleep(4000);
+        WebElement boton_rev= findElement(boton_revision1);
+        click(boton_rev);
+            
+    }else {
+     
+      WebElement scf= findElement(select_cuenta_facturacion);
+     List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
+    int size_list=selectfacturacreada.size()-2;
+        System.out.println("posicion"+size_list);
+     WebElement penultimo_select=selectfacturacreada.get(size_list);
+        System.out.println("ultimo elemento-->"+penultimo_select);
+     Wait_element_Click(penultimo_select);
+     click(penultimo_select);
+        int longitud = serviciolist.size()-1;
+        for (int i = 0; i < serviciolist.size(); i++) {
+            if (i == longitud) {
+                factura_creada=serviciolist.get(i);     
+            }
+
+        }
+        click(factura_creada);
+     Thread.sleep(5000);
+     Wait(boton_revision);
+     click(boton_revision);
+    }
+    
+ }
 public void obtener_factcreada_posp() throws InterruptedException{//metodos utilizados
    //WebElement revision = obtener_BotonMenu("Revisión");
     WebElement factura_creada = null;
@@ -1072,7 +1135,8 @@ for (WebElement wb : facturacreada) {
      List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
     int size_list=selectfacturacreada.size();
      WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
-     Wait_element(ultimo_select);
+     Wait_element_Click(ultimo_select);
+     Thread.sleep(4000);
      click(ultimo_select);
         int longitud = serviciolist.size()-1;
         for (int i = 0; i < serviciolist.size(); i++) {
