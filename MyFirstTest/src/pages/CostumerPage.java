@@ -1077,21 +1077,41 @@ for (WebElement wb : facturacreada) {
             
     }else {
      
-      WebElement scf= findElement(select_cuenta_facturacion);
+//      WebElement scf= findElement(select_cuenta_facturacion);
+//     List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
+//    int size_list=selectfacturacreada.size()-2;
+//        System.out.println("posicion"+size_list);
+     WebElement scf= findElement(select_cuenta_facturacion);
      List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
-    int size_list=selectfacturacreada.size()-2;
-        System.out.println("posicion"+size_list);
-     WebElement penultimo_select=selectfacturacreada.get(size_list);
-        System.out.println("ultimo elemento-->"+penultimo_select);
-     Wait_element_Click(penultimo_select);
-     click(penultimo_select);
-        int longitud = serviciolist.size()-1;
-        for (int i = 0; i < serviciolist.size(); i++) {
-            if (i == longitud) {
-                factura_creada=serviciolist.get(i);     
-            }
-
-        }
+//        for (WebElement webElement : selectfacturacreada) {
+//            webElement.toString() ;
+//        }
+     for (int i = selectfacturacreada.size()-1; i >= 1; i--) {
+         
+         WebElement penultimo_select=selectfacturacreada.get(i);
+         Wait_element_Click(penultimo_select);
+         click(penultimo_select);
+         int longitud = serviciolist.size()-1;
+         for (int j  = 0; j < serviciolist.size(); j++) {
+             if (i == longitud) {
+                 factura_creada=serviciolist.get(j);
+             }
+             
+         }
+     }
+        
+//        
+//     WebElement penultimo_select=selectfacturacreada.get(size_list);
+//        System.out.println("ultimo elemento-->"+penultimo_select);
+//     Wait_element_Click(penultimo_select);
+//     click(penultimo_select);
+//        int longitud = serviciolist.size()-1;
+//        for (int i = 0; i < serviciolist.size(); i++) {
+//            if (i == longitud) {
+//                factura_creada=serviciolist.get(i);     
+//            }
+//
+//        }
         click(factura_creada);
      Thread.sleep(5000);
      Wait(boton_revision);
