@@ -258,10 +258,6 @@ public class CostumerPage extends Base.BasePage{
    public void Terminar(Plan newPlan) throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
    WebElement fact_pago2=findElement(botonfact_pago);
-  
-   Thread.sleep(4000);
-   
-   Thread.sleep(4000);
    Wait_element_Click(fact_pago2);
    Thread.sleep(4000);
    Wait_Click(boton_revision);
@@ -283,10 +279,10 @@ public class CostumerPage extends Base.BasePage{
    }
    /*Cambio Plan*/
    public void cambiar_Plan(Plan newPlan) throws InterruptedException{
-     
+       Thread.sleep(5000);
        Wait_Click(opcion_cambiado);
-        click(opcion_cambiado);
-        WebElement select =null;
+       click(opcion_cambiado);
+       WebElement select =null;
         System.out.println("nombre plan a cambiar-->"+newPlan.getName_change_plan());
        /* switch (newPlan.getName_change_plan()) {
            case "PP":
@@ -343,18 +339,12 @@ public class CostumerPage extends Base.BasePage{
     //Wait(boton_contrato);
     Wait_Click(boton_contrato);
     click(boton_contrato);
-    this.confirmarContrato();
+    confirmarContrato();
     loading();
     Thread.sleep(2000);
-    //Wait(generar_contrato);
     Wait_Click(generar_contrato);
     click(generar_contrato);
-    
-     //Wait(firmar_contrato);
      Thread.sleep(4000);
-    //Wait_Click(firmar_contrato);
-    
-    
      Thread.sleep(2000);
     Wait_Click(boton_confirmar_firma);
     click(boton_confirmar_firma);
@@ -537,20 +527,16 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     Wait(msisdn);
     Thread.sleep(4000);
     sendKeys(newPlan.getMSISDN(), msisdn); // 95728402
-    //findElement(seleccionarmsisdn);
-    //Wait(seleccionarmsisdn);
     Thread.sleep(4000);
     Wait_Click(seleccionarmsisdn);
     click(seleccionarmsisdn);
+    Thread.sleep(5000);
     Wait(iccid);
+    Thread.sleep(2000);
     sendKeys(newPlan.getICCID(),iccid); // 89598071102044547292
-    //Wait(seleccionariccid);
-    //findElement(seleccionariccid);
     Wait_Click(seleccionariccid);
     click(seleccionariccid);
     Thread.sleep(2000);
-    //click(seleccionariccid);
-    //WebElement msisdn1=findElement(msisdn);
     }
     Wait_element(siguiente);
     Thread.sleep(4000);
@@ -836,7 +822,7 @@ WebElement validar_fact_disable = null;
 By nombre_clase_boton_validar_factura=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Validar factura')]]");
 WebElement validar_fact = null;
 By nombre_clase_boton_nueva_factura_enabled=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Nueva factura')]]");
-WebElement boton_nueva_fact_enabled=findElement(nombre_clase_boton_nueva_factura_enabled);
+//WebElement boton_nueva_fact_enabled=nombre_clase_boton_nueva_factura_enabled;
 WebElement nueva_fact_enable = (WebElement)jse.executeScript("return document.getElementsByClassName('tfn_button_panel')[2]");
 int i=0;
     
@@ -848,9 +834,9 @@ int i=0;
                 
                 try{
                     Thread.sleep(5000);
-                    if(boton_nueva_fact_enabled!=null){
-                        Wait_element_Click(boton_nueva_fact_enabled);
-                        click(boton_nueva_fact_enabled);
+                    if(nombre_clase_boton_nueva_factura_enabled!=null){
+                        Wait_Click(nombre_clase_boton_nueva_factura_enabled);
+                        click(nombre_clase_boton_nueva_factura_enabled);
                     } else {
                     Wait_element_Click(nueva_fact_enable);
                     click(nueva_fact_enable);
@@ -1256,11 +1242,12 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
        return pp;
    
    }
-    public void confirmarContrato()
+    public void confirmarContrato() throws InterruptedException
 {
     boolean esta = false;
     try{
         Wait_Click(boton_contrato_confirmar);
+        Thread.sleep(5000);
         click(boton_contrato_confirmar);
         esta = true;
     } catch (StaleElementReferenceException e)
@@ -1274,6 +1261,7 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
     if (!esta) {
         try{
             Wait_Click(boton_contrato_confirmar2);
+            Thread.sleep(5000);
             click(boton_contrato_confirmar2);
         } catch (StaleElementReferenceException e)
         {
@@ -1359,6 +1347,7 @@ WebElement tableproductasociados= findElement(productosasociados);
           return so;
       }
    public String obtener_nombre_SO(){
+       Wait(nombre_orden_venta);
         WebElement nombre_so = findElement(nombre_orden_venta);
         String nombre_orden= getText(nombre_so);
         System.out.println("nombre SO"+ nombre_orden);
