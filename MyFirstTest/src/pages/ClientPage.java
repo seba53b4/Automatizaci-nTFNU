@@ -84,9 +84,10 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(2000); 
         click(opcion_ClienteRe);
         Thread.sleep(2000);
-        findElement(nombR);
+        
+        Wait(nombR);
         sendKeys(newClient.getName(), nombR);
-        findElement(apellidoR);
+        Wait(apellidoR);
         sendKeys(newClient.getSecondName(), apellidoR);
         Thread.sleep(2000);
         click(categoria_cliente);

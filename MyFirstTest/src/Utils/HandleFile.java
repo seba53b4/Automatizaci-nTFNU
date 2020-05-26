@@ -38,9 +38,9 @@ public class HandleFile {
     private static HandleFile hf;
     Client client;
             
-    public static HandleFile initHandleFile(String dir){
+    public static HandleFile initHandleFile(){
         if (hf == null) {
-            hf = new HandleFile(dir);
+            hf = new HandleFile();
         }
         return hf;
         

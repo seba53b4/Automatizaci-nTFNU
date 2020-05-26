@@ -81,7 +81,6 @@ System.out.println(firstResult.getText());
     } catch(TimeoutException r) {
     
     }
-   
 }
 public void Wait_Click(By e){
     try {

@@ -24,8 +24,8 @@ public class MainDesconexion {
     public static void main(String[] args) {
         
         File f = new File(".");
-        String dir = f.getAbsolutePath().replace(".","");
-        HandleFile hf = HandleFile.initHandleFile(dir);
+        //String dir = f.getAbsolutePath().replace(".","");
+        HandleFile hf = HandleFile.initHandleFile();
         Proceso_Desconexion pd = new Proceso_Desconexion();
        
         try {

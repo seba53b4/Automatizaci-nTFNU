@@ -15,7 +15,9 @@ public class BaseTest {
     
     
     
-    
+    public void test(){
+        
+    }
     
     
     
