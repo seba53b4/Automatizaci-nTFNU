@@ -251,6 +251,9 @@ public class HandleFile {
                 case "sim_card_lost":
                     sourceMap = getSimCardLostPlanDatSource();
                 break;
+                case "recharge_line":
+                    sourceMap = getRechargeLine();
+                break;
            }
            
 
@@ -863,8 +866,113 @@ public class HandleFile {
                 }
             }
        } catch (Exception e) {
-           throw new Exception(e.getMessage() + ": Error registering SimCardLost Data Source!");
+           throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
        }
-    }    
+    }
+     //Caso 6:Recharge line
+    public HashMap<String, List<Client>> getRechargeLine() throws Exception {
+       try {
+            HashMap<String, List<Client>> sourceMap = new HashMap<String, List<Client>>();
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            if (sourceFile.exists()){
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "NEW PLAN" (index 10)
+                XSSFSheet sheet = wb.getSheetAt(10);
+                //iterating over excel file
+                Iterator<Row> itr = sheet.iterator(); 
+                itr.next();
+                while (itr.hasNext())                 
+                {  
+                    Row row = itr.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
+                    Client newClient = new Client();
+                    String enviroment = null;
+                    while (cellIterator.hasNext())   
+                    {  
+                        Cell cell = cellIterator.next();
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        //String data0= cell.getStringCellValue();
+                        Integer columnIndex = cell.getColumnIndex();
+                        switch(columnIndex){
+                            case 0: //enviroment
+                                enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
+                                    sourceMap.put(enviroment, new ArrayList<>());
+                                }
+                            break;
+                             case 1: //object id
+                                newClient.setObject_id(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 2: //line
+                                newClient.setLine(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                        }
+                    }
+                    if(newClient.getLine() != null) {
+                        sourceMap.get(enviroment).add(newClient);
+                    }
+                }
+                wb.close();
+            }
+           return sourceMap;
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error getting Sim Card lost Data Source!");
+       }
+   }
+    
+    //Caso 6.1:Generar registro recarga
+     public void generateRegisteredRechargeDatasource(List<Client> client) throws Exception{
+      try {
+            
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            if (sourceFile.exists() && client.size() > 0){
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "REAL-PLAN" (index 11)
+                XSSFSheet sheet = wb.getSheetAt(11);
+                Integer rowIterator = 1;
+                while (rowIterator <= client.size())                 
+                {  
+                    Integer index = rowIterator - 1;
+                    System.out.println("index -> " + index);
+                    Row row = sheet.getRow(rowIterator);
+                    if (row == null) {
+                        row = sheet.createRow(rowIterator);
+                    }
+                    
+                    // Link recarga
+                    Cell cell = row.getCell(0);  
+                    if (cell == null)  
+                        cell = row.createCell(0);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(client.get(index).getLink_recharge());
+                    
+                    // Total recarga
+                    cell = row.getCell(1);  
+                    if (cell == null)  
+                        cell = row.createCell(1);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(client.get(index).getTotal_recharge());
+                 
+                    rowIterator++;
+                }
+            
+                try (OutputStream fileOut = new FileOutputStream(sourceFile)) {  
+                    wb.write(fileOut);  
+                    wb.close();
+                }
+            }
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
+       }
+    }
 }
+
     

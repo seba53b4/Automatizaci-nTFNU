@@ -145,7 +145,7 @@ public class ClientPage extends Base.BasePage{
     sendKeys(newClient.getRut(), RUT);
     Thread.sleep(2000);
     click(categoria_CE);
-    Wait_element(obtener_Categoria_Em());
+    obtener_Categoria_Em();
     Thread.sleep(3000);
     click(obtener_Categoria_Em());
     sendKeys(newClient.getAddress(), direccion_CE);
@@ -156,7 +156,7 @@ public class ClientPage extends Base.BasePage{
     Thread.sleep(4000);
     click(contacto_primario);
     Thread.sleep(4000);
-    Wait_element(obtener_ContactoPrimario());
+    obtener_ContactoPrimario();
     Thread.sleep(4000);
     click(obtener_ContactoPrimario());
     Thread.sleep(4000);

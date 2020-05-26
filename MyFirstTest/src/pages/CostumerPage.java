@@ -41,13 +41,12 @@ public class CostumerPage extends Base.BasePage{
     By combobox= By.className("refsel_table");
     By pruebacanal= By.cssSelector("#id_refsel1613764204_div > div > input");
    
-    //("//*[@class=\"id_refsel1965777193_div/a
+  
     By elementoAgente= By.xpath("//*[@id=\"id_refsel1965777193_div\"]/div/input");
     By stringAgente= By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]/div[1]/div[1]/div[1]");
     By recientes = By.xpath("//*[@id=\"gen_menu_3\"]");
     By botonCrear= By.xpath("//button[@class='TableCtrl-button ParCtrl-editButton' and contains(text(),'Crear')]");
     By Lis_planes= By.cssSelector("  body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)");
-    //body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.center_col > table > tbody > tr > td > table > tbody > tr > td:nth-child(1) > div > div:nth-child(3)
     
     
     By nombre_orden_venta= By.xpath("//div[@class='roe-widget-header' and h1[contains(text(),'SO')]]");
@@ -120,12 +119,9 @@ public class CostumerPage extends Base.BasePage{
     By filtro_input_Nombre = By.xpath("//input[@type=\"text\" and @class=\"gwt-TextBox nc-field-text-input\"]");
     By aplicar_Filtro_Nombre = By.xpath("//button[@class=\"TableCtrl-button gwt-ParCtrl-btn\" and contains(text(),'Aplicar')]");
     By body_nombre_orden=By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/table/tbody[1]");
-    By link_generar_doc= By.linkText("Generar documento");
+    By link_generar_doc= By.xpath("//a[@href and contains(text(),\"Generar documento\")]");
     public CostumerPage() {
-       super();
-       //dp= new DesconectarPage(new Proceso_Desconexion());
-    
-        
+       super();     
     }
      public Plan AltaPP(Plan newPlan) throws InterruptedException {
         return AltaPP(newPlan,"");
@@ -357,7 +353,7 @@ public class CostumerPage extends Base.BasePage{
    {
        System.out.println("Sin factura");
    }
-    Wait_element(obtener_botonenviar());
+    obtener_botonenviar();
     Thread.sleep(2000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
@@ -439,8 +435,7 @@ public void seleccionar_PP(Plan newPlan) throws InterruptedException {
    List<WebElement> pp= tablePP.findElements(By.tagName("span"));
             for (int j = 0; j < pp.size(); j++) {
             if(getText(pp.get(j)).contains(newPlan.getName())){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                Wait_element(pp.get(j));
-                Thread.sleep(4000);
+                Thread.sleep(3000);
                 click(pp.get(j));
                 break;
             } 
@@ -481,7 +476,6 @@ public void seleccionar_PosPR(Plan newPlan) throws InterruptedException {
                 break;
             } 
           }
-            Wait_element(plr);
             click(plr);
  
 }
@@ -538,11 +532,6 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     click(seleccionariccid);
     Thread.sleep(2000);
     }
-    Wait_element(siguiente);
-    Thread.sleep(4000);
-    siguiente.click();
-    //Wait_element(fact_pago2);
-    Thread.sleep(4000);
     Wait_element_Click(fact_pago2);
     click(fact_pago2);
     
@@ -603,10 +592,6 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     Thread.sleep(2000);
      Wait_Click(seleccionariccid);
      click(seleccionariccid);
-     Thread.sleep(6000);
-    Wait_element(siguiente);
-    siguiente.click();
-    //Wait_element(fact_pago2);
     Thread.sleep(4000);
      Wait_element_Click(fact_pago2);
      click(fact_pago2);
@@ -614,7 +599,6 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     obtener_factcreada_posp();
    
    Thread.sleep(4000);
-    Thread.sleep(4000);
     Wait_Click(boton_contrato);
     click(boton_contrato);
     Thread.sleep(5000);
@@ -631,7 +615,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
      click(boton_guardar_firma);
      loading();
     validar_Factura();
-    Wait_element(obtener_botonenviar());
+    obtener_botonenviar();
     Thread.sleep(2000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
@@ -676,27 +660,19 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
      Wait(iccid_plr);
     Thread.sleep(5000);
     sendKeys(newPlan.getICCID(), iccid_plr); // 89598071102044547292
-    //Wait(seleccionariccid);
     Thread.sleep(2000);
     Wait_Click(seleccionariccid);
     click(seleccionariccid);
     Thread.sleep(6000);
-    Wait_element(siguiente);
-    Thread.sleep(4000);
-    siguiente.click();
-    Wait_element(fact_pago2);
-    Thread.sleep(6000);
     fact_pago2.click();
     
     obtener_factcreada_posp();
-    
-    //Wait(boton_contrato);
+   
     Thread.sleep(4000);
     Wait_Click(boton_contrato);
     click(boton_contrato);
     Thread.sleep(5000);
-    
-    this.confirmarContrato();
+    confirmarContrato();
      Thread.sleep(4000);
     Wait_Click(link_generar_doc);
     click(link_generar_doc);
@@ -708,7 +684,7 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
      click(boton_guardar_firma);
      loading();
      validar_Factura();
-    Wait_element(obtener_botonenviar());
+    obtener_botonenviar();
     Thread.sleep(2000);
     click(obtener_botonenviar());
     Thread.sleep(5000);
@@ -1015,7 +991,6 @@ for (WebElement wb : facturacreada) {
      List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
     int size_list=selectfacturacreada.size();
      WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
-     Wait_element(ultimo_select);
      click(ultimo_select);
         int longitud = serviciolist.size()-1;
         for (int i = 0; i < serviciolist.size(); i++) {
@@ -1201,7 +1176,6 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
             } 
                      
           }
-       Wait_element(plr);
        return plr;
    
    }
@@ -1220,7 +1194,6 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
             } 
                      
           }
-       Wait_element(plc);
        return plc;
    
    }
@@ -1238,7 +1211,6 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
             } 
          
           }
-       Wait_element(pp);
        return pp;
    
    }
@@ -1246,14 +1218,15 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
 {
     boolean esta = false;
     try{
+        esta = true;
         Wait_Click(boton_contrato_confirmar);
         Thread.sleep(5000);
         click(boton_contrato_confirmar);
-        esta = true;
+        
     } catch (StaleElementReferenceException e)
     {
         System.out.println(e);
-    } catch (NoSuchElementException | TimeoutException e)
+    } catch (NoSuchElementException e)
     {
         System.out.println(e);
     }
@@ -1266,7 +1239,7 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
         } catch (StaleElementReferenceException e)
         {
             System.out.println(e);
-        } catch (NoSuchElementException | TimeoutException e)
+        } catch (NoSuchElementException e)
         {
             System.out.println(e);
         }
@@ -1277,60 +1250,6 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
         String url =driver.getCurrentUrl();
         return url;
     }
-/*public WebElement Obtener_PP_Derecha(){
-    WebElement elem=null;
-Wait_element(obtenerList_PP());
-   click(obtenerList_PP());
-   Wait(table);
-   WebElement tablePP=findElement(table);
-   List<WebElement> pp= tablePP.findElements(By.tagName("span"));
-            for (int j = 0; j < pp.size(); j++) {
-            if(getText(pp.get(j)).contains("PLTT")){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                elem=pp.get(j);
-                break;
-            } 
-          } 
-            return elem; 
-  }
-public WebElement obtener_PP_Izquierda(){
-WebElement ppactivo = null;
-    Wait(productosasociados);
-    System.out.println("prod asociados "+productosasociados);   
-WebElement tableproductasociados= findElement(productosasociados);
-   List<WebElement> planes= tableproductasociados.findElements(By.tagName("span"));
-   
-    for (int i = 0; i < planes.size(); i++) {
-            if(getText(planes.get(i)).contains("PLTT")){
-                ppactivo=planes.get(i);
-            }     
-    }
-    return ppactivo;
-   }*/
-/*public void Validar_PP(){
-By mas=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[2]/table/tbody/tr[1]/td[3]");
-By boton_mas=By.xpath("/html/body/div[7]/div/div/div[3]/div/button[1]");
-WebElement pp_izquierda=obtener_PP_Izquierda();
-WebElement pp_derecha= Obtener_PP_Derecha();
-if(getText(pp_derecha).equals(getText(pp_izquierda))){
-    Wait(mas);
-    click(mas);
-    Wait(boton_mas);
-    click(boton_mas);
-}
-   WebElement ppactivo = null;
-    Wait(productosasociados);
-    System.out.println("prod asociados "+productosasociados);   
-WebElement tableproductasociados= findElement(productosasociados);
-   List<WebElement> planes= tableproductasociados.findElements(By.tagName("span"));
-   
-    for (int i = 0; i < planes.size(); i++) {
-            if(getText(planes.get(i)).contains("PLTT")){
-                ppactivo=planes.get(i);
-            }     
-    }
-    Wait_element(ppactivo);       
-    click(ppactivo); 
-}*/
   public String get_estadoSO(Plan newPlan){
           
           String urlso=newPlan.getUrlSO();

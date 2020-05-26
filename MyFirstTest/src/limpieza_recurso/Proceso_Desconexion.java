@@ -56,15 +56,15 @@ public class Proceso_Desconexion {
       DesconectarPage dp = new DesconectarPage(this);
 
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
-            dp.initUrlBusqueda(entry.getKey());
-            lp.Nav();
-         if(entry.getKey().equals("jit")){
-         lp.signIn_Jit();
-         }
-         else{
-         lp.signIn();
-         
-         }
+             String enviroment = entry.getKey();
+             dp.initUrlBusqueda(entry.getKey());
+            lp.Nav(enviroment);
+         if(enviroment.contains("preprod")){
+                lp.signIn_preprod();
+                }
+                else{
+                lp.signIn();
+                }
             for (String num : entry.getValue()) {
                 System.out.println(num);
                 dp.initUrlBusqueda(entry.getKey());

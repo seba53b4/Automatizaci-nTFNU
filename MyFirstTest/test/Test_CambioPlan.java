@@ -64,27 +64,7 @@ public class Test_CambioPlan extends Base.BaseTest {
         }
          // only save in spreadsheet the changed Plan
         if (realPlans.size() > 0) {
-            this.hf.generateRegisteredChangedPlanDatasource(realPlans);
-       //Lee un archivo
-       // Le paso los object id
-       //Se trabaja con el user
-      // String nombre_plan= "";
-      /* BasePage.initBaseTest();
-       LoginPage lp = new LoginPage();
-       lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002");
-       lp.Nav();
-       lp.signIn();
-        ap.seleccionar_CanalOrder("9156314432513103959");
-        //ap.obtener_PPActivo("PLR314","");
-        ap.cambio_Plan("PLR284","PLR");
-        ap.Terminar_Cambio_Plan();
-      
-        Thread.sleep(4000);
-       // super.CerrarNavegador();
-       
-        //ap.Terminar();  
-   }*/  
+            this.hf.generateRegisteredChangedPlanDatasource(realPlans); 
      
    }
   }

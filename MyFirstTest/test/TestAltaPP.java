@@ -8,6 +8,7 @@
 
 
 import Base.BasePage;
+import Base.BaseTest;
 import Utils.Client;
 import Utils.HandleFile;
 import Utils.Plan;
@@ -37,6 +38,7 @@ public class TestAltaPP extends Base.BaseTest{
    private CostumerPage ap;
    private HandleFile hf;
    private LoginPage lp;
+   
    
      
 /*
@@ -84,46 +86,15 @@ public class TestAltaPP extends Base.BaseTest{
          // only save in spreadsheet the real Plan
         if (realPlans.size() > 0) {
             this.hf.generateRegisteredNewPlanDatasource(realPlans);
-       
-       
-       
-       
-       
-       //Lee un archivo
-       // Le paso los object id
-       //Se trabaja con el user
-       
-      /* BasePage.initBaseTest();
-       LoginPage lp = new LoginPage();
-       
-    
-       //lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
-       lp.Nav();
-       lp.signIn();
-          
-        
-       //leo el archivo
-       // for each
-       ap.seleccionar_Canal("9156322232713111161","");
-       //ap. seleccionar_CanalX();
-       ap.seleccionar_PP("PLTTEF");
-      // Thread.sleep(5000);
-       ap.obtener_PPActivo("PLTTEF","");
-      // Thread.sleep(10000);
-       ap.iccid_MSISDN_PP();
-       //System.out.println(ap.obtener_botonenviar());
-       //Thread.sleep(15000);
-       //ap.Enviar();
       
-       //end for
-       
-       
-        Thread.sleep(4000);
-        //super.CerrarNavegador();
-   }*/
      
      }
    }
+
+    @After
+    public void CerrarNavegador() {
+        super.CerrarNavegador(); //To change body of generated methods, choose Tools | Templates.
+    }
+   
  }  
    

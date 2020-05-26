@@ -112,7 +112,7 @@ public class DesconectarPage extends Base.BasePage{
         Thread.sleep(4000);
         click(canaldistribucion);
         Thread.sleep(4000);
-        Wait_element(page.seleccionar_CanalX());
+        page.seleccionar_CanalX();
         Thread.sleep(3000);
         click(page.seleccionar_CanalX());
         Wait(botonCrear);
@@ -145,7 +145,7 @@ public class DesconectarPage extends Base.BasePage{
             click(aceptardesconexion);
             
             Thread.sleep(4000);
-            Wait_element(findElement(page.boton_revision));
+            Wait(page.boton_revision);
             Thread.sleep(6000);
             click(findElement(page.boton_revision));
             if(existe_Añadido(linea)){
@@ -160,16 +160,14 @@ public class DesconectarPage extends Base.BasePage{
                 Thread.sleep(5000);
                 click(page.generar_contrato);
                 page.loading();
-//                Wait(page.firmar_contrato);
                 Thread.sleep(8000);
- //               click(page.firmar_contrato);
                 Thread.sleep(8000);
                 Wait(page.boton_confirmar_firma);
                 Thread.sleep(4000);
                 click(page.boton_confirmar_firma);
             }
                 
-                Wait_element(page.obtener_botonenviar());
+                page.obtener_botonenviar();
                 Thread.sleep(5000);
                 click(page.obtener_botonenviar());
                 Thread.sleep(3000);
