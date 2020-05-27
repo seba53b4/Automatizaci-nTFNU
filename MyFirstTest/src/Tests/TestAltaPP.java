@@ -1,3 +1,5 @@
+package Tests;
+
 
 
 /*
@@ -8,24 +10,13 @@
 
 
 import Base.BasePage;
-import Base.BaseTest;
-import Utils.Client;
 import Utils.HandleFile;
 import Utils.Plan;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.ClientPage;
 import pages.CostumerPage;
 import pages.LoginPage;
 /**

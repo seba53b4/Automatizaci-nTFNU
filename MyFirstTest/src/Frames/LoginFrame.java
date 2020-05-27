@@ -40,8 +40,6 @@ public class LoginFrame extends javax.swing.JFrame {
         psw_Field = new javax.swing.JPasswordField();
         btn_LogIn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        rSPassword1 = new rojeru_san.rsfield.RSPassword();
-        textField1 = new necesario.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,15 +60,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Hello there !!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 494, 89));
-
-        rSPassword1.setText("rSPassword1");
-        rSPassword1.setPlaceholder("");
-        jPanel1.add(rSPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 260, -1));
-
-        textField1.setText("textField1");
-        textField1.setPlaceholder("");
-        jPanel1.add(textField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 260, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 494, 89));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,8 +132,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField psw_Field;
-    private rojeru_san.rsfield.RSPassword rSPassword1;
-    private necesario.TextField textField1;
     private javax.swing.JTextField txtField_User;
     // End of variables declaration//GEN-END:variables
 }

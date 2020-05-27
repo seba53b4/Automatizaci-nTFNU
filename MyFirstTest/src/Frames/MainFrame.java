@@ -5,9 +5,11 @@
  */
 package Frames;
 
+import Tests.TestAltaPP;
 import Tests.TestNewResiClient;
 import Utils.Client;
 import Utils.HandleFile;
+import Utils.Plan;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,12 +24,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private String dir;
     HashMap<String, List<Client>>  clientesRes;
+    HashMap<String, List<Plan>> planes;
     private static  MainFrame mf;
-            /**
+     /**
      * Creates new form MainFrame
      *
      */
-    
     public static MainFrame getInstance(){
         if (mf == null) {
             mf = new MainFrame();
@@ -44,7 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error al cargar hoja de residencial" + e);
         }
-        int i = 0 ,j = 1;
+        
         DefaultTableModel tb = (DefaultTableModel) TablaTest.getModel();
         
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
@@ -52,9 +54,21 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 tb.addRow(new Object[]{false,"Alta Res"+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
             }
-            i++;
         }
+        try {
+            planes = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
+        } catch (Exception e) {
+            System.out.println("Error al cargar plan" + e);
+        }
+         
+        tb = (DefaultTableModel) TablaTest.getModel();
         
+        for (Map.Entry<String, List<Plan>> entry : planes.entrySet()) {
+            for (Plan p : entry.getValue()) {
+                
+                tb.addRow(new Object[]{false,"Alta Plan "+ p.getName() + " " ,"No iniciado"});
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,12 +157,21 @@ public class MainFrame extends javax.swing.JFrame {
         LinkedList<Worker> works = new LinkedList<>();
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
             if ( TablaTest.getValueAt(i, 0).equals(true)) {
-                System.out.println("Es boolean y esta seleccionado la pos; "+ i);
-                TestNewResiClient tn = new TestNewResiClient();
-                Worker wk = new Worker(TablaTest, tn, i);
-                works.add(wk);
                 
-                break;
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Res")) {
+                    System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                    TestNewResiClient tn = new TestNewResiClient();
+                    Worker wk = new Worker(TablaTest, tn, i);
+                    works.add(wk);
+                    break;
+                }
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan")) {
+                    System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                    TestAltaPP tap = new TestAltaPP();
+                    Worker wk = new Worker(TablaTest, tap, i);
+                    works.add(wk);
+                    break;
+                }
             }
         }
         for (Worker wk : works) {
