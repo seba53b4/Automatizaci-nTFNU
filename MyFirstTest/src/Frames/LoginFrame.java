@@ -39,12 +39,16 @@ public class LoginFrame extends javax.swing.JFrame {
         txtField_User = new javax.swing.JTextField();
         psw_Field = new javax.swing.JPasswordField();
         btn_LogIn = new javax.swing.JButton();
-        btn_Test = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        rSPassword1 = new rojeru_san.rsfield.RSPassword();
+        textField1 = new necesario.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 259, 41));
+        jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 259, 39));
 
         btn_LogIn.setText("Log in");
         btn_LogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -52,57 +56,27 @@ public class LoginFrame extends javax.swing.JFrame {
                 btn_LogInActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 259, 37));
 
-        btn_Test.setText("Test !!");
-        btn_Test.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_TestActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Constantia", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Constantia", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Automation..");
+        jLabel1.setText("Hello there !!");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 494, 89));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(psw_Field, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                            .addComponent(txtField_User))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_LogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_Test, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(30, 30, 30))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtField_User, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_LogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(psw_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Test, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
+        rSPassword1.setText("rSPassword1");
+        rSPassword1.setPlaceholder("");
+        jPanel1.add(rSPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 260, -1));
+
+        textField1.setText("textField1");
+        textField1.setPlaceholder("");
+        jPanel1.add(textField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 260, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,24 +95,11 @@ public class LoginFrame extends javax.swing.JFrame {
         } else if (psw_Field.getText().isEmpty() && !txtField_User.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar Password", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            LoginPage.initLoginPage();
-            LoginPage.initLoginPage().setUsuario(txtField_User.getText());
-            LoginPage.initLoginPage().setUsuario(psw_Field.getText());
-            JOptionPane.showMessageDialog(this, "Datos ingresados","    TERMINADO", JOptionPane.INFORMATION_MESSAGE);
-            btn_LogIn.setVisible(false);
-            txtField_User.setEditable(false);
-            psw_Field.setEditable(false);
-            estaLogueado = true;
+            MainFrame.getInstance();
+            MainFrame.getInstance().show();
+            this.dispose();
         }
     }//GEN-LAST:event_btn_LogInActionPerformed
-
-    private void btn_TestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TestActionPerformed
-        if (estaLogueado) {
-            JOptionPane.showMessageDialog(this, "Testea", "     TERMINADO", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No testea", "      TERMINADO", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_btn_TestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,10 +139,11 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_LogIn;
-    private javax.swing.JButton btn_Test;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField psw_Field;
+    private rojeru_san.rsfield.RSPassword rSPassword1;
+    private necesario.TextField textField1;
     private javax.swing.JTextField txtField_User;
     // End of variables declaration//GEN-END:variables
 }

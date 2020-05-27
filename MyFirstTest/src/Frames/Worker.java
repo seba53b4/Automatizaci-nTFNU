@@ -7,12 +7,7 @@ package Frames;
 
 import Base.BaseTest;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
 
