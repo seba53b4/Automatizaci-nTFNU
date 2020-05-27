@@ -7,9 +7,7 @@ package pages;
 
 import static Base.BasePage.driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,6 +29,7 @@ public class LoginPage extends Base.BasePage{
     
     private static LoginPage loginP;
     private String usuario;
+    private String password;
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
@@ -47,7 +46,6 @@ public class LoginPage extends Base.BasePage{
     public String getPassword() {
         return password;
     }
-    private String password;
     
     public LoginPage() {
        super();
@@ -83,8 +81,8 @@ public class LoginPage extends Base.BasePage{
     if(isDisplayed(user)){
      WebElement user1=findElement(user);
      WebElement pass1=findElement(pass);
-    sendKeys("temu\\ipupo",user1);
-    sendKeys("Movistar.1234",pass1);
+    sendKeys("temu\\"+usuario,user1);//"temu\\ipupo" - "Movistar.1234"
+    sendKeys(password,pass1);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");
@@ -96,8 +94,8 @@ public class LoginPage extends Base.BasePage{
     if(isDisplayed(user)){
      WebElement user1=findElement(user);
      WebElement pass1=findElement(pass);
-    sendKeys("temu\\ipupo",user1);
-    sendKeys("Movistar.1234",pass1);
+    sendKeys("temu\\"+usuario,user1);//"temu\\ipupo" - "Movistar.1234"
+    sendKeys(password,pass1);
         click(botonlog);
     }else{
        System.out.println("username textbox was not present");

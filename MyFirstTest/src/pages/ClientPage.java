@@ -82,6 +82,7 @@ public class ClientPage extends Base.BasePage{
         WebElement cliente_resi=findElement(creacion_rapida);
         action.moveToElement(cliente_resi).build().perform();
         Thread.sleep(2000); 
+        Wait(opcion_ClienteRe);
         click(opcion_ClienteRe);
         Thread.sleep(2000);
         

@@ -54,7 +54,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 btn_LogInActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 259, 37));
+        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 259, 37));
 
         jLabel1.setFont(new java.awt.Font("Constantia", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -86,6 +86,8 @@ public class LoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar Password", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             MainFrame.getInstance();
+            MainFrame.getInstance().setUser(txtField_User.getText());
+            MainFrame.getInstance().setPass(psw_Field.getText());
             MainFrame.getInstance().show();
             this.dispose();
         }

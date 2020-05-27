@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import pages.LoginPage;
 
 /**
  *
@@ -24,8 +26,23 @@ public class MainFrame extends javax.swing.JFrame {
 
     private String dir;
     HashMap<String, List<Client>>  clientesRes;
-    HashMap<String, List<Plan>> planes;
+    HashMap<String, List<Plan>> planesPP;
+    HashMap<String, List<Plan>> planesPosP;
     private static  MainFrame mf;
+    private String user;
+    private String pass;
+
+    public void setUser(String user) {
+        this.user = user;
+        LoginPage.initLoginPage().setUsuario(user);
+        
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+        LoginPage.initLoginPage().setPassword(pass);
+    }
+    
      /**
      * Creates new form MainFrame
      *
@@ -37,8 +54,21 @@ public class MainFrame extends javax.swing.JFrame {
         return mf;
     }
     public MainFrame() {
+        
         initComponents();
+        this.user = "random";
+        this.pass = "random";
+        LoginPage.initLoginPage();
+        
         this.setLocationRelativeTo(null);
+        TableColumn c =  this.TablaTest.getColumnModel().getColumn(0);//
+       // c.setPreferredWidth(25);
+        c.setMaxWidth(90);
+        c.setMinWidth(90);
+        c =  this.TablaTest.getColumnModel().getColumn(2);
+       // c.setPreferredWidth(55);
+        c.setMaxWidth(90);
+        c.setMinWidth(90);
         
         HandleFile.initHandleFile();
         try {
@@ -52,23 +82,28 @@ public class MainFrame extends javax.swing.JFrame {
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
             for (Client cl : entry.getValue()) {
                 
-                tb.addRow(new Object[]{false,"Alta Res"+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial: "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
             }
         }
         try {
-            planes = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
+            planesPP = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
         } catch (Exception e) {
             System.out.println("Error al cargar plan" + e);
         }
          
         tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Plan>> entry : planes.entrySet()) {
+        for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
             for (Plan p : entry.getValue()) {
-                
-                tb.addRow(new Object[]{false,"Alta Plan "+ p.getName() + " " ,"No iniciado"});
+                if (p.getName().contains("PP")) {
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    
+                } else {
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                }
             }
         }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,14 +134,31 @@ public class MainFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(TablaTest);
+        if (TablaTest.getColumnModel().getColumnCount() > 0) {
+            TablaTest.getColumnModel().getColumn(0).setResizable(false);
+            TablaTest.getColumnModel().getColumn(1).setResizable(false);
+            TablaTest.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         ButtonSeleccionarTodos.setText("Seleccionar Todos");
+        ButtonSeleccionarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSeleccionarTodosActionPerformed(evt);
+            }
+        });
 
         ButtonEjecutar.setText("Ejecutar");
         ButtonEjecutar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,9 +173,9 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ButtonEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
@@ -153,31 +205,41 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void ButtonEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEjecutarActionPerformed
         
-        
         LinkedList<Worker> works = new LinkedList<>();
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
             if ( TablaTest.getValueAt(i, 0).equals(true)) {
                 
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Res")) {
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta cliente residencial:")) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestNewResiClient tn = new TestNewResiClient();
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
-                    break;
+                    //break;
                 }
                 if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan")) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = new TestAltaPP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
-                    break;
+                    //break;
                 }
+                
             }
         }
         for (Worker wk : works) {
             wk.execute();
+            System.out.println("Ejecutando");
         }
     }//GEN-LAST:event_ButtonEjecutarActionPerformed
+
+    private void ButtonSeleccionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSeleccionarTodosActionPerformed
+        
+        DefaultTableModel tb = (DefaultTableModel) TablaTest.getModel();
+        
+        for (int i = 0; i < tb.getRowCount(); i++) {
+            tb.setValueAt(true, i, 0);
+        }
+    }//GEN-LAST:event_ButtonSeleccionarTodosActionPerformed
 
     /**
      * @param args the command line arguments

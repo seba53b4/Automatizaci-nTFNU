@@ -5,25 +5,14 @@
  */
 package pages;
 
-import Utils.EnterpriseClient;
 import Utils.Plan;
-import java.awt.Desktop;
-import java.sql.Driver;
-import java.time.chrono.ThaiBuddhistChronology;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import limpieza_recurso.Proceso_Desconexion;
-import org.apache.poi.hssf.record.PageBreakRecord;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.TimeoutException;
 

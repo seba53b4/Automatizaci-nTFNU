@@ -15,6 +15,8 @@ import Utils.Plan;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Test;
 import pages.CostumerPage;
@@ -41,6 +43,15 @@ public class TestAltaPP extends Base.BaseTest{
         
       
     }
+
+    @Override
+    public void test() {
+       try {
+           this.altaPP();
+       } catch (Exception ex) {
+           Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
     
   
  
@@ -49,7 +60,7 @@ public class TestAltaPP extends Base.BaseTest{
    {      
        BasePage.initBaseTest();
         this.ap = new CostumerPage();
-        this.lp = new LoginPage();
+        this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>();
         HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
