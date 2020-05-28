@@ -13,7 +13,8 @@ public class Client {
 
     private String name;
     private String secondName;
-    private String dni;
+    private String passport;
+    private String international_id;
     private String address;
     private String clientId;
     private String line;
@@ -38,9 +39,7 @@ public class Client {
     /**
      * @return the dni
      */
-    public String getDni() {
-        return dni;
-    }
+    
 
     /**
      * @return the address
@@ -63,12 +62,7 @@ public class Client {
         this.secondName = secondName;
     }
 
-    /**
-     * @param dni the dni to set
-     */
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+
 
     /**
      * @param address the address to set
@@ -91,14 +85,15 @@ public class Client {
         this.clientId = clientId;
     }
     
-    public Client(String name, String secondName, String dni, String address) {
+    public Client(String name, String secondName, String passport,String inte_id,String address) {
         this.name = name;
         this.secondName = secondName;
-        this.dni = dni;
+        this.passport=passport;
+        this.international_id=inte_id;
         this.address = address;
-        this.line="";
         
     }
+    
     
     public Client(String line){
     this.line=line;
@@ -160,6 +155,34 @@ public class Client {
      */
     public void setObject_id(String object_id) {
         this.object_id = object_id;
+    }
+
+    /**
+     * @return the passport
+     */
+    public String getPassport() {
+        return passport;
+    }
+
+    /**
+     * @param passport the passport to set
+     */
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    /**
+     * @return the international_id
+     */
+    public String getInternational_id() {
+        return international_id;
+    }
+
+    /**
+     * @param international_id the international_id to set
+     */
+    public void setInternational_id(String international_id) {
+        this.international_id = international_id;
     }
 
 }

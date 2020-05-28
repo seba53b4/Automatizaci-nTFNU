@@ -26,8 +26,8 @@ public class EnterpriseClient extends Client {
         this.rut = rut;
     }
     
-    public EnterpriseClient(String name, String secondName, String dni, String address, String rut) {
-        super(name, secondName, dni, address);
+    public EnterpriseClient(String name, String secondName, String dni, String id,String address, String rut) {
+        super(name, secondName, dni,id, address);
         this.rut = rut;
     }
     

@@ -284,17 +284,21 @@ public class HandleFile {
                     Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
                     Client newClient = new Client();
                     String enviroment = null;
+                    
                     while (cellIterator.hasNext())   
                     {  
                         Cell cell = cellIterator.next();
                         cell.setCellType(Cell.CELL_TYPE_STRING);
                         Integer columnIndex = cell.getColumnIndex();
-                        switch(columnIndex){
-                            case 0: //enviroment
+                         switch(columnIndex){
+                         
+                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
+                                
                             break;
                             case 1: //name
                                 newClient.setName(row.getCell(columnIndex).getStringCellValue());
@@ -302,13 +306,17 @@ public class HandleFile {
                             case 2: //second name
                                 newClient.setSecondName(row.getCell(columnIndex).getStringCellValue());
                             break;
-                            case 3: //dni
-                                newClient.setDni(row.getCell(columnIndex).getStringCellValue());
+                            case 3: //passport
+                                newClient.setPassport(row.getCell(columnIndex).getStringCellValue());
                             break;
-                            case 4: //address
+                            case 4: //id
+                                newClient.setInternational_id(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 5: //address
                                 newClient.setAddress(row.getCell(columnIndex).getStringCellValue());
                             break;
                         }
+                             
                     }
                     if(newClient.getName() != null) {
                         sourceMap.get(enviroment).add(newClient);
@@ -365,17 +373,23 @@ public class HandleFile {
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(clients.get(index).getSecondName());
                     
-                    // DNI
+                    // passport
                     cell = row.getCell(3);  
                     if (cell == null)  
                         cell = row.createCell(3);  
                     cell.setCellType(CellType.STRING);  
-                    cell.setCellValue(clients.get(index).getDni());
-                    
-                    // Address
+                    cell.setCellValue(clients.get(index).getPassport());
+                     // international id
                     cell = row.getCell(4);  
                     if (cell == null)  
                         cell = row.createCell(4);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(clients.get(index).getInternational_id());
+                    
+                    // Address
+                    cell = row.getCell(5);  
+                    if (cell == null)  
+                        cell = row.createCell(5);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(clients.get(index).getAddress());
                     
@@ -432,13 +446,10 @@ public class HandleFile {
                             case 2: //second name
                                 newClient.setSecondName(row.getCell(columnIndex).getStringCellValue());
                             break;
-                            case 3: //dni
-                                newClient.setDni(row.getCell(columnIndex).getStringCellValue());
-                            break;
-                            case 4: //address
+                            case 3: //address
                                 newClient.setAddress(row.getCell(columnIndex).getStringCellValue());
                             break;
-                            case 5: //rut
+                            case 4: //rut
                                 newClient.setRut(row.getCell(columnIndex).getStringCellValue());
                             break;
                         }
@@ -505,7 +516,7 @@ public class HandleFile {
                     if (cell == null)  
                         cell = row.createCell(3);  
                     cell.setCellType(CellType.STRING);  
-                    cell.setCellValue(clients.get(index).getDni());
+//                    cell.setCellValue(clients.get(index).getDni());
                     
                     // RUT
                     cell = row.getCell(4);  

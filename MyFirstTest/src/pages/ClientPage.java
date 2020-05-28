@@ -39,9 +39,9 @@ public class ClientPage extends Base.BasePage{
      By table_categoria_empresarial=By.xpath("/html/body/div[34]/div[2]/div[1]/div[2]");
      By list_cc= By.xpath("/html/body/div[34]/div[2]/div[1]");   //"/html/body/div[34]");
     
-     By obtener_tipoDoc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
+     //By obtener_tipoDoc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
    
-     By list_td=By.xpath("/html/body/div[34]/div[2]/div[1]");
+     //By list_td=By.xpath("/html/body/div[34]/div[2]/div[1]");
      
      By obtener_pasaporte=By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By numero_pasaporte= By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
@@ -59,6 +59,10 @@ public class ClientPage extends Base.BasePage{
      By obtener_direccion= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By boton_crear=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]/button");
      By popup_cliente_existente = By.xpath("/html/body/div[33]/div/div[2]");
+     By seleccionar_tipo_doc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
+     By table_DNI=By.xpath("//div[@class=\"refsel_table_holder ps-container ps-theme-default\"]");
+     
+     
      
      
      
@@ -80,21 +84,22 @@ public class ClientPage extends Base.BasePage{
     { 
         Actions action=new Actions(driver);     
         WebElement cliente_resi=findElement(creacion_rapida);
-        action.moveToElement(cliente_resi).build().perform();
-        Thread.sleep(2000); 
+        action.moveToElement(cliente_resi).build().perform(); 
+        Wait(opcion_ClienteRe);
+        Thread.sleep(5000);
         click(opcion_ClienteRe);
         Thread.sleep(2000);
-        
         Wait(nombR);
         sendKeys(newClient.getName(), nombR);
         Wait(apellidoR);
         sendKeys(newClient.getSecondName(), apellidoR);
         Thread.sleep(2000);
         click(categoria_cliente);
-        obtener_CR();
-        findElement(numero_doc);
-        sendKeys(newClient.getDni(), numero_doc);
-        findElement(direccion_cliente);
+        obtener_CR(newClient);
+        Wait(seleccionar_tipo_doc);
+        click(seleccionar_tipo_doc);
+        obtener_TipoDoc(newClient);
+        Wait(direccion_cliente);
         sendKeys(newClient.getAddress(), direccion_cliente);
         Thread.sleep(4000);
         Wait(obtener_direccion);
@@ -190,16 +195,16 @@ public class ClientPage extends Base.BasePage{
         return newClient;
     }
     
-    public void obtener_CR() throws InterruptedException {//metodo utilizado
+    public void obtener_CR(Client newClient) throws InterruptedException {//metodo utilizado
      
      
+     Wait_Click(categoria_cliente);
      click(categoria_cliente);
      Thread.sleep(2000);
      click(obtener_Categoria());
      Thread.sleep(2000);
-     click(obtener_tipoDoc);
-     Thread.sleep(2000);
-     click(obtener_TipoDoc());
+     
+     
    
     
     
@@ -228,16 +233,26 @@ public class ClientPage extends Base.BasePage{
  return cc;
     }
     
-    public WebElement obtener_TipoDoc(){
-    WebElement td=null;   
-    WebElement obtener_td= findElement(list_td);
+    public void obtener_TipoDoc(Client newClient){
+    WebElement td=null;  
+    Wait(table_DNI);
+    WebElement obtener_td= findElement(table_DNI);
     List<WebElement> list_obtenertd= obtener_td.findElements(By.tagName("div"));
     for (int i = 0; i < list_obtenertd.size(); i++) {
-            if(getText(list_obtenertd.get(i)).equals("International Passport (Pasaporte Internacional)"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                td=list_obtenertd.get(i);
-        
+           if(!newClient.getPassport().equals("null"))
+            if(getText(list_obtenertd.get(i)).equals("International Passport (Pasaporte Internacional)")){
+            td=list_obtenertd.get(i);
+             click(td);
+             Wait(numero_doc);
+             sendKeys(newClient.getPassport(), numero_doc);
+            } 
+            if(!(newClient.getInternational_id().equals("null")) && getText(list_obtenertd.get(i)).equals("National ID (Documento de identidad)")) {
+            td=list_obtenertd.get(i);
+            click(td);
+            Wait(numero_doc);
+            sendKeys(newClient.getInternational_id(), numero_doc);
+            }
         }
- return td;
     } 
     public WebElement obtener_ContactoPrimario(){
     WebElement cp=null;
@@ -255,4 +270,5 @@ public class ClientPage extends Base.BasePage{
  return cp;
 
 }
+   
 }
