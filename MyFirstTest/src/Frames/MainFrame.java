@@ -6,6 +6,7 @@
 package Frames;
 
 import Tests.TestAltaPP;
+import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
 import Utils.Client;
 import Utils.HandleFile;
@@ -28,6 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     HashMap<String, List<Client>>  clientesRes;
     HashMap<String, List<Plan>> planesPP;
     HashMap<String, List<Plan>> planesPosP;
+    HashMap<String, List<Client>> clientesEmp;
     private static  MainFrame mf;
     private String user;
     private String pass;
@@ -71,13 +73,14 @@ public class MainFrame extends javax.swing.JFrame {
         c.setMinWidth(90);
         
         HandleFile.initHandleFile();
+        DefaultTableModel tb ;
         try {
             clientesRes = HandleFile.getHandleFile().readRegisterDataSource("new_residential_client");
         } catch (Exception e) {
             System.out.println("Error al cargar hoja de residencial" + e);
         }
         
-        DefaultTableModel tb = (DefaultTableModel) TablaTest.getModel();
+        tb = (DefaultTableModel) TablaTest.getModel();
         
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
             for (Client cl : entry.getValue()) {
@@ -85,6 +88,23 @@ public class MainFrame extends javax.swing.JFrame {
                 tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial: "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
             }
         }
+        try {
+            clientesEmp = HandleFile.getHandleFile().readRegisterDataSource("new_enterprise_client");
+            
+
+              tb = (DefaultTableModel) TablaTest.getModel();
+
+            for (Map.Entry<String, List<Client>> entry : clientesEmp.entrySet()) {
+                for (Client cl : entry.getValue()) {
+
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente empresarial: "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar clietnes Empresariales" + e);
+        }
+        
+        
         try {
             planesPP = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
         } catch (Exception e) {
@@ -96,13 +116,18 @@ public class MainFrame extends javax.swing.JFrame {
         for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
             for (Plan p : entry.getValue()) {
                 if (p.getName().contains("PP")) {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP:  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                     
                 } else {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP:  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                 }
             }
         }
+        
+         
+        
+        
+        
         
     }
     /**
@@ -214,15 +239,23 @@ public class MainFrame extends javax.swing.JFrame {
                     TestNewResiClient tn = new TestNewResiClient();
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
-                    //break;
+                    continue;
+                }
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta cliente empresarial:")) {
+                    System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                    TestEmpClient tn = new TestEmpClient();
+                    Worker wk = new Worker(TablaTest, tn, i);
+                    works.add(wk);
+                    continue;
                 }
                 if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan")) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = new TestAltaPP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
-                    //break;
+                    continue;
                 }
+                
                 
             }
         }

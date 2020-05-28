@@ -39,12 +39,8 @@ public class Worker extends SwingWorker<Void,Void>{
         this.ejecutar = ejecutar;
         this.bt = bt;
         wk = this;
-        
         sm = new Semaphore(1);
     }
-    
-    
-    
     
     public void cleanBarra(){
         
@@ -65,6 +61,7 @@ public class Worker extends SwingWorker<Void,Void>{
            sm.acquire();
            // MainFrame.getInstance().disableBotonEjecutar y dejo disable el boton ejecutar
            bt.test();
+           bt.CerrarNavegador();
            
            tabla.setValueAt("OK", ident, 2);
            sm.release();
