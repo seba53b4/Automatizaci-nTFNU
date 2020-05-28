@@ -60,7 +60,7 @@ public class Worker extends SwingWorker<Void,Void>{
         {
            sm.acquire();
            // MainFrame.getInstance().disableBotonEjecutar y dejo disable el boton ejecutar
-           bt.test();
+           bt.test(); // Deberia devolver un valor True or false o String  de estado
            bt.CerrarNavegador();
            
            tabla.setValueAt("OK", ident, 2);
