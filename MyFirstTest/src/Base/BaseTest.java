@@ -15,8 +15,8 @@ public class BaseTest {
     
     
     
-    public void test(){
-        
+    public String test(){
+        return "Hola aca se supone que se ejecuta un test, chaop";
     }
     
     
@@ -24,7 +24,7 @@ public class BaseTest {
 
     public void CerrarNavegador(){
     
-         BasePage.driver.quit();
+         BasePage.initBaseTest().closeDriver();
            
     }
     

@@ -12,6 +12,7 @@ package Tests;
 import Base.BasePage;
 import Utils.HandleFile;
 import Utils.Plan;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import pages.CostumerPage;
 import pages.LoginPage;
 /**
  *
- * @author sdominguez
+ * @author ipupo
  */
 public class TestAltaPP extends Base.BaseTest{
    
@@ -45,20 +46,26 @@ public class TestAltaPP extends Base.BaseTest{
     }
 
     @Override
-    public void test() {
+    public String test() {
        try {
            this.altaPP();
+           return "OK";
        } catch (Exception ex) {
-           Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+           BasePage.initBaseTest().closeDriver();
+           try {
+               HandleFile.getHandleFile().registrarError("ERROR en Alta de PP \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+           } catch (IOException ex1) {
+               Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex1);
+           }
+           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+           return "Falló";
        }
     }
-    
-  
  
    @Test
    public void altaPP() throws Exception
    {      
-       BasePage.initBaseTest();
+        BasePage.initBaseTest();
         this.ap = new CostumerPage();
         this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();

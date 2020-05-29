@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class HandleFile {
         try {
             FileWriter fw = new FileWriter(dir+"\\Desconexion\\archivoStatus.csv",true);
             BufferedWriter bw = new BufferedWriter(fw);
-            String linea = id+";"+estado+"\n";
+            String linea = id+";"+estado+";\n";
             bw.write(linea);
             return true;
         } catch(Exception e) {
@@ -145,7 +146,33 @@ public class HandleFile {
         return false;
     }
     
-    
+    public boolean registrarError(String err) throws IOException{
+        
+        File folder = new File(testExternalSourceBaseDir+"\\Errores");
+        
+        folder.mkdir();
+        
+        File f = new File(folder.getAbsolutePath()+"\\log.txt");
+        //System.out.println(folder.getAbsolutePath()+"\\log.txt");
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        
+        try {
+            FileWriter fw = new FileWriter(f,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            bw.write(err);
+            bw.close();
+            fw.close();
+            return true;
+            
+        } catch(Exception e) {
+          System.out.println("Excepcion escribiendo fichero log.txt: " + e);
+          
+        }
+        return false;
+    }
     
     
     public boolean isNumeric(String cadena){
@@ -230,6 +257,9 @@ public class HandleFile {
         
         
     }
+    
+    
+    
     
     //Registrar casos de pruebas
     public HashMap readRegisterDataSource(String registerCase) throws Exception {

@@ -43,9 +43,15 @@ public static BasePage initBaseTest() {
         System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\drivers\\chromedriver.exe");
         driver= new ChromeDriver();
         driver.manage().window().maximize();
-    }    
+    }
     return bt;
  }  
+
+
+public void closeDriver(){
+    this.driver.quit();
+    this.driver = null;
+}
 
 
 public void small_Wait(By e){

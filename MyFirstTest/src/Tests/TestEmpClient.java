@@ -4,6 +4,7 @@ package Tests;
 import Base.BasePage;
 import Utils.EnterpriseClient;
 import Utils.HandleFile;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,12 +32,20 @@ public class TestEmpClient extends Base.BaseTest {
      HashMap<String, List<EnterpriseClient>> datosClient;
 
     @Override
-    public void test() {
+    public String test() {
          try {
-             this.altaClienteP();
-         } catch (Exception ex) {
-             Logger.getLogger(TestEmpClient.class.getName()).log(Level.SEVERE, null, ex);
-         }
+           this.altaClienteP();
+           return "OK";
+       } catch (Exception ex) {
+           BasePage.initBaseTest().closeDriver();
+             try {
+                 HandleFile.getHandleFile().registrarError("ERROR en Alta de Cliente Empresarial \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+             } catch (IOException ex1) {
+                 Logger.getLogger(TestEmpClient.class.getName()).log(Level.SEVERE, null, ex1);
+             }
+           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+           return "Falló";
+       }
     }
      
      
@@ -44,7 +53,7 @@ public class TestEmpClient extends Base.BaseTest {
      
     @Test
     public void altaClienteP() throws InterruptedException, Exception{
-   BasePage.initBaseTest();
+        BasePage.initBaseTest();
         this.cp = new ClientPage();
         this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();

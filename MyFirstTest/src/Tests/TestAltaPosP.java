@@ -5,6 +5,7 @@ package Tests;
 import Base.BasePage;
 import Utils.HandleFile;
 import Utils.Plan;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +38,19 @@ public class TestAltaPosP extends Base.BaseTest {
     }
 
     @Override
-    public void test() {
+    public String test() {
        try {
            this.altaPosP();
+           return "OK";
        } catch (Exception ex) {
-           Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex);
+           BasePage.initBaseTest().closeDriver();
+           try {
+               HandleFile.getHandleFile().registrarError("ERROR en Alta de PosPago \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+           } catch (IOException ex1) {
+               Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex1);
+           }
+           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+           return "Falló";
        }
     }
     

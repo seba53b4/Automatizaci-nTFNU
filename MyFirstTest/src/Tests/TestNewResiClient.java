@@ -5,22 +5,14 @@ package Tests;
 import Base.BasePage;
 import Utils.HandleFile;
 import Utils.Client;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import limpieza_recurso.Limpieza_Class;
-import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import static org.openqa.selenium.By.name;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-//import static org.openqa.selenium.lift.Finders.table;
 import pages.ClientPage;
-import pages.CostumerPage;
 import pages.LoginPage;
 
 /*
@@ -31,7 +23,7 @@ import pages.LoginPage;
 
 /**
  *
- * @author sdominguez
+ * @author ipupo
  */
 public class TestNewResiClient extends Base.BaseTest {
      
@@ -41,12 +33,20 @@ public class TestNewResiClient extends Base.BaseTest {
      //HashMap<String, List<Client>> datosClient;
 
     @Override
-    public void test() {
+    public String test() {
          try {
-             residentialClientRegister(); //To change body of generated methods, choose Tools | Templates.
-         } catch (Exception ex) {
-             Logger.getLogger(TestNewResiClient.class.getName()).log(Level.SEVERE, null, ex);
-         }
+           this.residentialClientRegister();
+           return "OK";
+       } catch (Exception ex) {
+           BasePage.initBaseTest().closeDriver();
+             try {
+                 HandleFile.getHandleFile().registrarError("ERROR en Alta de Cliente Residencial\n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+             } catch (IOException ex1) {
+                 Logger.getLogger(TestNewResiClient.class.getName()).log(Level.SEVERE, null, ex1);
+             }
+           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
+           return "Falló";
+       }
     }
     
      

@@ -5,6 +5,7 @@
  */
 package Frames;
 
+import Base.BasePage;
 import Base.BaseTest;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
@@ -59,12 +60,14 @@ public class Worker extends SwingWorker<Void,Void>{
         try
         {
            sm.acquire();
-           // MainFrame.getInstance().disableBotonEjecutar y dejo disable el boton ejecutar
-           bt.test(); // Deberia devolver un valor True or false o String  de estado
-           bt.CerrarNavegador();
-           
-           tabla.setValueAt("OK", ident, 2);
+           //BasePage.initBaseTest();
+           System.out.println("PROBANDO ");
+          
+           String str = bt.test();
+           tabla.setValueAt(str, ident, 2);
+          
            sm.release();
+           
           // MainFrame.getInstance().enableBotonEjecutar llamo a Mianframe y dejo enable el boton ejecutar
         } catch (Exception e)
         {

@@ -5,6 +5,7 @@
  */
 package Frames;
 
+import Base.BasePage;
 import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
@@ -61,6 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.user = "random";
         this.pass = "random";
+        //BasePage.initBaseTest();
         LoginPage.initLoginPage();
         
         this.setLocationRelativeTo(null);
@@ -249,22 +251,20 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan")) {
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan PP")) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = new TestAltaPP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;
                 }
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta PosP")) {
-                    System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan PosP")) {
+                    System.out.println("EAlta de Posp esta seleccionado pos; "+ i);
                     TestAltaPosP tap = new TestAltaPosP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;
                 }
-                
-                
             }
         }
         for (Worker wk : works) {

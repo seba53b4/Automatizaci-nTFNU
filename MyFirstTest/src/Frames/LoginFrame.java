@@ -45,8 +45,8 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 259, 41));
-        jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 259, 39));
+        jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 259, 41));
+        jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 259, 39));
 
         btn_LogIn.setText("Log in");
         btn_LogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -54,13 +54,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 btn_LogInActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 259, 37));
+        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 259, 37));
 
         jLabel1.setFont(new java.awt.Font("Constantia", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Hello there !!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 494, 89));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 494, 89));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
