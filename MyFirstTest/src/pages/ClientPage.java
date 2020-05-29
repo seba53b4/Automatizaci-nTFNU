@@ -25,12 +25,12 @@ import org.openqa.selenium.interactions.Actions;
  * @author sdominguez
  */
 public class ClientPage extends Base.BasePage{
-     By creacion_rapida= By.xpath("/html/body/div[3]/ul/li[5]");
-     By opcion_ClienteRe= By.xpath("/html/body/div[3]/ul/li[5]/ul/li[3]");
+     By creacion_rapida= By.xpath("//a[contains(text(),'Creación rápida')]");
+     By opcion_ClienteRe= By.xpath("//span[contains(text(),\"Cliente residencial\")]");
   
-     By opcion_ClienteEm= By.xpath("/html/body/div[3]/ul/li[5]/ul/li[4]");
+     By opcion_ClienteEm= By.xpath("//span[contains(text(),'Cliente empresial')]");
      By nombR= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
-     By nombreE=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/input");
+     By nombreE=By.xpath("//input[@class='gwt-TextBox nc-field-text-input'][1]");
      By RUT = By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
      By apellidoR=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[4]/td[2]/div/table/tbody/tr/td/input");
    
@@ -51,7 +51,7 @@ public class ClientPage extends Base.BasePage{
      ///html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td[1]/div/div
      By table_contacto_primario= By.xpath("/html/body/div[34]/div[2]/div[1]/div[3]");
      By rol_contacto_primario= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[8]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
-     By obtener_rol_contacto_primario= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
+     By obtener_rol_contacto_primario= By.xpath("//div[contains(text(),'Firmante')]");
      By numero_doc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
      By direccion_cliente= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
      By direccion_CE= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
