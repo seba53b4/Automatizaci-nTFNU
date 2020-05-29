@@ -112,7 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             planesPP = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
         } catch (Exception e) {
-            System.out.println("Error al cargar plan" + e);
+             System.out.println("Error al cargar plan" + e);
         }
          
         tb = (DefaultTableModel) TablaTest.getModel();
