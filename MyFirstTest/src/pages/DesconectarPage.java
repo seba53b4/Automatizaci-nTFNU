@@ -112,9 +112,8 @@ public class DesconectarPage extends Base.BasePage{
         Thread.sleep(4000);
         click(canaldistribucion);
         Thread.sleep(4000);
-        page.seleccionar_CanalX();
-        Thread.sleep(3000);
-        click(page.seleccionar_CanalX());
+        Wait_Click(page.seleccionar_agente_esoecialista);
+        click(page.seleccionar_agente_esoecialista);
         Wait(botonCrear);
         click(botonCrear);
         page.loading();

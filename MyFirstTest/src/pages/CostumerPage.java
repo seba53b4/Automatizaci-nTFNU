@@ -46,7 +46,7 @@ public class CostumerPage extends Base.BasePage{
     By tabla_cuenta_controlada=By.xpath("//div[@class='roe-widget-header__sh-inner _hidden' and contains(text(),'Cuenta Controlada')]");
     By productosasociados=By.cssSelector("body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.left_col > div.left_col__inner > div.left_col__inner-wrap > div:nth-child(2)");
     By seleccionarPLTEJ=By.className("roe-widget-content");
-    By msisdn = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
+    By msisdn = By.xpath("//input[@class='refsel_input']//following::input[25]");
     By msidn_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posplr=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input");
     
@@ -109,6 +109,7 @@ public class CostumerPage extends Base.BasePage{
     By aplicar_Filtro_Nombre = By.xpath("//button[@class=\"TableCtrl-button gwt-ParCtrl-btn\" and contains(text(),'Aplicar')]");
     By body_nombre_orden=By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/table/tbody[1]");
     By link_generar_doc= By.xpath("//a[@href and contains(text(),\"Generar documento\")]");
+    By seleccionar_agente_esoecialista=By.xpath("//div[@class=\"refsel_name\"][1]");
     public CostumerPage() {
        super();     
     }
@@ -189,8 +190,8 @@ public class CostumerPage extends Base.BasePage{
         Thread.sleep(4000);
         click(canaldistribucion);
         Thread.sleep(2000);
-        Wait_element_Click(seleccionar_CanalX());
-        click(seleccionar_CanalX());
+        Wait_Click(seleccionar_agente_esoecialista);
+        click(seleccionar_agente_esoecialista);
         Wait_Click(botonCrear);
         click(botonCrear);      
    }
@@ -269,20 +270,7 @@ public class CostumerPage extends Base.BasePage{
        click(opcion_cambiado);
        WebElement select =null;
         System.out.println("nombre plan a cambiar-->"+newPlan.getName_change_plan());
-       /* switch (newPlan.getName_change_plan()) {
-           case "PP":
-               WebElement select = this.Obtener_cambioPP(newPlan.getName_change_plan());
-               click(select);
-               break;
-           case "PLC":
-               select= this.Obtener_cambioPLC(newPlan.getName_change_plan());
-               click(select);
-               break;
-           case "PLR":
-               select = this.Obtener_cambioPLR(newPlan.getName_change_plan());
-               click(select);
-               break;
-       }*/
+    
        if(newPlan.getName_change_plan().contains("TT") || (newPlan.getName_change_plan().contains("GP")) || (newPlan.getName_change_plan().contains("K")) ){
         select = this.Obtener_cambioPP(newPlan.getName_change_plan());
                click(select);
@@ -394,20 +382,15 @@ public class CostumerPage extends Base.BasePage{
         Thread.sleep(5000);
          Wait_Click(SO);
          click(SO);
-        //Wait(nuevaSO);
         Wait_Click(nuevaSO);
         click(nuevaSO);
-        //Wait(canaldistribucion);
         Thread.sleep(4000);
         Wait_Click(canaldistribucion);
         click(canaldistribucion);
         Thread.sleep(3000);
-        //Wait_element(seleccionar_CanalX());
-        Wait_element_Click(seleccionar_CanalX());
-        click(seleccionar_CanalX());
+        Wait_Click(seleccionar_agente_esoecialista);
+        click(seleccionar_agente_esoecialista);
         Thread.sleep(2000);
-        //findElement(botonCrear);
-        //Wait(botonCrear);
         Wait_Click(botonCrear);
         click(botonCrear);
     }
@@ -707,7 +690,7 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
  *
  * @return 
  */
- public WebElement seleccionar_CanalX(){
+ /*public WebElement seleccionar_CanalX(){
         WebElement canal=null;
       
         WebElement canalD= findElement(combobox);
@@ -719,7 +702,7 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
         }
         return canal;
         
-}
+}*/
  /**
   * Se obtiene la lista de planes 
   * @param nombre_plan
