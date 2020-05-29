@@ -4,3 +4,27 @@ Self-causation not permitted
 
 ---------------------------------------------------------------------------
 
+ERROR en Alta de PosPago 
+
+Keys to send should be a not null CharSequence
+
+---------------------------------------------------------------------------
+
+ERROR en Alta de Cliente Residencial
+
+element not interactable
+  (Session info: chrome=83.0.4103.61)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'DESKTOP-F8NO6MQ', ip: '192.168.1.6', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.61, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\Seba-OS\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62669}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 6e179af6702daa89431acbc587728ced
+
+---------------------------------------------------------------------------
+
+ERROR en Alta de PosPago 
+
+Expected condition failed: waiting for element to be clickable: By.xpath: /html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div/div/div/div[1]/button (tried for 10 second(s) with 500 milliseconds interval)
+
+---------------------------------------------------------------------------
+

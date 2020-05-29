@@ -3,6 +3,7 @@
 MyFirstTest/build/
 MyFirstTest/nbproject/private
 MyFirstTest/dist/
+MyFirstTest/Errores/
 
 # Type of Files #
 MyFirstTest/*.class
