@@ -6,6 +6,7 @@
 package Frames;
 
 import Base.BasePage;
+import Base.BaseTest;
 import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
@@ -29,14 +30,31 @@ import pages.LoginPage;
 public class MainFrame extends javax.swing.JFrame {
 
     private String dir;
-    HashMap<String, List<Client>>  clientesRes;
-    HashMap<String, List<Plan>> planesPP;
-    HashMap<String, List<Plan>> planesPosP;
-    HashMap<String, List<Client>> clientesEmp;
+    private HashMap<String, List<Plan>> planesPP;
+    private HashMap<String, List<Plan>> planesPosP;
+    private HashMap<String, List<Client>> clientesEmp;
+    private HashMap<String, List<Client>>  clientesRes;
+    private HashMap<String, BaseTest> tests;
     private static  MainFrame mf;
     private String user;
     private String pass;
 
+
+    public HashMap<String, List<Client>> getClientesRes() {
+        return clientesRes;
+    }
+
+    public HashMap<String, List<Plan>> getPlanesPP() {
+        return planesPP;
+    }
+
+    public HashMap<String, List<Plan>> getPlanesPosP() {
+        return planesPosP;
+    }
+
+    public HashMap<String, List<Client>> getClientesEmp() {
+        return clientesEmp;
+    }
     public void setUser(String user) {
         this.user = user;
         LoginPage.initLoginPage().setUsuario(user);
@@ -63,6 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.user = "random";
         this.pass = "random";
+        tests = new HashMap<>();
         //BasePage.initBaseTest();
         LoginPage.initLoginPage();
         this.setLocationRelativeTo(null);
@@ -87,8 +106,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
             for (Client cl : entry.getValue()) {
-                
-                tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                String str = "Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
+                tb.addRow(new Object[]{false,str,"No iniciado"});
+                tests.put(str, new TestNewResiClient(cl));
             }
         }
         try {
@@ -239,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 if (CadenaUtils.compararCadenas("Alta cliente residencial:", TablaTest.getValueAt(i, 1).toString())){
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
-                    TestNewResiClient tn = new TestNewResiClient();
+                    TestNewResiClient tn = (TestNewResiClient) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
                     continue;
