@@ -43,7 +43,6 @@ public class TestAltaPosP extends Base.BaseTest {
            this.altaPosP();
            return "OK";
        } catch (Exception ex) {
-           BasePage.initBaseTest().closeDriver();
            try {
                HandleFile.getHandleFile().registrarError("ERROR en Alta de PosPago \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
@@ -51,6 +50,8 @@ public class TestAltaPosP extends Base.BaseTest {
            }
            //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
+       }finally{
+           BasePage.initBaseTest().closeDriver();
        }
     }
     
@@ -62,7 +63,7 @@ public class TestAltaPosP extends Base.BaseTest {
        
         BasePage.getNewDriver();
         this.ap = new CostumerPage();
-        this.lp = new LoginPage();
+        this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>(); //pp plr plc 
         HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");

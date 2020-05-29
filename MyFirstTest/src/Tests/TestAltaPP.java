@@ -51,7 +51,7 @@ public class TestAltaPP extends Base.BaseTest{
            this.altaPP();
            return "OK";
        } catch (Exception ex) {
-           BasePage.initBaseTest().closeDriver();
+           
            try {
                HandleFile.getHandleFile().registrarError("ERROR en Alta de PP \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
@@ -59,6 +59,8 @@ public class TestAltaPP extends Base.BaseTest{
            }
            //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
+       } finally{
+           BasePage.initBaseTest().closeDriver();
        }
     }
  

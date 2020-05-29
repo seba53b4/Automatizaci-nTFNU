@@ -37,7 +37,6 @@ public class TestEmpClient extends Base.BaseTest {
            this.altaClienteP();
            return "OK";
        } catch (Exception ex) {
-           BasePage.initBaseTest().closeDriver();
              try {
                  HandleFile.getHandleFile().registrarError("ERROR en Alta de Cliente Empresarial \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
              } catch (IOException ex1) {
@@ -45,6 +44,8 @@ public class TestEmpClient extends Base.BaseTest {
              }
            //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
+       }finally{
+           BasePage.initBaseTest().closeDriver();
        }
     }
      

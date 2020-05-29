@@ -55,6 +55,7 @@ public static void getNewDriver(){
     
 }
 
+
 public void closeDriver(){
     this.driver.quit();
     this.driver = null;

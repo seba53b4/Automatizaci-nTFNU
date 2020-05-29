@@ -254,14 +254,14 @@ public class MainFrame extends javax.swing.JFrame {
                     continue;
                 }
                 
-                if (CadenaUtils.compararCadenas("Alta PP", TablaTest.getValueAt(i, 1).toString())) {
+                if (CadenaUtils.compararCadenas("PP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = new TestAltaPP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;
                 }
-                if (CadenaUtils.compararCadenas("Alta PosP", TablaTest.getValueAt(i, 1).toString())) {
+                if (CadenaUtils.compararCadenas("PosP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Alta de Posp esta seleccionado pos; "+ i);
                     TestAltaPosP tap = new TestAltaPosP();
                     Worker wk = new Worker(TablaTest, tap, i);
