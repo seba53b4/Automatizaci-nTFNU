@@ -53,7 +53,8 @@ public class TestEmpClient extends Base.BaseTest {
      
     @Test
     public void altaClienteP() throws InterruptedException, Exception{
-        BasePage.initBaseTest();
+        
+        BasePage.getNewDriver();
         this.cp = new ClientPage();
         this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();

@@ -10,6 +10,7 @@ import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
+import Utils.CadenaUtils;
 import Utils.Client;
 import Utils.HandleFile;
 import Utils.Plan;
@@ -237,29 +238,31 @@ public class MainFrame extends javax.swing.JFrame {
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
             if ( TablaTest.getValueAt(i, 0).equals(true)) {
                 
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta cliente residencial:")) {
+                if (CadenaUtils.compararCadenas("Alta cliente residencial:", TablaTest.getValueAt(i, 1).toString())){
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestNewResiClient tn = new TestNewResiClient();
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
                     continue;
                 }
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta cliente empresarial:")) {
+                
+                if (CadenaUtils.compararCadenas("Alta cliente empresarial:", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestEmpClient tn = new TestEmpClient();
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
                     continue;
                 }
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan PP")) {
+                
+                if (CadenaUtils.compararCadenas("Alta PP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = new TestAltaPP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;
                 }
-                if (TablaTest.getValueAt(i, 1).toString().contains("Alta Plan PosP")) {
-                    System.out.println("EAlta de Posp esta seleccionado pos; "+ i);
+                if (CadenaUtils.compararCadenas("Alta PosP", TablaTest.getValueAt(i, 1).toString())) {
+                    System.out.println("Alta de Posp esta seleccionado pos; "+ i);
                     TestAltaPosP tap = new TestAltaPosP();
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);

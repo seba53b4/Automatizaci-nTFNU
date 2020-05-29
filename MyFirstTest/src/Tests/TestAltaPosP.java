@@ -60,7 +60,7 @@ public class TestAltaPosP extends Base.BaseTest {
    public void altaPosP() throws Exception
    {     
        
-        BasePage.initBaseTest();
+        BasePage.getNewDriver();
         this.ap = new CostumerPage();
         this.lp = new LoginPage();
         this.hf = new HandleFile();

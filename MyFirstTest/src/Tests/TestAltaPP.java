@@ -65,7 +65,7 @@ public class TestAltaPP extends Base.BaseTest{
    @Test
    public void altaPP() throws Exception
    {      
-        BasePage.initBaseTest();
+        BasePage.getNewDriver();
         this.ap = new CostumerPage();
         this.lp = LoginPage.initLoginPage();
         this.hf = new HandleFile();
@@ -88,8 +88,6 @@ public class TestAltaPP extends Base.BaseTest{
                    if (newPlan.getName() != null) {
                         realPlans.add(newPlan);
                     }
-                    
-                   
                 }
             }
         }
