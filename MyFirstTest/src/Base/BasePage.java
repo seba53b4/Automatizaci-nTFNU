@@ -5,12 +5,8 @@
  */
 package Base;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -47,6 +43,17 @@ public static BasePage initBaseTest() {
     return bt;
  }  
 
+public static void getNewDriver(){
+    
+    if (driver != null) {
+        driver.close();
+        driver.quit();
+    }
+    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\drivers\\chromedriver.exe");
+    driver= new ChromeDriver();
+    driver.manage().window().maximize();
+    
+}
 
 public void closeDriver(){
     this.driver.quit();

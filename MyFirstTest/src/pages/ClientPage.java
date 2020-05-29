@@ -77,10 +77,10 @@ public class ClientPage extends Base.BasePage{
         
     }
     
-    public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException {
+    public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException , Exception{
         return crear_Cliente_Residencial(newClient, false);
     }
-    public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException
+    public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException, Exception
     { 
         Actions action=new Actions(driver);     
         WebElement cliente_resi=findElement(creacion_rapida);
@@ -114,9 +114,11 @@ public class ClientPage extends Base.BasePage{
         List<WebElement> existentElements = findElements(popup_cliente_existente);
         Thread.sleep(2000);
         if (existentElements.size() > 0) {
-            System.out.println("Duplicated Client");
+            
             if(handleDuplicate) {
+                System.out.println("Duplicated Client");
                 //ejecuto el flujo para duplicados
+                throw new Exception("Duplicated Client");
             }
         }
         // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
