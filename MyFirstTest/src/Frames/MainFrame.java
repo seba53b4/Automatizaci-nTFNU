@@ -119,7 +119,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
             for (Plan p : entry.getValue()) {
-                if (p.getName().contains("PP")) {
+                if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
                     tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP:  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                     
                 } else {
