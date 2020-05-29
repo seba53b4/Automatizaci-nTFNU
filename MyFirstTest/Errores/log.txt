@@ -4,3 +4,15 @@ Self-causation not permitted
 
 ---------------------------------------------------------------------------
 
+ERROR en Alta de PosPago 
+
+Keys to send should be a not null CharSequence
+
+---------------------------------------------------------------------------
+
+ERROR en Alta de PosPago 
+
+Keys to send should be a not null CharSequence
+
+---------------------------------------------------------------------------
+
