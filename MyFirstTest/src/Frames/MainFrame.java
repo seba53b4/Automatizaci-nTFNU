@@ -65,7 +65,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.pass = "random";
         //BasePage.initBaseTest();
         LoginPage.initLoginPage();
-        
         this.setLocationRelativeTo(null);
         TableColumn c =  this.TablaTest.getColumnModel().getColumn(0);//
        // c.setPreferredWidth(25);
@@ -89,7 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
             for (Client cl : entry.getValue()) {
                 
-                tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial: "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
             }
         }
         try {
@@ -101,7 +100,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (Map.Entry<String, List<Client>> entry : clientesEmp.entrySet()) {
                 for (Client cl : entry.getValue()) {
 
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente empresarial: "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente empresarial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
                 }
             }
         } catch (Exception e) {
@@ -120,10 +119,10 @@ public class MainFrame extends javax.swing.JFrame {
         for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
             for (Plan p : entry.getValue()) {
                 if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP:  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                     
                 } else {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP:  "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                 }
             }
         }

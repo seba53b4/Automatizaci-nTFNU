@@ -11,6 +11,7 @@ package Utils;
  */
 public class Client {
 
+    private String ambiente;
     private String name;
     private String secondName;
     private String passport;
@@ -21,6 +22,20 @@ public class Client {
     private String link_recharge;
     private String total_recharge;
     private String object_id;
+
+    /**
+     * 
+     * @return 
+     */
+    public String getAmbiente() {
+        return ambiente;
+    }
+    
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }
+    
+    
     
      /**
      * @return the name

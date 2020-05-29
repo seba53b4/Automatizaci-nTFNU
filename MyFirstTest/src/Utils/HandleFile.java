@@ -15,7 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -161,8 +163,10 @@ public class HandleFile {
         try {
             FileWriter fw = new FileWriter(f,true);
             BufferedWriter bw = new BufferedWriter(fw);
+            Date date = new Date();
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("hh: mm: ss a dd-MMM-aaaa");
             
-            bw.write(err);
+            bw.write(formatoFecha.format(date)+" - "+ err);
             bw.close();
             fw.close();
             return true;
@@ -324,7 +328,7 @@ public class HandleFile {
                          
                              case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
-
+                                newClient.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
@@ -466,6 +470,7 @@ public class HandleFile {
                         switch(columnIndex){
                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newClient.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
@@ -598,6 +603,7 @@ public class HandleFile {
                         switch(columnIndex){
                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newPlan.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
@@ -715,6 +721,7 @@ public class HandleFile {
                         switch(columnIndex){
                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newPlan.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
@@ -830,6 +837,7 @@ public class HandleFile {
                         switch(columnIndex){
                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newPlan.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }
@@ -941,6 +949,7 @@ public class HandleFile {
                         switch(columnIndex){
                             case 0: //enviroment
                                 enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newClient.setAmbiente(row.getCell(columnIndex).getStringCellValue());
                                 if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
                                     sourceMap.put(enviroment, new ArrayList<>());
                                 }

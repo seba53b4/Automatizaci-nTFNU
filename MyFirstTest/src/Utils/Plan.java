@@ -10,6 +10,8 @@ package Utils;
  * @author ipupo
  */
 public class Plan {
+    
+    private String ambiente;
     private String name;
     private String object_id;
     private String ICCID;
@@ -17,13 +19,24 @@ public class Plan {
     private String urlSO;
     private String statuSO;
     private String name_change_plan;
+    
      public Plan(String name) {
         this.name = name;
         this.object_id= "";
     }
     
     public Plan(){}
+    
+    public String getAmbiente() {
+        return ambiente;
+    }
 
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }
+    
+    
+    
     /**
      * @return the name
      */
