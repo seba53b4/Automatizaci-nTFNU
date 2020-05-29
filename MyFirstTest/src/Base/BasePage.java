@@ -153,10 +153,11 @@ System.out.println(firstResult.getText());
 public void Wait_element_Click(WebElement e){ 
     try {
              // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-WebElement firstResult = new WebDriverWait(driver, 10)
-        .until(ExpectedConditions.elementToBeClickable(e));
+WebDriverWait firstResult = new WebDriverWait(driver, 10);
+        firstResult.until(ExpectedConditions.invisibilityOf(e));
+        firstResult.until(ExpectedConditions.elementToBeClickable(e));
 // Imprime en pantalla el primer resultado
-System.out.println(firstResult.getText());  
+System.out.println(firstResult);  
     } finally {
           // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
 WebElement firstResult = new WebDriverWait(driver, 10)
