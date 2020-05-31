@@ -14,6 +14,8 @@ import Utils.CadenaUtils;
 import Utils.Client;
 import Utils.HandleFile;
 import Utils.Plan;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,38 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import pages.LoginPage;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.JTableHeader;
+
+import Tests.TestAltaPP;
+import Tests.TestAltaPosP;
+import Tests.TestEmpClient;
+import Tests.TestNewResiClient;
+import Utils.CadenaUtils;
+import Utils.Client;
+import Utils.Plan;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -36,6 +70,8 @@ public class MainFrame extends javax.swing.JFrame {
     private static  MainFrame mf;
     private String user;
     private String pass;
+    
+    
 
     public void setUser(String user) {
         this.user = user;
@@ -58,9 +94,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
         return mf;
     }
+    
+   private void iniciarComponentes() {
+  
+  
+  
+ }
     public MainFrame() {
-        
-        initComponents();
+       imagenfondo image=new imagenfondo();
+       image.setImage("/Images/fondo-horizonte-futurista_23-2148292294.jpg");
+       setContentPane(image);  
+     initComponents();
         this.user = "random";
         this.pass = "random";
         //BasePage.initBaseTest();
@@ -125,6 +169,7 @@ public class MainFrame extends javax.swing.JFrame {
                     tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
                 }
             }
+           
         }
         
          
@@ -144,13 +189,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTest = new javax.swing.JTable();
-        ButtonSeleccionarTodos = new javax.swing.JButton();
         ButtonEjecutar = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        TablaTest.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        TablaTest.setBackground(new java.awt.Color(139, 195, 224));
+        TablaTest.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Images/Telefonica.original_IG2rXLU.jpg")))); // NOI18N
+        TablaTest.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         TablaTest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -174,6 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaTest.setGridColor(new java.awt.Color(139, 195, 224));
         jScrollPane1.setViewportView(TablaTest);
         if (TablaTest.getColumnModel().getColumnCount() > 0) {
             TablaTest.getColumnModel().getColumn(0).setResizable(false);
@@ -181,14 +227,12 @@ public class MainFrame extends javax.swing.JFrame {
             TablaTest.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        ButtonSeleccionarTodos.setText("Seleccionar Todos");
-        ButtonSeleccionarTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonSeleccionarTodosActionPerformed(evt);
-            }
-        });
-
-        ButtonEjecutar.setText("Ejecutar");
+        ButtonEjecutar.setBackground(new java.awt.Color(204, 204, 255));
+        ButtonEjecutar.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
+        ButtonEjecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/execute.png"))); // NOI18N
+        ButtonEjecutar.setText("EJECUTAR");
+        ButtonEjecutar.setAlignmentY(0.0F);
+        ButtonEjecutar.setBorder(new javax.swing.border.MatteBorder(null));
         ButtonEjecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonEjecutarActionPerformed(evt);
@@ -199,33 +243,23 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ButtonEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                    .addComponent(ButtonSeleccionarTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 725, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(ButtonSeleccionarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(150, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap(174, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(237, 237, 237))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(236, 236, 236)
+                .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -275,15 +309,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonEjecutarActionPerformed
 
-    private void ButtonSeleccionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSeleccionarTodosActionPerformed
-        
-        DefaultTableModel tb = (DefaultTableModel) TablaTest.getModel();
-        
-        for (int i = 0; i < tb.getRowCount(); i++) {
-            tb.setValueAt(true, i, 0);
-        }
-    }//GEN-LAST:event_ButtonSeleccionarTodosActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -321,9 +346,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonEjecutar;
-    private javax.swing.JButton ButtonSeleccionarTodos;
     private javax.swing.JTable TablaTest;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

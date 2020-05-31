@@ -57,7 +57,7 @@ public class CostumerPage extends Base.BasePage{
     By msidnPPPLKMIG=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
     ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input
     By selectmsidnPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div");
-    By iccid= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/div/div/div[1]/input");
+    By iccid= By.xpath("//input[@class='refsel_input']//following::input[23]");
     By iccid_posp=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[5]/td[2]/div/div/div/div[1]/input");
     By iccid_plr= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[2]/div/div/div/div[1]/input");
     By seleccionariccid= By.xpath("/html/body/div[4]/div[2]/div[1]/div");
@@ -83,7 +83,7 @@ public class CostumerPage extends Base.BasePage{
     By boton_contrato_confirmar= By.xpath("//span[@class='ui-button-text' and contains(text(),'Confirmar')]");
     By boton_contrato_confirmar2=By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
    ///html/body/div[8]/div/div/div[3]/div/button[1]
-    By generar_contrato=By.xpath("//a[@href='#' and contains(text(),'Generar documento')]");
+    //By generar_contrato=By.xpath("//a[@href='#' and contains(text(),'Generar documento')]");
     //By firmar_contrato=By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[3]/div[2]/div/table/tbody/tr[2]/td[2]");
     By boton_confirmar_firma= By.xpath("//a[@href='#' and contains(text(),'Firmar')]");
     By boton_guardar_firma=By.xpath("//button[@class='TableCtrl-button ParCtrl-editButton' and contains(text(),'Guardar')]");
@@ -244,12 +244,10 @@ public class CostumerPage extends Base.BasePage{
    public void Terminar(Plan newPlan) throws InterruptedException{
    WebElement siguiente=findElement(botonnextaddpp);
    WebElement fact_pago2=findElement(botonfact_pago);
-   Wait_element_Click(fact_pago2);
    Thread.sleep(4000);
    Wait_Click(boton_revision);
    click(boton_revision);
-   Wait_element_Click(obtener_botonenviar());
-   click(obtener_botonenviar());
+   obtener_botonenviar();
    Thread.sleep(5000);
    String so = obtener_nombre_SO();
    Thread.sleep(5000);
@@ -287,15 +285,11 @@ public class CostumerPage extends Base.BasePage{
    
      public void Terminar_Cambio_Plan(Plan newPlan) throws InterruptedException{
    //WebElement siguiente=findElement(botonnextaddpp);
-   WebElement fact_pago2=findElement(botonfact_pago);
+   //WebElement fact_pago2=findElement(botonfact_pago);
    Thread.sleep(4000);
-  // Wait_element(siguiente);
-   //siguiente.click();
-   //Wait_element(fact_pago2);
-   Thread.sleep(6000);
-   Wait_element_Click(fact_pago2);
+   Wait(botonfact_pago);
    Thread.sleep(4000);
-   click(fact_pago2);
+   click(botonfact_pago);
    
    if(getTypePlanReal(newPlan).equals("prepago") && getTypePlanCambio(newPlan).equals("pospago")){
    obtener_factcreada_posp();
@@ -315,9 +309,8 @@ public class CostumerPage extends Base.BasePage{
     confirmarContrato();
     loading();
     Thread.sleep(2000);
-    Wait_Click(generar_contrato);
-    click(generar_contrato);
-     Thread.sleep(4000);
+    Wait_Click(link_generar_doc);
+    click(link_generar_doc);
      Thread.sleep(2000);
     Wait_Click(boton_confirmar_firma);
     click(boton_confirmar_firma);
@@ -331,8 +324,6 @@ public class CostumerPage extends Base.BasePage{
        System.out.println("Sin factura");
    }
     obtener_botonenviar();
-    Thread.sleep(2000);
-    click(obtener_botonenviar());
     Thread.sleep(5000);
    if(validar_Deuda()){
      System.out.println("HAY VALIDAR");
@@ -400,8 +391,7 @@ public void seleccionar_PP(Plan newPlan) throws InterruptedException {
    
    loading();
     //Wait_element(obtenerList_Planes("PrePagos"));
-    Wait_element_Click(obtenerList_Planes("PrePagos"));
-    click(obtenerList_Planes("PrePagos"));
+    obtenerList_Planes("PrePagos").click();
    Wait(table);
    WebElement tablePP=findElement(table);
    List<WebElement> pp= tablePP.findElements(By.tagName("span"));
@@ -436,9 +426,7 @@ public void seleccionar_PosPC(Plan newPlan) throws InterruptedException {
 public void seleccionar_PosPR(Plan newPlan) throws InterruptedException {
    WebElement plr=null;
    //Wait_element(obtenerList_Planes("Regulares"));
-    Wait_element_Click(obtenerList_Planes("Regulares"));
-    Thread.sleep(5000);
-    click(obtenerList_Planes("Regulares"));
+    obtenerList_Planes("Regulares").click();
    Wait(table_plr);
    WebElement tablePP=findElement(table_plr);
    List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
@@ -470,7 +458,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     
    
    WebElement siguiente=findElement(botonnextaddpp);
-    WebElement fact_pago2=findElement(botonfact_pago);
+    //WebElement fact_pago2=findElement(botonfact_pago);
    // WebElement iccid1=findElement(iccid);
     if(newPlan.getName().contains("PLKMIG")){
         Wait(msidnPPPLKMIG);
@@ -492,7 +480,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     
     Wait(msisdn);
     Thread.sleep(4000);
-    sendKeys(newPlan.getMSISDN(), msisdn); // 95728402
+    sendKeys(newPlan.getMSISDN(), msisdn);
     Thread.sleep(4000);
     Wait_Click(seleccionarmsisdn);
     click(seleccionarmsisdn);
@@ -504,8 +492,9 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     click(seleccionariccid);
     Thread.sleep(2000);
     }
-    Wait_element_Click(fact_pago2);
-    click(fact_pago2);
+    Wait_Click(botonfact_pago);
+    Thread.sleep(2000);
+    click(botonfact_pago);
     
     obtener_factcreada_pp();
    
@@ -513,10 +502,10 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
      Wait_Click(boton_crearfact);
      click(boton_crearfact);
     validar_Factura();
-    //Wait_element(obtener_botonenviar());
+    
     Thread.sleep(2000);
-    Wait_element_Click(obtener_botonenviar());
-    click(obtener_botonenviar());
+    obtener_botonenviar();
+    
     Thread.sleep(5000);
    if(validar_Deuda()){
                     
@@ -545,7 +534,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
  public void iccid_MSISDN_PosPLC(Plan newPlan) throws InterruptedException{
     
    WebElement siguiente=findElement(botonnextaddpp);
-    WebElement fact_pago2=findElement(botonfact_pago);
+    //WebElement fact_pago2=findElement(botonfact_pago);
     Thread.sleep(2000);
     loading();
     Wait(msidn_posp);
@@ -565,8 +554,8 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
      Wait_Click(seleccionariccid);
      click(seleccionariccid);
     Thread.sleep(4000);
-     Wait_element_Click(fact_pago2);
-     click(fact_pago2);
+    Wait_Click(botonfact_pago);
+     click(botonfact_pago);
    
     obtener_factcreada_posp();
    
@@ -588,8 +577,6 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
      loading();
     validar_Factura();
     obtener_botonenviar();
-    Thread.sleep(2000);
-    click(obtener_botonenviar());
     Thread.sleep(5000);
  if(    validar_Deuda()){
      System.out.println("HAY VALIDAR");
@@ -657,8 +644,6 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
      loading();
      validar_Factura();
     obtener_botonenviar();
-    Thread.sleep(2000);
-    click(obtener_botonenviar());
     Thread.sleep(5000);
    if(validar_Deuda()){
      System.out.println("HAY VALIDAR");
@@ -721,7 +706,7 @@ public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
  return pp;
 } 
 
-public WebElement obtener_botonenviar(){
+public void obtener_botonenviar(){
 WebElement boton_envia = null;
 Wait(boton_enviar);
 WebElement be= findElement(boton_enviar);
@@ -730,9 +715,11 @@ WebElement be= findElement(boton_enviar);
             if(getText(enviar.get(i)).equals("Enviar")){
            
                 boton_envia=enviar.get(i);
-            }     
+                boton_envia.click();
+            }
+            break;
     }
-    return boton_envia;
+  
 }
 
 public Boolean validar_Deuda()
@@ -786,8 +773,7 @@ int i=0;
                         Wait_Click(nombre_clase_boton_nueva_factura_enabled);
                         click(nombre_clase_boton_nueva_factura_enabled);
                     } else {
-                    Wait_element_Click(nueva_fact_enable);
-                    click(nueva_fact_enable);
+                    nueva_fact_enable.click();
                     }
                    
                     
@@ -949,12 +935,12 @@ for (WebElement wb : facturacreada) {
        Wait(cuenta_facturacion);
         click(cuenta_facturacion);
         Thread.sleep(2000);
-        findElement(boton_crear_nuevacuenta_facturacion_pp);
         Wait(boton_crear_nuevacuenta_facturacion_pp);
         click(boton_crear_nuevacuenta_facturacion_pp);
+        loading();
         Thread.sleep(4000);
-        WebElement boton_rev= findElement(boton_revision1);
-        click(boton_rev);
+        Wait_Click(boton_revision1);
+        click(boton_revision1);
             
     }else {
      
@@ -1013,8 +999,8 @@ for (WebElement wb : facturacreada) {
      List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
      for (int i = selectfacturacreada.size()-1; i >= 1; i--) {
          penultimo_select=selectfacturacreada.get(i);
-          Wait_element_Click(penultimo_select);
-         click(penultimo_select);
+          penultimo_select.click();
+
          break;
          }
          int longitud = serviciolist.size()-3;
@@ -1022,8 +1008,8 @@ for (WebElement wb : facturacreada) {
         for (int j  = 0; j < serviciolist.size(); j++) {
            if (j == longitud) {
                 factura_creada=serviciolist.get(j);
-                Wait_element_Click(factura_creada);
-                click(factura_creada);
+                factura_creada.click();
+             
                 break;
              }
        }
@@ -1069,9 +1055,7 @@ for (WebElement wb : facturacreada) {
      List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
     int size_list=selectfacturacreada.size();
      WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
-     Wait_element_Click(ultimo_select);
-     Thread.sleep(4000);
-     click(ultimo_select);
+     ultimo_select.click();
         int longitud = serviciolist.size()-1;
         for (int i = 0; i < serviciolist.size(); i++) {
             if (i == longitud) {

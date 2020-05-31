@@ -155,11 +155,10 @@ public class DesconectarPage extends Base.BasePage{
                 click(configurar_ContratoBTN);
                 Thread.sleep(3000);
                 page.confirmarContrato();
-                Wait(page.generar_contrato);
+                Wait(page.link_generar_doc);
                 Thread.sleep(5000);
-                click(page.generar_contrato);
+                click(page.link_generar_doc);
                 page.loading();
-                Thread.sleep(8000);
                 Thread.sleep(8000);
                 Wait(page.boton_confirmar_firma);
                 Thread.sleep(4000);
@@ -168,7 +167,7 @@ public class DesconectarPage extends Base.BasePage{
                 
                 page.obtener_botonenviar();
                 Thread.sleep(5000);
-                click(page.obtener_botonenviar());
+                page.obtener_botonenviar();
                 Thread.sleep(3000);
                 
                 if(page.validar_Deuda()){

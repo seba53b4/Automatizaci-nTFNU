@@ -21,7 +21,11 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     private boolean estaLogueado;
     public LoginFrame() {
-        initComponents();
+      imagenfondo image=new imagenfondo();
+      image.setImage("/Images/descarga.png");
+       setContentPane(image); 
+       initComponents();
+       
         estaLogueado = false;
         this.setLocationRelativeTo(null);
     }
@@ -43,24 +47,36 @@ public class LoginFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(145, 201, 239));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 51, 255)));
+        jPanel1.setForeground(new java.awt.Color(51, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 259, 41));
-        jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 259, 39));
 
+        txtField_User.setForeground(new java.awt.Color(51, 51, 255));
+        txtField_User.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtField_User.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+        jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 140, 30));
+
+        psw_Field.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        psw_Field.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+        jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 140, 30));
+
+        btn_LogIn.setBackground(new java.awt.Color(204, 204, 255));
+        btn_LogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/log.png"))); // NOI18N
         btn_LogIn.setText("Log in");
+        btn_LogIn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn_LogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_LogInActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 259, 37));
+        jPanel1.add(btn_LogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 70, 50));
 
         jLabel1.setFont(new java.awt.Font("Constantia", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Hello there !!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 494, 89));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 330, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

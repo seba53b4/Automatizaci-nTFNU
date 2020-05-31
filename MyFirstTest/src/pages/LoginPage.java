@@ -89,7 +89,7 @@ public class LoginPage extends Base.BasePage{
     }
    } 
     public void signIn(){
-    Wait_Click(userNT);
+    //Wait_Click(userNT);
     click(userNTpp);
     if(isDisplayed(user)){
      WebElement user1=findElement(user);
