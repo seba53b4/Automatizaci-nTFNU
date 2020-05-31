@@ -30,8 +30,8 @@ public class TestAltaPP extends Base.BaseTest{
    
    //WebDriver driver ;
    private CostumerPage ap;
-   private HandleFile hf;
    private LoginPage lp;
+   private Plan plan;
    
    
      
@@ -40,9 +40,8 @@ public class TestAltaPP extends Base.BaseTest{
         super(driver);
    }*/
 
-    public TestAltaPP() {
-        
-      
+    public TestAltaPP(Plan p) {
+        plan = p;
     }
 
     @Override
@@ -70,12 +69,12 @@ public class TestAltaPP extends Base.BaseTest{
         BasePage.getNewDriver();
         this.ap = new CostumerPage();
         this.lp = LoginPage.initLoginPage();
-        this.hf = new HandleFile();
+        //this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>();
-        HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
+       // HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
+       // if (!dataSource.isEmpty()) {
+           // for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
+                String enviroment = plan.getAmbiente();
                 this.ap.initUrlBusqueda(enviroment);
                 this.lp.Nav(enviroment);
                 if(enviroment.contains("preprod")){
@@ -84,18 +83,18 @@ public class TestAltaPP extends Base.BaseTest{
                 else{
                 this.lp.signIn();
                 }
-                List<Plan> newPlans = entry.getValue();
-                for (int i = 0; i < newPlans.size(); i++) {
-                  Plan newPlan = this.ap.AltaPP(newPlans.get(i),enviroment);
+                //List<Plan> newPlans = entry.getValue();
+                //for (int i = 0; i < newPlans.size(); i++) {
+                  Plan newPlan = this.ap.AltaPP(plan,enviroment);
                    if (newPlan.getName() != null) {
                         realPlans.add(newPlan);
                     }
-                }
-            }
-        }
+        //        }
+         //   }
+        //}
          // only save in spreadsheet the real Plan
         if (realPlans.size() > 0) {
-            this.hf.generateRegisteredNewPlanDatasource(realPlans);
+            HandleFile.getHandleFile().generateRegisteredNewPlanDatasource(realPlans);
       
      
      }

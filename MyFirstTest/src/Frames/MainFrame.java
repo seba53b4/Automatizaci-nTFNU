@@ -6,12 +6,14 @@
 package Frames;
 
 import Base.BasePage;
+import Base.BaseTest;
 import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
 import Utils.CadenaUtils;
 import Utils.Client;
+import Utils.EnterpriseClient;
 import Utils.HandleFile;
 import Utils.Plan;
 import java.awt.event.MouseEvent;
@@ -63,16 +65,33 @@ import javax.swing.JTable;
 public class MainFrame extends javax.swing.JFrame {
 
     private String dir;
-    HashMap<String, List<Client>>  clientesRes;
-    HashMap<String, List<Plan>> planesPP;
-    HashMap<String, List<Plan>> planesPosP;
-    HashMap<String, List<Client>> clientesEmp;
+    private HashMap<String, List<Plan>> planesPP;
+    private HashMap<String, List<Plan>> planesPosP;
+    private HashMap<String, List<EnterpriseClient>> clientesEmp;
+    private HashMap<String, List<Client>>  clientesRes;
+    private HashMap<String, BaseTest> tests;
     private static  MainFrame mf;
     private String user;
     private String pass;
     
     
 
+
+    public HashMap<String, List<Client>> getClientesRes() {
+        return clientesRes;
+    }
+
+    public HashMap<String, List<Plan>> getPlanesPP() {
+        return planesPP;
+    }
+
+    public HashMap<String, List<Plan>> getPlanesPosP() {
+        return planesPosP;
+    }
+
+    public HashMap<String, List<EnterpriseClient>> getClientesEmp() {
+        return clientesEmp;
+    }
     public void setUser(String user) {
         this.user = user;
         LoginPage.initLoginPage().setUsuario(user);
@@ -107,6 +126,7 @@ public class MainFrame extends javax.swing.JFrame {
      initComponents();
         this.user = "random";
         this.pass = "random";
+        tests = new HashMap<>();
         //BasePage.initBaseTest();
         LoginPage.initLoginPage();
         this.setLocationRelativeTo(null);
@@ -131,8 +151,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
             for (Client cl : entry.getValue()) {
-                
-                tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+                String str = "Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
+                tb.addRow(new Object[]{false,str,"No iniciado"});
+                tests.put(str, new TestNewResiClient(cl));
             }
         }
         try {
@@ -141,10 +162,11 @@ public class MainFrame extends javax.swing.JFrame {
 
               tb = (DefaultTableModel) TablaTest.getModel();
 
-            for (Map.Entry<String, List<Client>> entry : clientesEmp.entrySet()) {
-                for (Client cl : entry.getValue()) {
-
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta cliente empresarial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName() ,"No iniciado"});
+            for (Map.Entry<String, List<EnterpriseClient>> entry : clientesEmp.entrySet()) {
+                for (EnterpriseClient cl : entry.getValue()) {
+                    String str = "Cargado Archivo - Alta cliente empresarial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
+                    tests.put(str, new TestEmpClient(cl));
+                    tb.addRow(new Object[]{false, str,"No iniciado"});
                 }
             }
         } catch (Exception e) {
@@ -162,11 +184,17 @@ public class MainFrame extends javax.swing.JFrame {
         
         for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
             for (Plan p : entry.getValue()) {
+                String str = "";
+                BaseTest bt = null;
                 if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    str = "Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new TestAltaPP(p));
                     
                 } else {
-                    tb.addRow(new Object[]{false,"Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ,"No iniciado"});
+                    str = "Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new TestAltaPosP(p));
                 }
             }
            
@@ -271,17 +299,20 @@ public class MainFrame extends javax.swing.JFrame {
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
             if ( TablaTest.getValueAt(i, 0).equals(true)) {
                 
-                if (CadenaUtils.compararCadenas("Alta cliente residencial:", TablaTest.getValueAt(i, 1).toString())){
-                    System.out.println("Es boolean y esta seleccionado la pos; "+ i);
-                    TestNewResiClient tn = new TestNewResiClient();
+                if (CadenaUtils.compararCadenas("Alta cliente residencial", TablaTest.getValueAt(i, 1).toString())){
+                    
+                    TestNewResiClient tn = (TestNewResiClient) tests.get(TablaTest.getValueAt(i, 1).toString());
+                    if (tn != null) {
+                        System.out.println(" NO ES NULL el test resid");
+                    }
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
                     continue;
                 }
                 
-                if (CadenaUtils.compararCadenas("Alta cliente empresarial:", TablaTest.getValueAt(i, 1).toString())) {
+                if (CadenaUtils.compararCadenas("Alta cliente empresarial", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
-                    TestEmpClient tn = new TestEmpClient();
+                    TestEmpClient tn = (TestEmpClient) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
                     continue;
@@ -289,14 +320,14 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 if (CadenaUtils.compararCadenas("PP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
-                    TestAltaPP tap = new TestAltaPP();
+                    TestAltaPP tap = (TestAltaPP) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;
                 }
                 if (CadenaUtils.compararCadenas("PosP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Alta de Posp esta seleccionado pos; "+ i);
-                    TestAltaPosP tap = new TestAltaPosP();
+                    TestAltaPosP tap = (TestAltaPosP) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;

@@ -28,10 +28,15 @@ import pages.LoginPage;
 public class TestNewResiClient extends Base.BaseTest {
      
      private ClientPage cp;
-     private HandleFile hf;
      private LoginPage lp;
+     private Client client;
      //HashMap<String, List<Client>> datosClient;
-
+     
+     public TestNewResiClient(Client clte){
+         client = clte;
+     }
+     
+     
     @Override
     public String test() {
          try {
@@ -58,32 +63,34 @@ public class TestNewResiClient extends Base.BaseTest {
         BasePage.getNewDriver();
         this.cp = new ClientPage();
         this.lp = LoginPage.initLoginPage();
-        this.hf = new HandleFile();
         List<Client> realClients = new ArrayList<>();
-        HashMap<String, List<Client>> dataSource = this.hf.readRegisterDataSource("new_residential_client");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<Client>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
-                this.cp.initUrlBusqueda(enviroment);
-                this.lp.Nav(enviroment);
-                if(enviroment.contains("preprod")){
+       // HashMap<String, List<Client>> dataSource = this.hf.readRegisterDataSource("new_residential_client");
+        //if (!dataSource.isEmpty()) {
+          //  for (HashMap.Entry<String, List<Client>> entry : dataSource.entrySet()) {
+               // String enviroment = entry.getKey();
+               
+                this.cp.initUrlBusqueda(client.getAmbiente());
+                this.lp.Nav(client.getAmbiente());
+                if(client.getAmbiente().contains("preprod")){
                 this.lp.signIn_preprod();
                 }
                 else{
                 this.lp.signIn();
                 }
-                List<Client> newClients = entry.getValue();
-                for (int i = 0; i < newClients.size(); i++) {
-                    Client newClient = this.cp.crear_Cliente_Residencial(newClients.get(i));
-                    if (newClient.getClientId() != null) {
+                //List<Client> newClients = entry.getValue();
+                //for (int i = 0; i < newClients.size(); i++) {
+                    Client newClient = this.cp.crear_Cliente_Residencial(client);
+                    if (client.getClientId() != null) {
                         realClients.add(newClient);
                     }
-                }
-            }
-        }
+                
+            //}
+        
         // only save in spreadsheet the real Clients
         if (realClients.size() > 0) {
-            this.hf.generateRegisteredRClientDatasource(realClients);
+            HandleFile.getHandleFile().generateRegisteredRClientDatasource(realClients);
         }
-   }
+    }
+
+   
  }

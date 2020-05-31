@@ -29,12 +29,10 @@ public class TestAltaPosP extends Base.BaseTest {
    private CostumerPage ap;
    private HandleFile hf;
    private LoginPage lp;
-   
+   private Plan plan;
      
-    public TestAltaPosP() {
-        
-        ap = new CostumerPage();
-      
+    public TestAltaPosP(Plan p) {
+        this.plan = p;
     }
 
     @Override
@@ -61,37 +59,37 @@ public class TestAltaPosP extends Base.BaseTest {
    public void altaPosP() throws Exception
    {     
        
-        BasePage.getNewDriver();
-        this.ap = new CostumerPage();
-        this.lp = LoginPage.initLoginPage();
-        this.hf = new HandleFile();
-       List<Plan> realPlans = new ArrayList<>(); //pp plr plc 
-        HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
-                this.ap.initUrlBusqueda(enviroment);
-                this.lp.Nav(enviroment);
-                if(enviroment.contains("preprod")){
-                this.lp.signIn_preprod();
-                }
-                else{
-                this.lp.signIn();
-                }
-                List<Plan> newPlans = entry.getValue();
-                for (int i = 0; i < newPlans.size(); i++) {
-                  Plan newPlan = this.ap.AltaPosP(newPlans.get(i),enviroment);
-                   if (newPlan.getName() != null) {
-                        realPlans.add(newPlan);
-                    }
-                    
-                   
-                }
-            }
-        }
+       BasePage.getNewDriver();
+       this.ap = new CostumerPage();
+       this.lp = LoginPage.initLoginPage();
+       //this.hf = new HandleFile();
+       List<Plan> realPlans = new ArrayList<>(); //pp plr plc
+       //HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
+       //if (!dataSource.isEmpty()) {
+       //  for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
+       String enviroment = plan.getAmbiente();
+       this.ap.initUrlBusqueda(enviroment);
+       this.lp.Nav(enviroment);
+       if(enviroment.contains("preprod")){
+           this.lp.signIn_preprod();
+       } else{
+           this.lp.signIn();
+       }
+       // List<Plan> newPlans = entry.getValue();
+       //for (int i = 0; i < newPlans.size(); i++) {
+       Plan newPlan = this.ap.AltaPosP(plan,enviroment);
+       if (newPlan.getName() != null) {
+           realPlans.add(newPlan);
+       }
+       
+       
+       //          }
+       //     }
+       // }
          // only save in spreadsheet the real Plan
         if (realPlans.size() > 0) {
             this.hf.generateRegisteredNewPlanDatasource(realPlans);
+        }
        //Lee un archivo
        // Le paso los object id
        //Se trabaja con el user
@@ -124,7 +122,7 @@ public class TestAltaPosP extends Base.BaseTest {
        
    } */ 
      
-   }
+ //  }
   }
 }
 
