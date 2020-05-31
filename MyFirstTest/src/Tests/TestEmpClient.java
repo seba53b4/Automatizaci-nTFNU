@@ -2,6 +2,7 @@ package Tests;
 
 
 import Base.BasePage;
+import Utils.Client;
 import Utils.EnterpriseClient;
 import Utils.HandleFile;
 import java.io.IOException;
@@ -29,7 +30,9 @@ public class TestEmpClient extends Base.BaseTest {
      private ClientPage cp;
      private HandleFile hf;
      private LoginPage lp;
+     private EnterpriseClient cliente;
      HashMap<String, List<EnterpriseClient>> datosClient;
+     
 
     @Override
     public String test() {
@@ -49,6 +52,9 @@ public class TestEmpClient extends Base.BaseTest {
        }
     }
      
+    public TestEmpClient(EnterpriseClient clt){
+        this.cliente = clt;
+    }
      
      
      
@@ -58,12 +64,12 @@ public class TestEmpClient extends Base.BaseTest {
         BasePage.getNewDriver();
         this.cp = new ClientPage();
         this.lp = LoginPage.initLoginPage();
-        this.hf = new HandleFile();
+        
         List<EnterpriseClient> realClients = new ArrayList<>();
-        HashMap<String, List<EnterpriseClient>> dataSource = this.hf.readRegisterDataSource("new_enterprise_client");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<EnterpriseClient>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
+        //HashMap<String, List<EnterpriseClient>> dataSource = this.hf.readRegisterDataSource("new_enterprise_client");
+        //if (!dataSource.isEmpty()) {
+          //  for (HashMap.Entry<String, List<EnterpriseClient>> entry : dataSource.entrySet()) {
+                String enviroment = cliente.getAmbiente();
                 this.cp.initUrlBusqueda(enviroment);
                 this.lp.Nav(enviroment);
                 if(enviroment.contains("preprod")){
@@ -72,18 +78,18 @@ public class TestEmpClient extends Base.BaseTest {
                 else{
                 this.lp.signIn();
                 }
-                List<EnterpriseClient> newClients = entry.getValue();
-                for (int i = 0; i < newClients.size(); i++) {
-                    EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(newClients.get(i));
+               // List<EnterpriseClient> newClients = cliente;
+        //        for (int i = 0; i < newClients.size(); i++) {
+                    EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(cliente);
                     if (newClient.getClientId() != null) {
                         realClients.add(newClient);
                     }
-                }
-            }
-        }
+                //}
+          //  }
+       // }
         // only save in spreadsheet the real Clients
         if (realClients.size() > 0) {
-            this.hf.generateRegisteredEntClientDatasource(realClients);
+            HandleFile.getHandleFile().generateRegisteredEntClientDatasource(realClients);
         }
     
     }

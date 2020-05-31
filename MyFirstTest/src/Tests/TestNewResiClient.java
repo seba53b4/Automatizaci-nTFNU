@@ -81,7 +81,7 @@ public class TestNewResiClient extends Base.BaseTest {
                 //for (int i = 0; i < newClients.size(); i++) {
                     Client newClient = this.cp.crear_Cliente_Residencial(client);
                     if (client.getClientId() != null) {
-                        realClients.add(client);
+                        realClients.add(newClient);
                     }
                 
             //}

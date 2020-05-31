@@ -26,6 +26,12 @@ public class CadenaUtils{
                     int aux = i;
                     for (int j = 0; j < pivote.length(); j++) {
                         
+                        /*if (str.charAt(aux) == ' ' && pivote.charAt(j) == ' ') {
+                            System.out.println("son vacios");
+                            aux++;
+                            continue;
+                        }*/
+                        
                         if (str.charAt(aux) != pivote.charAt(j)) {
                             System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
                             break;
