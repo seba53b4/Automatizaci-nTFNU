@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -87,25 +88,32 @@ public void small_Wait(By e){
 public void Wait(By e){
   // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
 try {
-     WebDriverWait firstResult = new WebDriverWait(driver, 15);
-     if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){
-      firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e));   
+     WebDriverWait firstResult = new WebDriverWait(driver, 3);
+     if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
       firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
      }
      else
      firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
 // Imprime en pantalla el primer resultado
 System.out.println(firstResult); 
-    } catch(TimeoutException r) {
-    
+    } catch(TimeoutException r ) {
+    System.err.println("El elemento esta visible");
+    }
+catch (NoSuchElementException t) {
+     System.err.println("El elemento localizado");
+    }
+catch (ElementNotInteractableException w) {
+     System.err.println("Esperar a que el elemento sea interactuable");
+    }
+catch (NullPointerException z) {
+     System.err.println("Esperar a que el elemento no este vacio");
     }
 }
 public void Wait_Click(By e){
     try {
                // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-       WebDriverWait firstResult = new WebDriverWait(driver, 15);
-        if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){
-      firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e));   
+       WebDriverWait firstResult = new WebDriverWait(driver, 3);
+        if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
       firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
       firstResult.until(ExpectedConditions.elementToBeClickable(e));
      }
@@ -115,10 +123,18 @@ public void Wait_Click(By e){
 // Imprime en pantalla el primer resultado
 System.out.println(firstResult); 
         
-    } catch (Exception r) {
+    } catch (TimeoutException r) {
+        System.err.println("El elemento esta visible");
     }
-
-        
+    catch (NoSuchElementException t) {
+        System.err.println("El elemento localizado");
+    }
+    catch (ElementNotInteractableException w) {
+     System.err.println("Esperar a que el elemento sea interactuable");
+    }
+     catch (NullPointerException z) {
+     System.err.println("Esperar a que el elemento no este vacio");
+    }   
     }
   
 public void Wait_element_progress(WebElement e){ 

@@ -95,7 +95,7 @@ public class CostumerPage extends Base.BasePage{
     
     By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/div/div/div");
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
-    By opcion_cambiado= By.xpath("//h1[@class='roe-widget-header__item_border-btm roe-widget-header__sh-inner _hidden skip_toggler' and contains(text(),'Cambiado a')]");
+    By opcion_cambiado= By.xpath("//h1[contains(text(),'Cambiado a')]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
     
     By lista_plancambio_controlada= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[2]");
@@ -118,8 +118,12 @@ public class CostumerPage extends Base.BasePage{
     }
     public Plan AltaPP(Plan newPlan,String env) throws InterruptedException{
         seleccionar_Canal(newPlan, env);
+        loading();
         seleccionar_PP(newPlan);
+        loading();
         obtener_PPActivo(newPlan, "");
+        loading();
+        Thread.sleep(2000);
         iccid_MSISDN_PP(newPlan);
     return newPlan;
     
@@ -136,6 +140,7 @@ public class CostumerPage extends Base.BasePage{
     
     if(newPlan.getName().contains("PLR")){
         seleccionar_Canal(newPlan, env);
+        loading();
         seleccionar_PosPR(newPlan);
         loading();
         Thread.sleep(5000);
