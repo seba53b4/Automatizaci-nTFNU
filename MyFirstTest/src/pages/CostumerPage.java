@@ -538,21 +538,21 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
  }
  public void iccid_MSISDN_PosPLC(Plan newPlan) throws InterruptedException{
     
-   WebElement siguiente=findElement(botonnextaddpp);
+    WebElement siguiente = Wait(botonnextaddpp);
     //WebElement fact_pago2=findElement(botonfact_pago);
     Thread.sleep(2000);
     loading();
     Wait(msidn_posp);
-    findElement(msidn_posp);
+    //findElement(msidn_posp);
     Thread.sleep(5000);
     sendKeys(newPlan.getMSISDN(), msidn_posp); // 95728402
     //Wait(seleccionarmsisdn);
     Thread.sleep(4000);
      Wait_Click(seleccionarmsisdn);
      click(seleccionarmsisdn);
-    Thread.sleep(4000);
+     loading();
      Wait(iccid_posp);
-    findElement(iccid_posp);
+    //findElement(iccid_posp);
     sendKeys(newPlan.getICCID(), iccid_posp); // 89598071102044547292
     //Wait(seleccionariccid);
     Thread.sleep(2000);

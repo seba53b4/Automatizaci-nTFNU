@@ -65,7 +65,7 @@ public class Worker extends SwingWorker<Void,Void>{
           
            String str = bt.test();
            tabla.setValueAt(str, ident, 2);
-           bt.CerrarNavegador();
+           //bt.CerrarNavegador();
            sm.release();
            
           // MainFrame.getInstance().enableBotonEjecutar llamo a Mianframe y dejo enable el boton ejecutar

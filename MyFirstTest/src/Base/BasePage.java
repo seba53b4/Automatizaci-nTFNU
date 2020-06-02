@@ -37,9 +37,6 @@ public static BasePage initBaseTest() {
   
     if (bt == null) {
         bt = new BasePage();
-        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\drivers\\chromedriver.exe");
-        driver= new ChromeDriver();
-        driver.manage().window().maximize();
     }
     return bt;
  }  
@@ -66,8 +63,8 @@ public void closeDriver(){
 public void small_Wait(By e){
 
      FluentWait wai= new FluentWait(driver);
-     wai.withTimeout(20,TimeUnit.SECONDS);
-     wai.pollingEvery(1,TimeUnit.SECONDS);
+     wai.withTimeout(3,TimeUnit.SECONDS);
+     wai.pollingEvery(500,TimeUnit.MILLISECONDS);
      wai.ignoring(NoSuchElementException.class);
      wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
          @Override
@@ -85,18 +82,47 @@ public void small_Wait(By e){
      });  
 }
 
-public void Wait(By e){
+public WebElement Wait(By e){
   // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-try {
+//try 
+    WebElement wb = null;
+    while (wb == null) {
+        try{
+            small_Wait(e);
+            wb = findElement(e);
+            if (wb != null) {
+                return wb;
+            }
+        } catch(TimeoutException r ) {
+            System.err.println("El elemento esta visible");
+        }
+        catch (NoSuchElementException t) {
+            System.err.println("El elemento localizado");
+        }
+        catch (ElementNotInteractableException w) {
+            System.err.println("Esperar a que el elemento sea interactuable");
+        }
+        catch (NullPointerException z) {
+            System.err.println("Esperar a que el elemento no este vacio");
+        }
+    }
+    /*
      WebDriverWait firstResult = new WebDriverWait(driver, 3);
+     firstResult.ignoring(NoSuchElementException.class);
+      firstResult.ignoring(TimeoutException.class);
+      firstResult.ignoring(ElementNotInteractableException.class);
      if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
       firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
+//      firstResult.ignoring(NoSuchElementException.class);
+//      firstResult.ignoring(TimeoutException.class);
+//      firstResult.ignoring(ElementNotInteractableException.class);
      }
-     else
-     firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
+    else {
+     firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));*/
+        
 // Imprime en pantalla el primer resultado
-System.out.println(firstResult); 
-    } catch(TimeoutException r ) {
+    //System.out.println(firstResult); }
+  /*  } catch(TimeoutException r ) {
     System.err.println("El elemento esta visible");
     }
 catch (NoSuchElementException t) {
@@ -107,23 +133,54 @@ catch (ElementNotInteractableException w) {
     }
 catch (NullPointerException z) {
      System.err.println("Esperar a que el elemento no este vacio");
-    }
+    }*/
+  //  }
+  return wb;
 }
-public void Wait_Click(By e){
-    try {
-               // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-       WebDriverWait firstResult = new WebDriverWait(driver, 3);
+public WebElement Wait_Click(By e){
+   // try {
+          WebElement wb = null;
+    while (wb == null) {
+        try{
+            
+            WebDriverWait firstResult = new WebDriverWait(driver, 3);
+      
+            if(firstResult.until(ExpectedConditions.elementToBeClickable(e)).equals(true)) {
+                wb = findElement(e);
+                return wb;
+            }
+            
+            
+        } catch(TimeoutException r ) {
+            System.err.println("El elemento esta visible");
+        }
+        catch (NoSuchElementException t) {
+            System.err.println("El elemento localizado");
+        }
+        catch (ElementNotInteractableException w) {
+            System.err.println("Esperar a que el elemento sea interactuable");
+        }
+        catch (NullPointerException z) {
+            System.err.println("Esperar a que el elemento no este vacio");
+        }
+    }
+   
+// Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+     /*  WebDriverWait firstResult = new WebDriverWait(driver, 3);
+       firstResult.ignoring(NoSuchElementException.class);
+      firstResult.ignoring(TimeoutException.class);
+      firstResult.ignoring(ElementNotInteractableException.class);
         if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
       firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
       firstResult.until(ExpectedConditions.elementToBeClickable(e));
      }
-     else 
+     else {
         firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
         firstResult.until(ExpectedConditions.elementToBeClickable(e));
 // Imprime en pantalla el primer resultado
-System.out.println(firstResult); 
-        
-    } catch (TimeoutException r) {
+System.out.println(firstResult); }
+       */ 
+  /*  } catch (TimeoutException r) {
         System.err.println("El elemento esta visible");
     }
     catch (NoSuchElementException t) {
@@ -134,7 +191,8 @@ System.out.println(firstResult);
     }
      catch (NullPointerException z) {
      System.err.println("Esperar a que el elemento no este vacio");
-    }   
+    } */  
+  return wb;
     }
   
 public void Wait_element_progress(WebElement e){ 
@@ -227,6 +285,7 @@ public void visit(String url){
     } catch (NoAlertPresentException e){
         System.out.println(e+ "Error en visit");
     }
+            
     
 }
 
