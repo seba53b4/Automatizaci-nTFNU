@@ -64,29 +64,20 @@ public class TestNewResiClient extends Base.BaseTest {
         this.cp = new ClientPage();
         this.lp = LoginPage.initLoginPage();
         List<Client> realClients = new ArrayList<>();
-       // HashMap<String, List<Client>> dataSource = this.hf.readRegisterDataSource("new_residential_client");
-        //if (!dataSource.isEmpty()) {
-          //  for (HashMap.Entry<String, List<Client>> entry : dataSource.entrySet()) {
-               // String enviroment = entry.getKey();
-               
-                this.cp.initUrlBusqueda(client.getAmbiente());
-                this.lp.Nav(client.getAmbiente());
-                if(client.getAmbiente().contains("preprod")){
-                this.lp.signIn_preprod();
-                }
-                else{
-                this.lp.signIn();
-                }
-                //List<Client> newClients = entry.getValue();
-                //for (int i = 0; i < newClients.size(); i++) {
-                    Client newClient = this.cp.crear_Cliente_Residencial(client);
-                    if (client.getClientId() != null) {
-                        realClients.add(newClient);
-                    }
-                
-            //}
+        this.cp.initUrlBusqueda(client.getAmbiente());
+        this.lp.Nav(client.getAmbiente());
         
-        // only save in spreadsheet the real Clients
+        if(client.getAmbiente().contains("preprod")){
+            this.lp.signIn_preprod();
+        } else {
+            this.lp.signIn();
+        }
+        
+        Client newClient = this.cp.crear_Cliente_Residencial(client);
+        if (client.getClientId() != null) {
+            realClients.add(newClient);
+        }
+        
         if (realClients.size() > 0) {
             HandleFile.getHandleFile().generateRegisteredRClientDatasource(realClients);
         }

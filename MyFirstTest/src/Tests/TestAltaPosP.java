@@ -45,7 +45,6 @@ public class TestAltaPosP extends Base.BaseTest {
            } catch (IOException ex1) {
                Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex1);
            }
-           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
        }finally{
            //BasePage.initBaseTest().closeDriver();
@@ -61,11 +60,7 @@ public class TestAltaPosP extends Base.BaseTest {
        BasePage.getNewDriver();
        this.ap = new CostumerPage();
        this.lp = LoginPage.initLoginPage();
-       //this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>(); //pp plr plc
-       //HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");
-       //if (!dataSource.isEmpty()) {
-       //  for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
        String enviroment = plan.getAmbiente();
        this.ap.initUrlBusqueda(enviroment);
        this.lp.Nav(enviroment);
@@ -74,8 +69,6 @@ public class TestAltaPosP extends Base.BaseTest {
        } else{
            this.lp.signIn();
        }
-       // List<Plan> newPlans = entry.getValue();
-       //for (int i = 0; i < newPlans.size(); i++) {
        Plan newPlan = this.ap.AltaPosP(plan,enviroment);
        
        if (newPlan != null) {
@@ -85,17 +78,9 @@ public class TestAltaPosP extends Base.BaseTest {
        } else {
            System.out.println("ES RE NULO EL PLAN");
        }
-       
-       
-       //          }
-       //     }
-       // }
-         // only save in spreadsheet the real Plan
-        
-        if (realPlans.size() > 0) {
-            HandleFile.getHandleFile().generateRegisteredNewPlanDatasource(realPlans);
-        }
-       
-  }
+       HandleFile.getHandleFile().generateRegisteredNewPlanDatasource(realPlans);
+   }
+
+  
 }
 

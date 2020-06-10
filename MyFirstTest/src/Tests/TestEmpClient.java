@@ -66,28 +66,22 @@ public class TestEmpClient extends Base.BaseTest {
         this.lp = LoginPage.initLoginPage();
         
         List<EnterpriseClient> realClients = new ArrayList<>();
-        //HashMap<String, List<EnterpriseClient>> dataSource = this.hf.readRegisterDataSource("new_enterprise_client");
-        //if (!dataSource.isEmpty()) {
-          //  for (HashMap.Entry<String, List<EnterpriseClient>> entry : dataSource.entrySet()) {
-                String enviroment = cliente.getAmbiente();
-                this.cp.initUrlBusqueda(enviroment);
-                this.lp.Nav(enviroment);
-                if(enviroment.contains("preprod")){
-                this.lp.signIn_preprod();
-                }
-                else{
-                this.lp.signIn();
-                }
-               // List<EnterpriseClient> newClients = cliente;
-        //        for (int i = 0; i < newClients.size(); i++) {
-                    EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(cliente);
-                    if (newClient.getClientId() != null) {
-                        realClients.add(newClient);
-                    }
-                //}
-          //  }
-       // }
-        // only save in spreadsheet the real Clients
+        
+        String enviroment = cliente.getAmbiente();
+        this.cp.initUrlBusqueda(enviroment);
+        this.lp.Nav(enviroment);
+        if(enviroment.contains("preprod")){
+            this.lp.signIn_preprod();
+        }
+        else{
+            this.lp.signIn();
+        }
+        
+        EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(cliente);
+        if (newClient != null) {
+            realClients.add(newClient);
+        }
+        
         if (realClients.size() > 0) {
             HandleFile.getHandleFile().generateRegisteredEntClientDatasource(realClients);
         }
