@@ -70,9 +70,9 @@ public class CostumerPage extends Base.BasePage{
     
  
     By cuenta_facturacion=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/button[1]");
-    By cuenta_fact_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/button[2]");
-    By boton_crear_nuevacuenta_facturacion_pp= By.xpath("//button[@class='TableCtrl-button ParCtrl-editButton' and contains(text(),'Crear')]");
-    By boton_crear_cf_posp=By.xpath("//div[@class='nc-toolbar-cell TableCtrl-button-wrapper ParCtrl-editButton-wrapper'][1]");
+    By cuenta_fact_posp= By.xpath("//button[contains(text(),'Nueva cuenta de facturación post-pago')]");
+    By boton_crear_nuevacuenta_facturacion_pp= By.xpath("//button[contains(text(),'Nueva cuenta de facturación pre-pago')]");
+    By boton_crear_cf_posp=By.xpath("//button[@class=\"TableCtrl-button ParCtrl-editButton\" and contains(text(),'Crear ')][1]");
     
     By cuenta_facturacion_creada= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]");
     By servicios_lista=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div");
@@ -651,8 +651,6 @@ public void iccid_MSISDN_PosPLR(Plan newPlan) throws InterruptedException{
     validar_Factura();
     System.out.println("Sale Validar");
     
-    
-    
     WebElement btn_enviar = null;
     
     try{
@@ -1069,8 +1067,8 @@ public void obtener_factcreada_posp() throws InterruptedException{//metodos util
         
     }else {
         
-        WebElement scf= findElement(select_cuenta_facturacion);
         Wait(select_cuenta_facturacion);
+        WebElement scf= findElement(select_cuenta_facturacion);
         List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
         int size_list=selectfacturacreada.size();
         WebElement ultimo_select=selectfacturacreada.get(size_list - 1);

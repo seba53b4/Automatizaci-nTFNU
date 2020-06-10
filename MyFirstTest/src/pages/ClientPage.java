@@ -7,18 +7,10 @@ package pages;
 
 import Utils.Client;
 import Utils.EnterpriseClient;
-import java.awt.Desktop;
-import java.util.HashMap;
 import java.util.List;
-import limpieza_recurso.Limpieza_Class;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
-
-
-
-
 
 /**
  *
@@ -29,19 +21,17 @@ public class ClientPage extends Base.BasePage{
      By opcion_ClienteRe= By.xpath("//span[contains(text(),\"Cliente residencial\")]");
   
      By opcion_ClienteEm= By.xpath("//span[contains(text(),'Cliente empresial')]");
-     By nombR= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
+     
      By nombreE=By.xpath("//input[@class='gwt-TextBox nc-field-text-input'][1]");
      By RUT = By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
-     By apellidoR=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[4]/td[2]/div/table/tbody/tr/td/input");
+     By apellidoR=By.xpath("//input[@class='gwt-TextBox nc-field-text-input']//following::input[1]");
    
-     By categoria_cliente=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div");
-     By categoria_CE=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[4]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
+     By categoria_cliente=By.xpath("//i[@class=\"refsel_arrow\"][1]");
+     By categoria_CE=By.xpath("//i[@class=\"refsel_arrow\"][1]");
      By table_categoria_empresarial=By.xpath("/html/body/div[34]/div[2]/div[1]/div[2]");
      By list_cc= By.xpath("/html/body/div[34]/div[2]/div[1]");   //"/html/body/div[34]");
-    
-     //By obtener_tipoDoc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
-   
-     //By list_td=By.xpath("/html/body/div[34]/div[2]/div[1]");
+     By obtener_CR = By.xpath("//div[@class=\"refsel_name\" and contains(text(),'Particulares') and contains(text(),'Valor')] [1]");
+     
      
      By obtener_pasaporte=By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By numero_pasaporte= By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
@@ -52,14 +42,14 @@ public class ClientPage extends Base.BasePage{
      By table_contacto_primario= By.xpath("/html/body/div[34]/div[2]/div[1]/div[3]");
      By rol_contacto_primario= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[8]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
      By obtener_rol_contacto_primario= By.xpath("//div[contains(text(),'Firmante')]");
-     By numero_doc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
-     By direccion_cliente= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
+     By numero_doc= By.xpath("//tr[@class='gwt-row']//following::input[9]");
+     By direccion_cliente= By.xpath("//tr[@class='gwt-row']//following::input[15]");
      By direccion_CE= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
      By obtener_direccion_CE= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
-     By obtener_direccion= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
-     By boton_crear=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[3]/div/div/div/div/div[1]/button");
+     By obtener_direccion= By.xpath("//div[@class=\"refsel_table\"]//following::div[2]");
+     By boton_crear=By.xpath("//button[contains(text(),'Crear y consultar los detalles')]");
      By popup_cliente_existente = By.xpath("/html/body/div[33]/div/div[2]");
-     By seleccionar_tipo_doc= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
+     By seleccionar_tipo_doc= By.xpath("//i[@class=\"refsel_arrow\"]//following::i[1]");
      By table_DNI=By.xpath("//div[@class=\"refsel_table_holder ps-container ps-theme-default\"]");
      
      
@@ -89,8 +79,8 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(5000);
         click(opcion_ClienteRe);
         Thread.sleep(2000);
-        Wait(nombR);
-        sendKeys(newClient.getName(), nombR);
+        Wait(nombreE);
+        sendKeys(newClient.getName(), nombreE);
         Wait(apellidoR);
         sendKeys(newClient.getSecondName(), apellidoR);
         Thread.sleep(2000);
@@ -202,10 +192,10 @@ public class ClientPage extends Base.BasePage{
     public void obtener_CR(Client newClient) throws InterruptedException {//metodo utilizado
      
      
-     Wait_Click(categoria_cliente);
-     click(categoria_cliente);
+     //Wait_Click(categoria_cliente);
+     //click(categoria_cliente);
      Thread.sleep(2000);
-     click(obtener_Categoria());
+     click(obtener_CR);
      Thread.sleep(2000);
      
      

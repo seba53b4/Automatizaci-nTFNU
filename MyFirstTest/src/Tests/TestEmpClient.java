@@ -48,7 +48,7 @@ public class TestEmpClient extends Base.BaseTest {
            //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
        }finally{
-           BasePage.initBaseTest().closeDriver();
+           //BasePage.initBaseTest().closeDriver();
        }
     }
      
