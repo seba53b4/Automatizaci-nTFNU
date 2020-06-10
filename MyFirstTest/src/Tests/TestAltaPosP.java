@@ -27,7 +27,6 @@ import pages.LoginPage;
  */
 public class TestAltaPosP extends Base.BaseTest {
    private CostumerPage ap;
-   private HandleFile hf;
    private LoginPage lp;
    private Plan plan;
      
@@ -42,7 +41,7 @@ public class TestAltaPosP extends Base.BaseTest {
            return "OK";
        } catch (Exception ex) {
            try {
-               HandleFile.getHandleFile().registrarError("ERROR en Alta de PosPago \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+               HandleFile.getHandleFile().registrarError("ERROR en Alta de PosPago \n\n"+ ex +"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
                Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex1);
            }
@@ -78,8 +77,13 @@ public class TestAltaPosP extends Base.BaseTest {
        // List<Plan> newPlans = entry.getValue();
        //for (int i = 0; i < newPlans.size(); i++) {
        Plan newPlan = this.ap.AltaPosP(plan,enviroment);
-       if (newPlan.getName() != null) {
+       
+       if (newPlan != null) {
+           System.out.println("NO ES NULO EL PLAN");
            realPlans.add(newPlan);
+           plan = newPlan;
+       } else {
+           System.out.println("ES RE NULO EL PLAN");
        }
        
        
@@ -87,42 +91,11 @@ public class TestAltaPosP extends Base.BaseTest {
        //     }
        // }
          // only save in spreadsheet the real Plan
+        
         if (realPlans.size() > 0) {
-            this.hf.generateRegisteredNewPlanDatasource(realPlans);
+            HandleFile.getHandleFile().generateRegisteredNewPlanDatasource(realPlans);
         }
-       //Lee un archivo
-       // Le paso los object id
-       //Se trabaja con el user
-      /* String nombre_plan= "";
-       BasePage.initBaseTest();
-       LoginPage lp = new LoginPage();
        
-    
-       //lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002");
-       lp.Nav();
-       lp.signIn();
-       // if("PLR282".equals(nombre_plan)){
-        //ap.seleccionar_Canal("9156314432513103959");
-        //Thread.sleep(5000);
-        //ap.seleccionar_PosPR("PLR314");
-        //Thread.sleep(5000);
-        //ap.obtener_PPActivo("PLR314","");
-        //ap.iccid_MSISDN_PosPLR();
-       // }
-       // else 
-       //nombre_plan="PLC292";
-      // ap.seleccionar_Canal("9156311923013095250");
-       //ap.seleccionar_PosPC("PLC305");
-      // ap.obtener_PPActivo("PLC305");
-      // ap.iccid_MSISDN_PosPLC();
-      
-        Thread.sleep(4000);
-        //super.CerrarNavegador();
-       
-   } */ 
-     
- //  }
   }
 }
 

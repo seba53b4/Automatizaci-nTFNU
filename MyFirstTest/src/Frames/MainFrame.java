@@ -5,36 +5,14 @@
  */
 package Frames;
 
-import Base.BasePage;
 import Base.BaseTest;
-import Tests.TestAltaPP;
-import Tests.TestAltaPosP;
-import Tests.TestEmpClient;
-import Tests.TestNewResiClient;
-import Utils.CadenaUtils;
-import Utils.Client;
 import Utils.EnterpriseClient;
 import Utils.HandleFile;
-import Utils.Plan;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import pages.LoginPage;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.JTableHeader;
 
 import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
@@ -44,19 +22,10 @@ import Utils.CadenaUtils;
 import Utils.Client;
 import Utils.Plan;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 /**
  *
@@ -65,8 +34,7 @@ import javax.swing.JTable;
 public class MainFrame extends javax.swing.JFrame {
 
     private String dir;
-    private HashMap<String, List<Plan>> planesPP;
-    private HashMap<String, List<Plan>> planesPosP;
+    private HashMap<String, List<Plan>> planes;
     private HashMap<String, List<EnterpriseClient>> clientesEmp;
     private HashMap<String, List<Client>>  clientesRes;
     private HashMap<String, BaseTest> tests;
@@ -81,13 +49,6 @@ public class MainFrame extends javax.swing.JFrame {
         return clientesRes;
     }
 
-    public HashMap<String, List<Plan>> getPlanesPP() {
-        return planesPP;
-    }
-
-    public HashMap<String, List<Plan>> getPlanesPosP() {
-        return planesPosP;
-    }
 
     public HashMap<String, List<EnterpriseClient>> getClientesEmp() {
         return clientesEmp;
@@ -175,14 +136,14 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         try {
-            planesPP = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
+            planes = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
         } catch (Exception e) {
              System.out.println("Error al cargar plan" + e);
         }
          
         tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Plan>> entry : planesPP.entrySet()) {
+        for (Map.Entry<String, List<Plan>> entry : planes.entrySet()) {
             for (Plan p : entry.getValue()) {
                 String str = "";
                 BaseTest bt = null;

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -63,7 +64,7 @@ public void closeDriver(){
 public void small_Wait(By e){
 
      FluentWait wai= new FluentWait(driver);
-     wai.withTimeout(3,TimeUnit.SECONDS);
+     wai.withTimeout(5,TimeUnit.SECONDS);
      wai.pollingEvery(500,TimeUnit.MILLISECONDS);
      wai.ignoring(NoSuchElementException.class);
      wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
@@ -74,7 +75,7 @@ public void small_Wait(By e){
                 return false;
                 }                   
                  else    
-                System.out.println("found");
+                System.out.println("found el elemento " + e.toString());
              
                  return true;
             
@@ -83,8 +84,8 @@ public void small_Wait(By e){
 }
 
 public WebElement Wait(By e){
-  // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-//try 
+    // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+    //try
     WebElement wb = null;
     while (wb == null) {
         try{
@@ -93,107 +94,67 @@ public WebElement Wait(By e){
             if (wb != null) {
                 return wb;
             }
-        } catch(TimeoutException r ) {
-            System.err.println("El elemento esta visible");
+        }catch(TimeoutException r ) {
+            System.err.println("NO esta visible el elemento: " + e);
         }
         catch (NoSuchElementException t) {
-            System.err.println("El elemento localizado");
+            System.err.println("El elemento localizado" + e);
+        }catch (ElementClickInterceptedException ea){
+            System.err.println("Elemento interceptado al clickear " + e);
         }
         catch (ElementNotInteractableException w) {
-            System.err.println("Esperar a que el elemento sea interactuable");
+            System.err.println("Esperar a que el elemento sea interactuable" + e);
         }
         catch (NullPointerException z) {
-            System.err.println("Esperar a que el elemento no este vacio");
+            System.err.println("Esperar a que el elemento no este vacio" + e);
         }
     }
-    /*
-     WebDriverWait firstResult = new WebDriverWait(driver, 3);
-     firstResult.ignoring(NoSuchElementException.class);
-      firstResult.ignoring(TimeoutException.class);
-      firstResult.ignoring(ElementNotInteractableException.class);
-     if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
-      firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
-//      firstResult.ignoring(NoSuchElementException.class);
-//      firstResult.ignoring(TimeoutException.class);
-//      firstResult.ignoring(ElementNotInteractableException.class);
-     }
-    else {
-     firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));*/
-        
-// Imprime en pantalla el primer resultado
-    //System.out.println(firstResult); }
-  /*  } catch(TimeoutException r ) {
-    System.err.println("El elemento esta visible");
-    }
-catch (NoSuchElementException t) {
-     System.err.println("El elemento localizado");
-    }
-catch (ElementNotInteractableException w) {
-     System.err.println("Esperar a que el elemento sea interactuable");
-    }
-catch (NullPointerException z) {
-     System.err.println("Esperar a que el elemento no este vacio");
-    }*/
-  //  }
-  return wb;
+    
+    return wb;
 }
 public WebElement Wait_Click(By e){
-   // try {
-          WebElement wb = null;
+    
+    WebElement wb = null;
+    int i = 0;
     while (wb == null) {
         try{
-            
+            System.out.println("Ejecucion num: "+i+" en wait click");
             WebDriverWait firstResult = new WebDriverWait(driver, 3);
-      
-            if(firstResult.until(ExpectedConditions.elementToBeClickable(e)).equals(true)) {
-                wb = findElement(e);
-                return wb;
-            }
+            firstResult.until(ExpectedConditions.presenceOfElementLocated(e));
+            System.out.println("Expected condition presence" + ExpectedConditions.presenceOfElementLocated(e));
+            /*if (ExpectedConditions.presenceOfElementLocated(e)) {
+                System.out.println("Elemento presente");
+            } else {
+                System.out.println("Elemento NO presente");
+            }*/
+            firstResult.until(ExpectedConditions.elementToBeClickable(e));
+            System.out.println("Expected condition clickable" + ExpectedConditions.elementToBeClickable(e));
+            /*if (ExpectedConditions.elementToBeClickable(e).equals(true)) {
+                System.out.println("Elemento Clickeable");
+            }else {
+                System.out.println("Elemento NO clickeable");
+            }*/
             
+            wb = findElement(e);
             
         } catch(TimeoutException r ) {
-            System.err.println("El elemento esta visible");
+            System.err.println("NO esta visible el elemento: " + e);
         }
         catch (NoSuchElementException t) {
-            System.err.println("El elemento localizado");
+            System.err.println("El elemento localizado" + e);
+        }catch (ElementClickInterceptedException ea){
+            System.err.println("Elemento interceptado al clickear " + e);
         }
         catch (ElementNotInteractableException w) {
-            System.err.println("Esperar a que el elemento sea interactuable");
+            System.err.println("Esperar a que el elemento sea interactuable" + e);
         }
         catch (NullPointerException z) {
-            System.err.println("Esperar a que el elemento no este vacio");
+            System.err.println("Esperar a que el elemento no este vacio" + e);
         }
     }
-   
-// Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
-     /*  WebDriverWait firstResult = new WebDriverWait(driver, 3);
-       firstResult.ignoring(NoSuchElementException.class);
-      firstResult.ignoring(TimeoutException.class);
-      firstResult.ignoring(ElementNotInteractableException.class);
-        if(firstResult.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(e)).equals(true)){  
-      firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
-      firstResult.until(ExpectedConditions.elementToBeClickable(e));
-     }
-     else {
-        firstResult.until(ExpectedConditions.visibilityOfElementLocated(e));
-        firstResult.until(ExpectedConditions.elementToBeClickable(e));
-// Imprime en pantalla el primer resultado
-System.out.println(firstResult); }
-       */ 
-  /*  } catch (TimeoutException r) {
-        System.err.println("El elemento esta visible");
-    }
-    catch (NoSuchElementException t) {
-        System.err.println("El elemento localizado");
-    }
-    catch (ElementNotInteractableException w) {
-     System.err.println("Esperar a que el elemento sea interactuable");
-    }
-     catch (NullPointerException z) {
-     System.err.println("Esperar a que el elemento no este vacio");
-    } */  
-  return wb;
-    }
+    
+    return wb;
+}
   
 public void Wait_element_progress(WebElement e){ 
 
@@ -276,15 +237,19 @@ public Boolean isDisplayed(By locator){
 
 public void visit(String url){
     
-    driver.get(url);
-    Alert a = null;
-    try
+    
+    
+    /*try
     {
+        
+        Alert a = null;
         a = driver.switchTo().alert();
         a.accept();
     } catch (NoAlertPresentException e){
         System.out.println(e+ "Error en visit");
-    }
+    } finally{*/
+        driver.get(url);
+    //}
             
     
 }
