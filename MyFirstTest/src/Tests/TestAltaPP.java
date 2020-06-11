@@ -44,7 +44,7 @@ public class TestAltaPP extends Base.BaseTest{
        } catch (Exception ex) {
            
            try {
-               HandleFile.getHandleFile().registrarError("ERROR en Alta de PP \n\n"+ ex.getMessage()+"\n\n---------------------------------------------------------------------------\n\n");
+               HandleFile.getHandleFile().registrarError("ERROR en Alta de PP \n\n"+ ex+"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
                Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex1);
            }

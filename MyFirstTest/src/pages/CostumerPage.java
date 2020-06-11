@@ -25,7 +25,7 @@ public class CostumerPage extends Base.BasePage{
    
     By menu= By.xpath("//*[@id=\\\"menuItem_0\\\"]/ul/li[1]/a/span");
     By SO= By.linkText("Órdenes de Venta");
-    By nuevaSO= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div/div/div/div[1]/button");
+    By nuevaSO= By.xpath("//button[contains(text(),'Nueva orden de venta')]");
     By canaldistribucion= By.className("refsel_single");
     By combobox= By.className("refsel_table");
     By pruebacanal= By.cssSelector("#id_refsel1613764204_div > div > input");
@@ -46,7 +46,7 @@ public class CostumerPage extends Base.BasePage{
     By tabla_cuenta_controlada=By.xpath("//div[@class='roe-widget-header__sh-inner _hidden' and contains(text(),'Cuenta Controlada')]");
     By productosasociados=By.cssSelector("body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.left_col > div.left_col__inner > div.left_col__inner-wrap > div:nth-child(2)");
     By seleccionarPLTEJ=By.className("roe-widget-content");
-    By msisdn = By.xpath("//input[@class='refsel_input']//following::input[25]");
+    By msisdn = By.xpath("//td[@class=\"cell name\"]/.//span[contains(text(),'MSISDN')]//following::input[2]");
     By msidn_posp= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[8]/td[2]/div/span/div/div/div[1]/input");
     By msidn_posplr=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[10]/td[2]/div/span/div/div/div[1]/input");
     
@@ -57,7 +57,7 @@ public class CostumerPage extends Base.BasePage{
     By msidnPPPLKMIG=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input");
     ///html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[4]/div/div/div/div[2]/div/table/tbody/tr[9]/td[2]/div/span/div/div/div[1]/input
     By selectmsidnPPPLKMIG=By.xpath("/html/body/div[4]/div[2]/div[1]/div");
-    By iccid= By.xpath("//input[@class='refsel_input']//following::input[23]");
+    By iccid= By.xpath("//td[@class=\"cell name\"]/.//span[contains(text(),'ICCID')]//following::input[2]");
     By iccid_posp=By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[5]/td[2]/div/div/div/div[1]/input");
     By iccid_plr= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[2]/div/div/div[3]/table[1]/tbody/tr/td/div/div[3]/table/tbody/tr/td/div/div/table/tbody/tr/td/div/div/div/div/div/div[2]/div/div/div/div[2]/div/table/tbody/tr[3]/td[2]/div/div/div/div[1]/input");
     By seleccionariccid= By.xpath("/html/body/div[4]/div[2]/div[1]/div");
@@ -69,9 +69,9 @@ public class CostumerPage extends Base.BasePage{
     By boton_revision1=By.xpath("//a[@class='gwt-InlineHyperlink roe-pathList'][@href=\"#review\" and contains(text(),'Revisión')]");
     
  
-    By cuenta_facturacion=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/button[1]");
+    By cuenta_facturacion=By.xpath("//button[contains(text(),'Nueva cuenta de facturación pre-pago')]");
     By cuenta_fact_posp= By.xpath("//button[contains(text(),'Nueva cuenta de facturación post-pago')]");
-    By boton_crear_nuevacuenta_facturacion_pp= By.xpath("//button[contains(text(),'Nueva cuenta de facturación pre-pago')]");
+    By boton_crear_nuevacuenta_facturacion_pp= By.xpath("//button[@class=\"TableCtrl-button ParCtrl-editButton\" and contains(text(),'Crear')]");
     By boton_crear_cf_posp=By.xpath("//button[@class=\"TableCtrl-button ParCtrl-editButton\" and contains(text(),'Crear ')][1]");
     
     By cuenta_facturacion_creada= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]");
@@ -86,13 +86,13 @@ public class CostumerPage extends Base.BasePage{
    
     By boton_confirmar_firma= By.xpath("//a[@href='#' and contains(text(),'Firmar')]");
     By boton_guardar_firma=By.xpath("//button[@class='TableCtrl-button ParCtrl-editButton' and contains(text(),'Guardar')]");
-    By boton_crearfact= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[10]");
+   // By boton_crearfact= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[10]");
     By list_botonenviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]");
     By boton_enviar= By.xpath("//div[@class=\"tfn_button_panel_submit\" and a[contains(text(),'Enviar')]]");
     
     By boton_factSinPagar= By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'][@aria-disabled='false'and span[contains(text(),'Sí')]] ");
     
-    By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/div/div/div");
+    By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[14]/td[2]/div/table/tbody/tr/td/div/div/div");
     By boton_cerrarSO = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[3]");
     By opcion_cambiado= By.xpath("//h1[contains(text(),'Cambiado a')]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
@@ -485,6 +485,7 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     
     Wait(msisdn);
     Thread.sleep(4000);
+    System.out.println("Numero a agregar "+ newPlan.getMSISDN());
     sendKeys(newPlan.getMSISDN(), msisdn);
     Thread.sleep(4000);
     Wait_Click(seleccionarmsisdn);
@@ -497,44 +498,45 @@ public void iccid_MSISDN_PP(Plan newPlan) throws InterruptedException{
     click(seleccionariccid);
     Thread.sleep(2000);
     }
+    
+   // Facturacion y Pago - Proceso de Creacion de Factura
+    
     Wait_Click(botonfact_pago);
     Thread.sleep(2000);
     click(botonfact_pago);
-    
     obtener_factcreada_pp();
-   
     Thread.sleep(4000);
-     Wait_Click(boton_crearfact);
-     click(boton_crearfact);
+    
+    // Revision - Validar Factura
+    
+    System.out.println("Entra a Validar");
     validar_Factura();
+    System.out.println("Sale Validar");
     
-    Thread.sleep(2000);
-    obtener_botonenviar();
+    WebElement btn_enviar = null;
+    try{
+        btn_enviar = findElement(boton_enviar);
+    } catch (NoSuchElementException e){
+        System.out.println("elemento no localizado el enviar");
+    }
     
-    Thread.sleep(5000);
-   if(validar_Deuda()){
-                    
-                    System.out.println("HAY VALIDAR");
-                    Thread.sleep(5000);
-                    
-                    
-                } else {
-                    System.out.println("NO HAY VALIDAR");
-                    Thread.sleep(5000);    
-                }
-         //findElement(boton_cerrarSO);
-        // Wait(boton_cerrarSO);
-         String so = obtener_nombre_SO();
-         System.out.println(obtener_nombre_SO());
-         Thread.sleep(4000);
-         Wait_Click(boton_cerrarSO);
-         click(boton_cerrarSO);
-         obtener_SO(so);
-         String url_SO=obtener_urlSO();
-         newPlan.setUrlSO(url_SO);
-         String statusSO=get_estadoSO(newPlan);
-         newPlan.setStatuSO(statusSO);
-         newPlan.setName(newPlan.getName());            
+    if (btn_enviar != null) {
+        System.out.println("Entra en enviar");
+        obtener_botonenviar();
+        System.out.println("Sale de enviar");
+    }else {
+        System.out.println("El boton enviar ya fue clickeado");
+    } 
+    
+    if(validar_Deuda()){
+     System.out.println("HAY VALIDAR");
+     Thread.sleep(5000);
+ }
+   else {
+     System.out.println("NO HAY VALIDAR");
+     Thread.sleep(5000);
+    }
+    cerrarProcesoSO(newPlan);        
  }
  public void iccid_MSISDN_PosPLC(Plan newPlan) throws InterruptedException{
     
@@ -747,30 +749,31 @@ WebElement be= findElement(boton_enviar);
 
 public Boolean validar_Deuda()
 {
-   Boolean ret=false;
+    Boolean ret=false;
     try{
-   
-    By button_yes = By.xpath("//button[@aria-disabled='false' and span[contains(text(),'Sí')]]"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
-    WebElement boton= findElement(button_yes);
-   
-     
+        
+        By button_yes = By.xpath("//button[@aria-disabled='false' and span[contains(text(),'Sí')]]"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
+        Wait_Click(button_yes);
+        WebElement boton= findElement(button_yes);
+        
         System.out.println("boton cartel deuda-->"+boton);
- 
+        
+       
         if (boton!= null) {
-           
-                    click(boton);
-                    ret=true;
-                    
-                 }
-                    
-                 }catch (NoSuchElementException e)
-                     {
-                         System.out.println(e);
-                     }
-        System.out.println("valor retorno Validad Deuda-->"+ret);
-        return ret;
- 
+            
+            click(boton);
+            ret=true;
+            
         }
+        
+    }catch (NoSuchElementException e)
+    {
+        System.out.println(e);
+    }
+    System.out.println("valor retorno Validad Deuda-->"+ret);
+    return ret;
+    
+}
         
 public void validar_Factura() throws InterruptedException
 {
@@ -783,19 +786,20 @@ public void validar_Factura() throws InterruptedException
     By nombre_clase_boton_nueva_factura_enabled=By.xpath("//div[@class='tfn_button_panel'  and a[contains(text(),'Nueva factura')]]");
     //WebElement boton_nueva_fact_enabled=nombre_clase_boton_nueva_factura_enabled;
     WebElement nueva_fact_enable = (WebElement)jse.executeScript("return document.getElementsByClassName('tfn_button_panel')[2]");
-    WebElement btn_nuevaFactura = findElement(nombre_clase_boton_nueva_factura_enabled);
+    WebElement btn_nuevaFactura = null;
     WebElement btn_cerrarSO = null;
     int i=0;
 
 
     try{
-        Thread.sleep(5000);
-
+        //Thread.sleep(5000);
+        Wait_Click(nombre_clase_boton_nueva_factura_enabled);
+        btn_nuevaFactura = findElement(nombre_clase_boton_nueva_factura_enabled);
+        
         if(btn_nuevaFactura != null){
             System.out.println("ENTRO A NUEVA FACTURA");
-            Wait_Click(nombre_clase_boton_nueva_factura_enabled);
             click(nombre_clase_boton_nueva_factura_enabled);
-            btn_nuevaFactura = null;
+           
         } else {
             // nueva_fact_enable.click();
         }
@@ -816,6 +820,9 @@ public void validar_Factura() throws InterruptedException
         }catch (NoSuchElementException e)
         {
             System.out.println("error en loading NoSuchElementException");
+        }catch (NullPointerException e)
+        {
+            System.out.println("error en loading NullPointerException");
         }
 
         try{
@@ -824,7 +831,12 @@ public void validar_Factura() throws InterruptedException
         }catch (NoSuchElementException e)
         {
             System.out.println("No se encuentra boton validar factura "+nombre_clase_boton_validar_factura.toString());
+        }catch (NullPointerException e)
+        {
+            System.out.println("error validar factura enabled NullPointerException");
         }
+        
+        
         try{
             loading();
         } catch (StaleElementReferenceException e)
@@ -833,14 +845,27 @@ public void validar_Factura() throws InterruptedException
         }catch (NoSuchElementException e)
         {
             System.out.println("error en loading NoSuchElementException");
+        }catch (NullPointerException e)
+        {
+            System.out.println("error en loading NullPointerException");
         }
 
         try{
             validar_fact_disable = findElement(nombre_clase_boton_validar_factura_disabled);
+            if (validar_fact_disable != null) {
+                break;
+            }
         }catch (NoSuchElementException e)
         {
             System.out.println("El validar factura no esta disabled "+nombre_clase_boton_validar_factura_disabled.toString());
+        }catch (NullPointerException e)
+        {
+            System.out.println("error validar factura disabled NullPointerException");
         }
+        
+        
+        
+        
         try{
             btn_cerrarSO = findElement(boton_cerrarSO);
         }catch (NoSuchElementException e)
@@ -1062,6 +1087,7 @@ public void obtener_factcreada_posp() throws InterruptedException{//metodos util
         Thread.sleep(5000);
         click(boton_crear_cf_posp);
         Thread.sleep(5000);
+        
         Wait_Click(boton_revision);
         click(boton_revision);
         

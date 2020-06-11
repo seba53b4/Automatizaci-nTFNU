@@ -45,7 +45,7 @@ public class ClientPage extends Base.BasePage{
      By numero_doc= By.xpath("//tr[@class='gwt-row']//following::input[9]");
      By direccion_cliente= By.xpath("//tr[@class='gwt-row']//following::input[15]");
      By direccion_CE= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
-     By obtener_direccion_CE= By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
+     By obtener_direccion_CE= By.xpath("//div[@class=\"refsel_table\"]//following::div[2]");
      By obtener_direccion= By.xpath("//div[@class=\"refsel_table\"]//following::div[2]");
      By boton_crear=By.xpath("//button[contains(text(),'Crear y consultar los detalles')]");
      By popup_cliente_existente = By.xpath("/html/body/div[33]/div/div[2]");
@@ -72,11 +72,13 @@ public class ClientPage extends Base.BasePage{
     }
     public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException, Exception
     { 
-        Actions action=new Actions(driver);     
+        Actions action=new Actions(driver);  
+        Wait(creacion_rapida);
         WebElement cliente_resi=findElement(creacion_rapida);
         action.moveToElement(cliente_resi).build().perform(); 
+        Thread.sleep(2000);
         Wait(opcion_ClienteRe);
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         click(opcion_ClienteRe);
         Thread.sleep(2000);
         Wait(nombreE);
@@ -86,6 +88,7 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(2000);
         click(categoria_cliente);
         obtener_CR(newClient);
+        Thread.sleep(500);
         Wait(seleccionar_tipo_doc);
         click(seleccionar_tipo_doc);
         obtener_TipoDoc(newClient);
@@ -133,7 +136,9 @@ public class ClientPage extends Base.BasePage{
     
     public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient, boolean handleDuplicate) throws InterruptedException{
     
-    Actions action=new Actions(driver);     
+    Actions action=new Actions(driver);
+    
+    Wait(creacion_rapida);
     WebElement cliente_resi=findElement(creacion_rapida);
     action.moveToElement(cliente_resi).build().perform();
     Thread.sleep(2000);

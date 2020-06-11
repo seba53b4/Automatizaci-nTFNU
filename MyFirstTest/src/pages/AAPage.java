@@ -41,8 +41,8 @@ public class AAPage extends Base.BasePage{
         click(login_volver);
         WebElement user_login1=findElement(user_login);
         WebElement user_pass1=findElement(user_pass);
-        this.sendKeys("isecco", user_login1);
-        this.sendKeys("Movistar.1", user_pass1);
+        this.sendKeys("isecco", user_login);
+        this.sendKeys("Movistar.1", user_pass);
         click(boton_entrar);
     }
     
@@ -54,7 +54,7 @@ public class AAPage extends Base.BasePage{
         //Wait(consulta_SitActual);
         //click(consulta_SitActual);
         WebElement input_telef =findElement(input_Telefono);
-        sendKeys(num, input_telef);
+        sendKeys(num, input_Telefono);
         click(boton_Buscar);
         WebElement wb = seleccionarEstadoActual("PRE");
         

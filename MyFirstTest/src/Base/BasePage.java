@@ -14,6 +14,7 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -51,7 +52,6 @@ public static void getNewDriver(){
     System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\drivers\\chromedriver.exe");
     driver= new ChromeDriver();
     driver.manage().window().maximize();
-    
 }
 
 
@@ -76,7 +76,6 @@ public void small_Wait(By e){
                 }                   
                  else    
                 System.out.println("found el elemento " + e.toString());
-             
                  return true;
             
          }
@@ -104,12 +103,13 @@ public WebElement Wait(By e){
         }
         catch (ElementNotInteractableException w) {
             System.err.println("Esperar a que el elemento sea interactuable" + e);
+        }catch (UnhandledAlertException w) {
+            System.err.println("Aparece un mensaje de Alerta antes de " + e);
         }
         catch (NullPointerException z) {
             System.err.println("Esperar a que el elemento no este vacio" + e);
         }
     }
-    
     return wb;
 }
 public WebElement Wait_Click(By e){
@@ -122,22 +122,14 @@ public WebElement Wait_Click(By e){
             WebDriverWait firstResult = new WebDriverWait(driver, 3);
             firstResult.until(ExpectedConditions.presenceOfElementLocated(e));
             System.out.println("Expected condition presence" + ExpectedConditions.presenceOfElementLocated(e));
-            /*if (ExpectedConditions.presenceOfElementLocated(e)) {
-                System.out.println("Elemento presente");
-            } else {
-                System.out.println("Elemento NO presente");
-            }*/
+            
             firstResult.until(ExpectedConditions.elementToBeClickable(e));
             System.out.println("Expected condition clickable" + ExpectedConditions.elementToBeClickable(e));
-            /*if (ExpectedConditions.elementToBeClickable(e).equals(true)) {
-                System.out.println("Elemento Clickeable");
-            }else {
-                System.out.println("Elemento NO clickeable");
-            }*/
+            
             
             wb = findElement(e);
             
-        } catch(TimeoutException r ) {
+        }catch(TimeoutException r ) {
             System.err.println("NO esta visible el elemento: " + e);
         }
         catch (NoSuchElementException t) {
@@ -147,6 +139,8 @@ public WebElement Wait_Click(By e){
         }
         catch (ElementNotInteractableException w) {
             System.err.println("Esperar a que el elemento sea interactuable" + e);
+        }catch (UnhandledAlertException w) {
+            System.err.println("Aparece un mensaje de Alerta antes de " + e);
         }
         catch (NullPointerException z) {
             System.err.println("Esperar a que el elemento no este vacio" + e);
@@ -171,7 +165,7 @@ public void Wait_element_progress(WebElement e){
                 return false;
                 }                   
                 else 
-                System.out.println("found");
+                System.out.println("found el elemento: "+ e);
                  return true;
             
          }
@@ -210,10 +204,10 @@ public String getText(By locator){
 public String getText(WebElement element){
     return element.getText();
 }
-
+/*
 public void sendKeys(String inputText,WebElement locator){
     locator.sendKeys(inputText);
-}
+}*/
 public void sendKeys(String inputText,By locator){
     driver.findElement(locator).sendKeys(inputText);
 }
