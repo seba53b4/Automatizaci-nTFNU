@@ -109,6 +109,8 @@ public class CostumerPage extends Base.BasePage{
     By body_nombre_orden=By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/table/tbody[1]");
     By link_generar_doc= By.xpath("//a[@href and contains(text(),\"Generar documento\")]");
     By seleccionar_agente_esoecialista=By.xpath("//div[@class=\"refsel_name\"][1]");
+    By lista_pp=By.xpath("//div[@class=\"roe-widget-header__sh-inner _hidden\" and contains(text(),'PrePagos')]");
+    By lista_plr=By.xpath("//div[@class=\"roe-widget-header__sh-inner _hidden\" and contains(text(),'Regulares')]");
     
     public CostumerPage() {
        super();     
@@ -395,8 +397,8 @@ public class CostumerPage extends Base.BasePage{
 public void seleccionar_PP(Plan newPlan) throws InterruptedException {
    
    loading();
-    //Wait_element(obtenerList_Planes("PrePagos"));
-    obtenerList_Planes("PrePagos").click();
+   Wait_Click(lista_pp);
+   click(lista_pp);
    Wait(table);
    WebElement tablePP=findElement(table);
    List<WebElement> pp= tablePP.findElements(By.tagName("span"));
@@ -430,8 +432,8 @@ public void seleccionar_PosPC(Plan newPlan) throws InterruptedException {
 }
 public void seleccionar_PosPR(Plan newPlan) throws InterruptedException {
    WebElement plr=null;
-   //Wait_element(obtenerList_Planes("Regulares"));
-    obtenerList_Planes("Regulares").click();
+   Wait_Click(lista_plr);
+   click(lista_plr);
    Wait(table_plr);
    WebElement tablePP=findElement(table_plr);
    List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
@@ -718,7 +720,7 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
   * @param nombre_plan
   * @return 
   */
-public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
+/*public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
  WebElement pp=null;   
  Wait(Lis_planes);
  WebElement obtener_pp= findElement(Lis_planes);
@@ -729,7 +731,7 @@ public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
         
         }
  return pp;
-} 
+}*/ 
 
 public void obtener_botonenviar(){
 WebElement boton_envia = null;
