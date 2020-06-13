@@ -38,7 +38,7 @@ public class TestAltaPosP extends Base.BaseTest {
        
         BasePage.initBaseTest();
         this.ap = new CostumerPage();
-        this.lp = new LoginPage();
+        this.lp = LoginPage.getLoginPage();;
         this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>();
         HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("new_plan");

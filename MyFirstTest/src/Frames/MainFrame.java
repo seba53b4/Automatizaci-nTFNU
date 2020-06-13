@@ -5,7 +5,9 @@
  */
 package Frames;
 
+import Base.BasePage;
 import Base.BaseTest;
+import Objects.Usuario;
 import Utils.EnterpriseClient;
 import Utils.HandleFile;
 import java.util.Map;
@@ -39,12 +41,9 @@ public class MainFrame extends javax.swing.JFrame {
     private HashMap<String, List<Client>>  clientesRes;
     private HashMap<String, BaseTest> tests;
     private static  MainFrame mf;
-    private String user;
-    private String pass;
     
+    private Usuario user;
     
-
-
     public HashMap<String, List<Client>> getClientesRes() {
         return clientesRes;
     }
@@ -53,17 +52,20 @@ public class MainFrame extends javax.swing.JFrame {
     public HashMap<String, List<EnterpriseClient>> getClientesEmp() {
         return clientesEmp;
     }
-    public void setUser(String user) {
-        this.user = user;
-        LoginPage.initLoginPage().setUsuario(user);
-        
+    
+    public Usuario getUser() {
+        return user;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-        LoginPage.initLoginPage().setPassword(pass);
+    public void setUser(Usuario user) {
+        this.user = user;
+        
     }
     
+    public void iniciarUsuario(Usuario user){
+        this.user = user;
+        LoginPage.initLoginPage(user.getUser(), user.getPassword());
+    }
      /**
      * Creates new form MainFrame
      *
@@ -84,12 +86,13 @@ public class MainFrame extends javax.swing.JFrame {
        imagenfondo image=new imagenfondo();
        image.setImage("/Images/fondo-horizonte-futurista_23-2148292294.jpg");
        setContentPane(image);  
-     initComponents();
-        this.user = "random";
-        this.pass = "random";
+       initComponents();
+        
         tests = new HashMap<>();
         //BasePage.initBaseTest();
-        LoginPage.initLoginPage();
+        
+        
+        
         this.setLocationRelativeTo(null);
         TableColumn c =  this.TablaTest.getColumnModel().getColumn(0);//
        // c.setPreferredWidth(25);
@@ -167,6 +170,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

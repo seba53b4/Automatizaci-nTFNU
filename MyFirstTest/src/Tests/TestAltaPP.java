@@ -48,7 +48,6 @@ public class TestAltaPP extends Base.BaseTest{
            } catch (IOException ex1) {
                Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex1);
            }
-           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
        } finally{
       //     BasePage.initBaseTest().closeDriver();
@@ -60,7 +59,7 @@ public class TestAltaPP extends Base.BaseTest{
    {      
        BasePage.getNewDriver();
        this.ap = new CostumerPage();
-       this.lp = LoginPage.initLoginPage();
+       this.lp = LoginPage.getLoginPage();
        List<Plan> realPlans = new ArrayList<>();
        
        String enviroment = plan.getAmbiente();

@@ -59,7 +59,7 @@ public class TestAltaPosP extends Base.BaseTest {
        
        BasePage.getNewDriver();
        this.ap = new CostumerPage();
-       this.lp = LoginPage.initLoginPage();
+       this.lp = LoginPage.getLoginPage();
        List<Plan> realPlans = new ArrayList<>(); //pp plr plc
        String enviroment = plan.getAmbiente();
        this.ap.initUrlBusqueda(enviroment);

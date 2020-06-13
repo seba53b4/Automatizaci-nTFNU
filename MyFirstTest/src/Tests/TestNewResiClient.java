@@ -48,7 +48,6 @@ public class TestNewResiClient extends Base.BaseTest {
              } catch (IOException ex1) {
                  Logger.getLogger(TestNewResiClient.class.getName()).log(Level.SEVERE, null, ex1);
              }
-           //Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex);
            return "Falló";
        }finally{
            //BasePage.initBaseTest().closeDriver();
@@ -62,7 +61,8 @@ public class TestNewResiClient extends Base.BaseTest {
         
         BasePage.getNewDriver();
         this.cp = new ClientPage();
-        this.lp = LoginPage.initLoginPage();
+        this.lp = LoginPage.getLoginPage();
+        
         List<Client> realClients = new ArrayList<>();
         this.cp.initUrlBusqueda(client.getAmbiente());
         this.lp.Nav(client.getAmbiente());

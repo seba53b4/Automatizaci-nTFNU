@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author sdominguez
  */
 public class LoginPage extends Base.BasePage{
+    
     By botonnavegador= By.xpath("//*[@id=\"details-button\"]");
     By linknavegador= By.xpath("//*[@id=\"proceed-link\"]");
     By sesionNT= By.linkText("Inicie sesión como usuario de NT");
@@ -27,82 +28,84 @@ public class LoginPage extends Base.BasePage{
     ///html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]/div
     By userNTpp=By.xpath("/html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]");
     
-    private static LoginPage loginP;
+    protected static LoginPage loginP;
     private String usuario;
     private String password;
-
+    
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+       // this.usuario = usuario;
+       // loginP. usaurio = usuario;
     }
-
+    
     public void setPassword(String password) {
-        this.password = password;
+        //this.password = password;
+        loginP.setPassword(password);
     }
-
+    
     public String getUsuario() {
         return usuario;
     }
-
+    
     public String getPassword() {
         return password;
     }
     
-    public LoginPage() {
-       super();
+    public LoginPage(String usr, String pass) {
+        super();
+        usuario = usr;
+        password = pass;
     }
     
-    public static LoginPage initLoginPage()
+    public static LoginPage getLoginPage(){
+        return LoginPage.loginP;
+    }
+    
+    
+    public static LoginPage initLoginPage(String usr, String pass)
     {
         if (loginP == null) {
-            loginP = new LoginPage();
+            loginP = new LoginPage(usr,pass);
         }
         return loginP;
     }
     
     
     
-    public void Nav(String env){
-       
-     
-     if(env.contains("preprod")){
-     Boolean nav= new WebDriverWait(driver, 10)
-        .until(ExpectedConditions.invisibilityOfElementLocated(botonnavegador)); 
-      Boolean link= new WebDriverWait(driver, 10)
-        .until(ExpectedConditions.invisibilityOfElementLocated(linknavegador));
-     }
-     else{
-         click(botonnavegador);
-         click(linknavegador); 
-     }  
+    public void Nav(String env) throws InterruptedException{
+        
+        
+        if(env.contains("preprod")){
+            Boolean nav= new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(botonnavegador));
+            Boolean link= new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(linknavegador));
+        }
+        else{
+            click(botonnavegador);
+            click(linknavegador);
+        }
     }
     public void signIn_preprod() throws InterruptedException{
         
-    click(userNT_preprod);
-    if(isDisplayed(user)){
-     WebElement user1=findElement(user);
-     WebElement pass1=findElement(pass);
-    sendKeys("temu\\"+usuario,user);
-    //sendKeys("temu\\ipupo",user1);
-    //sendKeys("Movistar.1234",pass1);
-    sendKeys(password,pass);
-        click(botonlog);
-    }else{
-       System.out.println("username textbox was not present");
+        click(userNT_preprod);
+        if(isDisplayed(user)){
+            sendKeys("temu\\"+usuario,user);
+            sendKeys(password,pass);
+            click(botonlog);
+        }else{
+            System.out.println("username textbox was not present");
+        }
     }
-   } 
-    public void signIn(){
-    //Wait_Click(userNT);
-    click(userNTpp);
-    if(isDisplayed(user)){
-     WebElement user1=findElement(user);
-     WebElement pass1=findElement(pass);
-     sendKeys("temu\\"+usuario,user);//"temu\\ipupo" - "Movistar.1234"
-     sendKeys(password,pass);
-//    sendKeys("temu\\ipupo",user1);
-//    sendKeys("Movistar.1234",pass1);
+    public void signIn() throws InterruptedException{
+        //Wait_Click(userNT);
+        click(userNTpp);
+        if(isDisplayed(user)){
+            sendKeys("temu\\"+usuario,user);
+            sendKeys(password,pass);
+
         click(botonlog);
-    }else{
-       System.out.println("username textbox was not present");
+        }else{
+            System.out.println("username textbox was not present");
+        }
     }
-   }  
 }

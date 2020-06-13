@@ -22,31 +22,26 @@ public class CadenaUtils{
             for (int i = 0; i < str.length(); i++) {
                 
                 if (str.charAt(i) == pivote.charAt(0)) {
-                    System.out.println("Primer Comparacion - Compara pivote char "+ pivote.charAt(0) + " compara con "+ str.charAt(i));
+                    // System.out.println("Primer Comparacion - Compara pivote char "+ pivote.charAt(0) + " compara con "+ str.charAt(i));
                     int aux = i;
                     for (int j = 0; j < pivote.length(); j++) {
-                        
                         /*if (str.charAt(aux) == ' ' && pivote.charAt(j) == ' ') {
-                            System.out.println("son vacios");
-                            aux++;
-                            continue;
+                        System.out.println("son vacios");
+                        aux++;
+                        continue;
                         }*/
-                        
                         if (str.charAt(aux) != pivote.charAt(j)) {
-                            System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
+                            //  System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
                             break;
                         }
                         if (j == pivote.length()-1) {
                             return true;
                         }
                         aux++;
-                        
                     }
                 }
-                
             }
         }
         return false;
-        
     }
 }

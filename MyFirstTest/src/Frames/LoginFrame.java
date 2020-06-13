@@ -1,6 +1,7 @@
 package Frames;
 
 
+import Objects.Usuario;
 import javax.swing.JOptionPane;
 import pages.LoginPage;
 
@@ -102,8 +103,7 @@ public class LoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar Password", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             MainFrame.getInstance();
-            MainFrame.getInstance().setUser(txtField_User.getText());
-            MainFrame.getInstance().setPass(psw_Field.getText());
+            MainFrame.getInstance().iniciarUsuario(new Usuario(txtField_User.getText(),psw_Field.getText()));
             MainFrame.getInstance().show();
             this.dispose();
         }

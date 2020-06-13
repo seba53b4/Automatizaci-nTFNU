@@ -39,6 +39,7 @@ public static BasePage initBaseTest() {
   
     if (bt == null) {
         bt = new BasePage();
+        
     }
     return bt;
  }  
@@ -66,6 +67,26 @@ public void small_Wait(By e){
      FluentWait wai= new FluentWait(driver);
      wai.withTimeout(5,TimeUnit.SECONDS);
      wai.pollingEvery(500,TimeUnit.MILLISECONDS);
+     wai.ignoring(NoSuchElementException.class);
+     wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
+         @Override
+         public Boolean apply(WebDriver driver1) {
+             WebElement ele = driver1.findElement(e);
+             if(ele==null) {  
+                return false;
+                }                   
+                 else    
+                System.out.println("found el elemento " + e.toString());
+                 return true;
+            
+         }
+     });  
+}
+public void small_Time_Wait(By e, int tiempo, int lapso){
+
+     FluentWait wai= new FluentWait(driver);
+     wai.withTimeout(tiempo,TimeUnit.SECONDS);
+     wai.pollingEvery(lapso,TimeUnit.MILLISECONDS);
      wai.ignoring(NoSuchElementException.class);
      wai.until((ExpectedCondition<Boolean>) new ExpectedCondition<Boolean>() {
          @Override
@@ -212,11 +233,13 @@ public void sendKeys(String inputText,By locator){
     driver.findElement(locator).sendKeys(inputText);
 }
 
-public void click(By locator){
+public void click(By locator) throws InterruptedException{
+    Thread.sleep(250);
     driver.findElement(locator).click();
 }
 
-public void click(WebElement element){
+public void click(WebElement element) throws InterruptedException{
+    Thread.sleep(250);
     element.click();
 }
 

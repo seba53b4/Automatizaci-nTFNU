@@ -33,7 +33,7 @@ public class TestEmpClient extends Base.BaseTest {
     public void altaClienteP() throws InterruptedException, Exception{
    BasePage.initBaseTest();
         this.cp = new ClientPage();
-        this.lp = new LoginPage();
+        this.lp = LoginPage.getLoginPage();
         this.hf = new HandleFile();
         List<EnterpriseClient> realClients = new ArrayList<>();
         HashMap<String, List<EnterpriseClient>> dataSource = this.hf.readRegisterDataSource("new_enterprise_client");

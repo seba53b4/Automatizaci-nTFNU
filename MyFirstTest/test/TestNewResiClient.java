@@ -41,7 +41,7 @@ public class TestNewResiClient extends Base.BaseTest {
     public void residentialClientRegister() throws InterruptedException, Exception{
         BasePage.initBaseTest();
         this.cp = new ClientPage();
-        this.lp = new LoginPage();
+        this.lp = LoginPage.getLoginPage();
         this.hf = new HandleFile();
         List<Client> realClients = new ArrayList<>();
         HashMap<String, List<Client>> dataSource = this.hf.readRegisterDataSource("new_residential_client");

@@ -63,7 +63,7 @@ public class TestEmpClient extends Base.BaseTest {
         
         BasePage.getNewDriver();
         this.cp = new ClientPage();
-        this.lp = LoginPage.initLoginPage();
+        this.lp = LoginPage.getLoginPage();
         
         List<EnterpriseClient> realClients = new ArrayList<>();
         

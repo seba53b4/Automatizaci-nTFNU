@@ -33,7 +33,7 @@ public class AAPage extends Base.BasePage{
      
 
     
-    public void logIN()
+    public void logIN() throws InterruptedException
     {
         BasePage.initBaseTest();
         this.visit("http://10.24.167.216/AltamirA/bowe/bw_co_Movistar");
@@ -46,7 +46,7 @@ public class AAPage extends Base.BasePage{
         click(boton_entrar);
     }
     
-    public boolean consultaEstado(String num,String plan)
+    public boolean consultaEstado(String num,String plan) throws InterruptedException
     {
         //Wait(boton_MovistarPP);
         //click(boton_MovistarPP);

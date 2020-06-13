@@ -17,28 +17,23 @@ import org.openqa.selenium.interactions.Actions;
  * @author sdominguez
  */
 public class ClientPage extends Base.BasePage{
+    
      By creacion_rapida= By.xpath("//a[contains(text(),'Creación rápida')]");
      By opcion_ClienteRe= By.xpath("//span[contains(text(),\"Cliente residencial\")]");
-  
      By opcion_ClienteEm= By.xpath("//span[contains(text(),'Cliente empresial')]");
-     
      By nombreE=By.xpath("//input[@class='gwt-TextBox nc-field-text-input'][1]");
      By RUT = By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
      By apellidoR=By.xpath("//input[@class='gwt-TextBox nc-field-text-input']//following::input[1]");
-   
      By categoria_cliente=By.xpath("//i[@class=\"refsel_arrow\"][1]");
      By categoria_CE=By.xpath("//i[@class=\"refsel_arrow\"][1]");
      By table_categoria_empresarial=By.xpath("/html/body/div[34]/div[2]/div[1]/div[2]");
      By list_cc= By.xpath("/html/body/div[34]/div[2]/div[1]");   //"/html/body/div[34]");
      By obtener_CR = By.xpath("//div[@class=\"refsel_name\" and contains(text(),'Particulares') and contains(text(),'Valor')] [1]");
-     
-     
      By obtener_pasaporte=By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By numero_pasaporte= By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
      By escribir_direccion_CR=By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
      By desplegar_direccion=By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
      By contacto_primario=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td[1]/div/div");
-     ///html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td[1]/div/div
      By table_contacto_primario= By.xpath("/html/body/div[34]/div[2]/div[1]/div[3]");
      By rol_contacto_primario= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[8]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
      By obtener_rol_contacto_primario= By.xpath("//div[contains(text(),'Firmante')]");
@@ -70,12 +65,14 @@ public class ClientPage extends Base.BasePage{
     public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException , Exception{
         return crear_Cliente_Residencial(newClient, false);
     }
+    
     public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException, Exception
-    { 
-        Actions action=new Actions(driver);  
+    {
+        Actions action=new Actions(driver);
         Wait(creacion_rapida);
         WebElement cliente_resi=findElement(creacion_rapida);
-        action.moveToElement(cliente_resi).build().perform(); 
+        Thread.sleep(250);
+        action.moveToElement(cliente_resi).build().perform();
         Thread.sleep(2000);
         Wait(opcion_ClienteRe);
         Thread.sleep(2000);
@@ -118,7 +115,7 @@ public class ClientPage extends Base.BasePage{
         // objeto Cliente
         else {
             Thread.sleep(10000);
-           
+            
             String clientId = getClientIdByUrl(driver.getCurrentUrl());
             newClient.setClientId(clientId);
         }
@@ -130,69 +127,72 @@ public class ClientPage extends Base.BasePage{
         String[] urlSplitted = url.split("id=");
         return urlSplitted[1];
     }
-     public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient) throws InterruptedException {
+    public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient) throws InterruptedException {
         return crear_Cliente_Empresarial(newClient, false);
     }
     
-    public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient, boolean handleDuplicate) throws InterruptedException{
-    
-    Actions action=new Actions(driver);
-    
-    Wait(creacion_rapida);
-    WebElement cliente_resi=findElement(creacion_rapida);
-    action.moveToElement(cliente_resi).build().perform();
-    Thread.sleep(2000);
-    Wait(opcion_ClienteEm);
-    click(opcion_ClienteEm);
-    Thread.sleep(2000);
-    sendKeys(newClient.getName(), nombreE);
-    sendKeys(newClient.getRut(), RUT);
-    Thread.sleep(2000);
-    click(categoria_CE);
-    obtener_Categoria_Em();
-    Thread.sleep(3000);
-    click(obtener_Categoria_Em());
-    sendKeys(newClient.getAddress(), direccion_CE);
-    Thread.sleep(2000);
-    Wait(obtener_direccion_CE);
-    click(obtener_direccion_CE);
-    Wait(contacto_primario);
-    Thread.sleep(4000);
-    click(contacto_primario);
-    Thread.sleep(4000);
-    obtener_ContactoPrimario();
-    Thread.sleep(4000);
-    click(obtener_ContactoPrimario());
-    Thread.sleep(4000);
-    Wait(rol_contacto_primario);
-    click(rol_contacto_primario);
-    Thread.sleep(4000);
-    Wait(obtener_rol_contacto_primario);
-    click(obtener_rol_contacto_primario);
-    
-    //click(obtener_direccion_CE);
-   
-    click(boton_crear);
-     // 1- existe el cliente (se muestra popup POSIBLES DUPLICADOS)
-        // entonces ejecuto el flujo correspondiente a Cliente Duplicado
-        List<WebElement> existentElements = findElements(popup_cliente_existente);
-        Thread.sleep(2000);
-        if (existentElements.size() > 0) {
-            System.out.println("Duplicated Client");
-            if(handleDuplicate) {
-                //ejecuto el flujo para duplicados
-            }
-        }
-        // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
-        // objeto Cliente
-        else {
-            Thread.sleep(10000);
-            String clientId = getClientIdByUrl(driver.getCurrentUrl());
-            newClient.setClientId(clientId);
-        }
-        
-        return newClient;
-    }
+     public EnterpriseClient crear_Cliente_Empresarial(EnterpriseClient newClient, boolean handleDuplicate) throws InterruptedException{
+         
+         Actions action=new Actions(driver);
+         
+         Wait(creacion_rapida);
+         
+         WebElement cliente_resi=findElement(creacion_rapida);
+         Thread.sleep(250);
+         action.moveToElement(cliente_resi).build().perform();
+         Thread.sleep(2000);
+         Wait(opcion_ClienteEm);
+         click(opcion_ClienteEm);
+         Thread.sleep(2000);
+         sendKeys(newClient.getName(), nombreE);
+         sendKeys(newClient.getRut(), RUT);
+         Thread.sleep(2000);
+         click(categoria_CE);
+         obtener_Categoria_Em();
+         Thread.sleep(3000);
+         click(obtener_Categoria_Em());
+         sendKeys(newClient.getAddress(), direccion_CE);
+         Thread.sleep(2000);
+         Wait(obtener_direccion_CE);
+         Thread.sleep(2000);
+         click(obtener_direccion_CE);
+         Wait(contacto_primario);
+         Thread.sleep(4000);
+         click(contacto_primario);
+         Thread.sleep(4000);
+         obtener_ContactoPrimario();
+         Thread.sleep(4000);
+         click(obtener_ContactoPrimario());
+         Thread.sleep(4000);
+         Wait(rol_contacto_primario);
+         click(rol_contacto_primario);
+         Thread.sleep(4000);
+         Wait(obtener_rol_contacto_primario);
+         click(obtener_rol_contacto_primario);
+         
+         //click(obtener_direccion_CE);
+         
+         click(boton_crear);
+         // 1- existe el cliente (se muestra popup POSIBLES DUPLICADOS)
+         // entonces ejecuto el flujo correspondiente a Cliente Duplicado
+         List<WebElement> existentElements = findElements(popup_cliente_existente);
+         Thread.sleep(2000);
+         if (existentElements.size() > 0) {
+             System.out.println("Duplicated Client");
+             if(handleDuplicate) {
+                 //ejecuto el flujo para duplicados
+             }
+         }
+         // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
+         // objeto Cliente
+         else {
+             Thread.sleep(10000);
+             String clientId = getClientIdByUrl(driver.getCurrentUrl());
+             newClient.setClientId(clientId);
+         }
+         
+         return newClient;
+     }
     
     public void obtener_CR(Client newClient) throws InterruptedException {//metodo utilizado
      
@@ -217,22 +217,22 @@ public class ClientPage extends Base.BasePage{
                 cc=list_obtenercc.get(i);
         
         }
- return cc;
+    return cc;
     }
     public WebElement obtener_Categoria_Em(){//metodo utilizado
-    WebElement cc=null;  
-    Wait(table_categoria_empresarial);
-    WebElement obtener_cc= findElement(table_categoria_empresarial);
-    List<WebElement> list_obtenercc= obtener_cc.findElements(By.className("refsel_name")); //tagName("div"));
-    for (int i = 0; i < list_obtenercc.size(); i++) {
+        WebElement cc=null;
+        Wait(table_categoria_empresarial);
+        WebElement obtener_cc= findElement(table_categoria_empresarial);
+        List<WebElement> list_obtenercc= obtener_cc.findElements(By.className("refsel_name")); //tagName("div"));
+        for (int i = 0; i < list_obtenercc.size(); i++) {
             if(getText(list_obtenercc.get(i)).contains("Pymes"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
                 cc=list_obtenercc.get(i);
-        
+            
         }
- return cc;
+        return cc;
     }
     
-    public void obtener_TipoDoc(Client newClient){
+    public void obtener_TipoDoc(Client newClient) throws InterruptedException{
     WebElement td=null;  
     Wait(table_DNI);
     WebElement obtener_td= findElement(table_DNI);

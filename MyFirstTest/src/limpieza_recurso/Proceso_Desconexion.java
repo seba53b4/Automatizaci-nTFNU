@@ -52,7 +52,8 @@ public class Proceso_Desconexion {
         }
       }
     public void desconectar() throws InterruptedException{
-      LoginPage lp = new LoginPage();
+        
+      LoginPage lp = LoginPage.getLoginPage(); //hay que arreglar esto porque se cambio el logueo con la clase USUARIO
       DesconectarPage dp = new DesconectarPage(this);
 
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
