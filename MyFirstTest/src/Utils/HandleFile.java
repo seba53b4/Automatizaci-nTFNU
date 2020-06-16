@@ -61,6 +61,7 @@ public class HandleFile {
     
     public HandleFile() {
         this.testExternalSourceBaseDir = System.getProperty("user.dir") + "\\";
+        this.dir = System.getProperty("user.dir") + "\\";
     }
     
     public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
@@ -68,7 +69,7 @@ public class HandleFile {
         HashMap<String, LinkedList<String>> map = new HashMap<>();
         
         try {
-            FileReader fr = new FileReader(dir+"\\test\\test_data_source\\disconnection\\archivoEntrada.csv");
+            FileReader fr = new FileReader(dir+"\\Desconexion\\archivoEntrada.csv");
             BufferedReader br = new BufferedReader(fr);
             String linea;
             String ant ="";
@@ -77,14 +78,15 @@ public class HandleFile {
             while((linea = br.readLine()) != null)
             {
                 aux = linea.split(";");
-                if (isNumeric(aux[0]) && aux[0].length() == 8) {
+                if (isNumeric(aux[1]) && aux[1].length() == 8) {
                     if (!map.containsKey(aux[1])) {
                         map.put(aux[1],new LinkedList<String>());
-                        map.get(aux[1]).add(aux[0]);
+                        map.get(aux[2]).add(aux[1]);
+                        
                         
                     } else 
                     {
-                        map.get(aux[1]).add(aux[0]);
+                        map.get(aux[2]).add(aux[1]);
                     }
                 }
             }

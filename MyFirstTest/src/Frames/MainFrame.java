@@ -20,6 +20,7 @@ import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
+import Tests.Test_SimCardLost;
 import Utils.CadenaUtils;
 import Utils.Client;
 import Utils.Plan;
@@ -39,6 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
     private HashMap<String, List<Plan>> planes;
     private HashMap<String, List<EnterpriseClient>> clientesEmp;
     private HashMap<String, List<Client>>  clientesRes;
+    private HashMap<String, List<Plan>> simCardLost;
     private HashMap<String, BaseTest> tests;
     private static  MainFrame mf;
     
@@ -79,9 +81,8 @@ public class MainFrame extends javax.swing.JFrame {
     
    private void iniciarComponentes() {
   
-  
-  
- }
+   }
+   
     public MainFrame() {
        imagenfondo image=new imagenfondo();
        image.setImage("/Images/fondo-horizonte-futurista_23-2148292294.jpg");
@@ -163,6 +164,30 @@ public class MainFrame extends javax.swing.JFrame {
             }
            
         }
+        
+        try {
+            simCardLost = HandleFile.getHandleFile().getSimCardLostPlanDatSource();
+        } catch (Exception e) {
+             System.out.println("Error al cargar sim card lost" + e);
+        }
+         
+        tb = (DefaultTableModel) TablaTest.getModel();
+        
+        for (Map.Entry<String, List<Plan>> entry : simCardLost.entrySet()) {
+            for (Plan p : entry.getValue()) {
+                String str = "";
+                BaseTest bt = null;
+                
+                str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                tb.addRow(new Object[]{false,str,"No iniciado"});
+                tests.put(str, new Test_SimCardLost(p));
+                
+            }
+           
+        }
+        
+        
+        
         
          
         
@@ -294,6 +319,14 @@ public class MainFrame extends javax.swing.JFrame {
                 if (CadenaUtils.compararCadenas("PosP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Alta de Posp esta seleccionado pos; "+ i);
                     TestAltaPosP tap = (TestAltaPosP) tests.get(TablaTest.getValueAt(i, 1).toString());
+                    Worker wk = new Worker(TablaTest, tap, i);
+                    works.add(wk);
+                    continue;
+                }
+                
+                if (CadenaUtils.compararCadenas("Sim Card Lost", TablaTest.getValueAt(i, 1).toString())) {
+                    //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                    Test_SimCardLost tap = (Test_SimCardLost) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;

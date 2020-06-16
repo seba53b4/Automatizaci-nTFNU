@@ -5,10 +5,7 @@ import Utils.Plan;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CostumerPage;
 import pages.LoginPage;
 
@@ -35,59 +32,41 @@ public class Test_SimCardLost extends Base.BaseTest {
         ap = new CostumerPage();
       
     }
+     
      @Test
-   public void sim_Card_Lost() throws Exception
-   {     
-       BasePage.initBaseTest();
-        this.ap = new CostumerPage();
-        this.lp = LoginPage.getLoginPage();
-        this.hf = new HandleFile();
-       List<Plan> realPlans = new ArrayList<>();
-        HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("sim_card_lost");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
-                this.ap.initUrlBusqueda(enviroment);
-                this.lp.Nav(enviroment);
-                if(enviroment.contains("preprod")){
-                this.lp.signIn_preprod();
-                }
-                else{
-                this.lp.signIn();
-                }
-                List<Plan> newPlans = entry.getValue();
-                for (int i = 0; i < newPlans.size(); i++) {
-                  Plan newPlan = this.ap.simCardlost(newPlans.get(i), enviroment);
-                   if (newPlan.getName() != null) {
-                        realPlans.add(newPlan);
-                    }
-                    
-                   
-                }
-            }
-        }
+     public void sim_Card_Lost() throws Exception
+     {
+         BasePage.initBaseTest();
+         BasePage.getNewDriver(); // 
+         HandleFile.initHandleFile(); // Se borra cuando se pase a proyecto.tests
+         this.ap = new CostumerPage();
+         this.lp = LoginPage.initLoginPage("ipupo", "Movistar.1234");
+         List<Plan> realPlans = new ArrayList<>();
+         HashMap<String, List<Plan>> dataSource = HandleFile.getHandleFile().readRegisterDataSource("sim_card_lost");
+         if (!dataSource.isEmpty()) {
+             for (HashMap.Entry<String, List<Plan>> entry : dataSource.entrySet()) {
+                 String enviroment = entry.getKey();
+                 this.ap.initUrlBusqueda(enviroment);
+                 this.lp.Nav(enviroment);
+                 if(enviroment.contains("preprod")){
+                     this.lp.signIn_preprod();
+                 }
+                 else{
+                     this.lp.signIn();
+                 }
+                 List<Plan> newPlans = entry.getValue();
+                 for (int i = 0; i < newPlans.size(); i++) {
+                     Plan newPlan = this.ap.simCardlost(newPlans.get(i), enviroment);
+                     if (newPlan.getName() != null) {
+                         realPlans.add(newPlan);
+                     }
+                 }
+             }
+         }
          // only save in spreadsheet the changed Plan
-        if (realPlans.size() > 0) {
-            this.hf.generateRegisteredSimCardLostDatasource(realPlans);
-       
-       //Lee un archivo
-       // Le paso los object id
-       //Se trabaja con el user
-      // String nombre_plan= "";
-      /* BasePage.initBaseTest();
-       LoginPage lp = new LoginPage();
-       lp.chromeDriverConnection();
-       lp.visit("https://noprd-jit-toms.temu.com.uy:7002/");
-       lp.Nav();
-       lp.signIn();
-        ap.seleccionar_CanalOrder("9156314055513102248");
-       // ap.obtener_PPActivo("PLR284","");
-        ap.select_SIMCardLost();
-        ap.Terminar();  
-        Thread.sleep(4000);
-        super.CerrarNavegador();
-   }*/
-    
-    }
-   }
+         if (realPlans.size() > 0) {
+             HandleFile.getHandleFile().generateRegisteredSimCardLostDatasource(realPlans);
+             
+         }
+     }
   }

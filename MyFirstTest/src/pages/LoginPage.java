@@ -7,7 +7,6 @@ package pages;
 
 import static Base.BasePage.driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -55,6 +54,11 @@ public class LoginPage extends Base.BasePage{
         usuario = usr;
         password = pass;
     }
+    public LoginPage() {
+        super();
+        usuario = "dammy";
+        password = "dammy";
+    }
     
     public static LoginPage getLoginPage(){
         return LoginPage.loginP;
@@ -65,6 +69,13 @@ public class LoginPage extends Base.BasePage{
     {
         if (loginP == null) {
             loginP = new LoginPage(usr,pass);
+        }
+        return loginP;
+    }
+    public static LoginPage initLoginPage()
+    {
+        if (loginP == null) {
+            loginP = new LoginPage();
         }
         return loginP;
     }

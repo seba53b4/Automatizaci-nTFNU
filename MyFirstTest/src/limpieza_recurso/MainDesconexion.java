@@ -6,9 +6,7 @@
 package limpieza_recurso;
 
 import Utils.HandleFile;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.io.File;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +21,7 @@ public class MainDesconexion {
      */
     public static void main(String[] args) {
         
-        File f = new File(".");
-        //String dir = f.getAbsolutePath().replace(".","");
+        
         HandleFile hf = HandleFile.initHandleFile();
         Proceso_Desconexion pd = new Proceso_Desconexion();
        

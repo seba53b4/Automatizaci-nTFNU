@@ -10,10 +10,6 @@ import Base.BasePage;
 import Utils.HandleFile;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pages.DesconectarPage;
 import pages.LoginPage;
 
@@ -53,45 +49,45 @@ public class Proceso_Desconexion {
       }
     public void desconectar() throws InterruptedException{
         
-      LoginPage lp = LoginPage.getLoginPage(); //hay que arreglar esto porque se cambio el logueo con la clase USUARIO
+      LoginPage lp = LoginPage.initLoginPage("ipupo","Movistar.1234");
       DesconectarPage dp = new DesconectarPage(this);
-
+      BasePage.getNewDriver();
+      
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
-             String enviroment = entry.getKey();
-             dp.initUrlBusqueda(entry.getKey());
-            lp.Nav(enviroment);
-         if(enviroment.contains("preprod")){
-                lp.signIn_preprod();
-                }
-                else{
-                lp.signIn();
-                }
-            for (String num : entry.getValue()) {
-                System.out.println(num);
-                dp.initUrlBusqueda(entry.getKey());
-                dp.buscarLinea(num);
-                if(dp.obtener_estado_logicoLinea()== true && 
-                        !dp.obtener_nombreCliente().contains("ADOVAL S.A.")){
-                dp.set_SIM(num);
-                dp.Desconectar(num);
-                dp.getDatosDesconexion();
-                //hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
-                dp.initUrlBusqueda(entry.getKey());
-                
-                //dp.cambio_estado(num);
-                //busqueda estado logico , iccid
-                }
-                else
-                {
-                datosLimpieza.get(num).setStatus("Error estado logico");
-                }
-               
-            }
-            
-        }
           
-                //dp.cambio_estado(num);
-                //busqueda estado logico , iccid
+          String enviroment = entry.getKey();
+          dp.initUrlBusqueda(entry.getKey());
+          lp.Nav(enviroment);
+          if(enviroment.contains("preprod")){
+              lp.signIn_preprod();
+          }
+          else{
+              lp.signIn();
+          }
+          for (String num : entry.getValue()) {
+              System.out.println(num);
+              dp.initUrlBusqueda(entry.getKey());
+              dp.buscarLinea(num);
+              if(dp.obtener_estado_logicoLinea()== true &&
+                      !dp.obtener_nombreCliente().contains("ADOVAL S.A.")){
+                  dp.set_SIM(num);
+                  dp.Desconectar(num);
+                  dp.getDatosDesconexion();
+                  //hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
+                  dp.initUrlBusqueda(entry.getKey());
+                  
+                  //dp.cambio_estado(num);
+                  //busqueda estado logico , iccid
+              }
+              else
+              {
+                  datosLimpieza.get(num).setStatus("Error estado logico");
+              }
+              
+          }
+          
+      }
+          
     }
     public void verificar() throws InterruptedException{
         DesconectarPage dp = new DesconectarPage(this);
