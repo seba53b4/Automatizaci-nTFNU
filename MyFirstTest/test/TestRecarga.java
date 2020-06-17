@@ -1,4 +1,5 @@
 
+import pages.RechargePage;
 import Base.BasePage;
 import Utils.Client;
 import Utils.HandleFile;
@@ -22,7 +23,7 @@ import pages.LoginPage;
  * @author ipupo
  */
 public class TestRecarga extends Base.BaseTest{
-  /*private RechargePage rp;
+   private RechargePage ap;
    private HandleFile hf;
    private LoginPage lp;
  
@@ -35,37 +36,36 @@ public TestRecarga(){
    public void Recarga_Linea() throws Exception
    {     
       BasePage.initBaseTest();
-        this.rp = new RechargePage();
-        this.lp = new LoginPage();
-        this.hf = new HandleFile();
-       List<Client> realrecarga = new ArrayList<>();
-        HashMap<String, List<Client>> dataSource = this.hf.readRegisterDataSource("recharge_line");
-        if (!dataSource.isEmpty()) {
-            for (HashMap.Entry<String, List<Client>> entry : dataSource.entrySet()) {
-                String enviroment = entry.getKey();
-                this.rp.initUrlBusqueda(enviroment);
-                this.lp.Nav(enviroment);
-                if(enviroment.contains("preprod")){
-                this.lp.signIn_preprod();
-                }
-                else{
-                this.lp.signIn();
-                }
-                List<Client> newClients = entry.getValue();
-                for (int i = 0; i < newClients.size(); i++) {
-                  Client newClient = this.rp.recargaLinea(newClients.get(i),enviroment);
-                   if (newClient.getLine() != null) {
-                        realrecarga.add(newClient);
-                    }
-                    
-                   
-                }
-            }
-        }
-         // only save in spreadsheet the recharge Line
-        if (realrecarga.size() > 0) {
-            this.hf.generateRegisteredRechargeDatasource(realrecarga); 
-     
-   }
-  }*/
+         BasePage.getNewDriver(); // 
+         HandleFile.initHandleFile(); // Se borra cuando se pase a proyecto.tests
+         this.ap = new RechargePage();
+         this.lp = LoginPage.initLoginPage("ipupo", "Movistar.1234");
+         List<Client> realClients = new ArrayList<>();
+         HashMap<String, List<Client>> dataSource = HandleFile.getHandleFile().readRegisterDataSource("recharge_line");
+         if (!dataSource.isEmpty()) {
+             for (HashMap.Entry<String, List<Client>> entry : dataSource.entrySet()) {
+                 String enviroment = entry.getKey();
+                 this.ap.initUrlBusqueda(enviroment);
+                 this.lp.Nav(enviroment);
+                 if(enviroment.contains("preprod")){
+                     this.lp.signIn_preprod();
+                 }
+                 else{
+                     this.lp.signIn();
+                 }
+                 List<Client> newClients = entry.getValue();
+                 for (int i = 0; i < newClients.size(); i++) {
+                     Client newClient = this.ap.recargaLinea(newClients.get(i), enviroment);
+                     if (newClient.getName() != null) {
+                         realClients.add(newClient);
+                     }
+                 }
+             }
+         }
+         // only save in spreadsheet the changed Plan
+         if (realClients.size() > 0) {
+             HandleFile.getHandleFile().generateRegisteredRechargeDatasource(realClients);
+             
+         }
+     }
 }

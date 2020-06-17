@@ -931,7 +931,7 @@ public class HandleFile {
                 //creating Workbook instance that refers to .xlsx file  
                 XSSFWorkbook wb = new XSSFWorkbook(fis);
                 //creating a Sheet object to retrieve object
-                // getting the sheet "NEW PLAN" (index 10)
+                // getting the sheet "Recharge Line" (index 10)
                 XSSFSheet sheet = wb.getSheetAt(10);
                 //iterating over excel file
                 Iterator<Row> itr = sheet.iterator(); 
@@ -961,6 +961,12 @@ public class HandleFile {
                             break;
                             case 2: //line
                                 newClient.setLine(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 3: //amount
+                                newClient.setAmount(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 4: //payment method
+                                newClient.setPayment_method(row.getCell(columnIndex).getStringCellValue());
                             break;
                         }
                     }

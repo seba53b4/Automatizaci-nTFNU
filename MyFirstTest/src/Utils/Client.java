@@ -22,6 +22,9 @@ public class Client {
     private String link_recharge;
     private String total_recharge;
     private String object_id;
+    private String amount;
+    private String payment_method;
+    
 
     /**
      * 
@@ -110,8 +113,10 @@ public class Client {
     }
     
     
-    public Client(String line){
+    public Client(String line,String amount,String mp){
     this.line=line;
+    this.amount=amount;
+    this.payment_method=mp;
     }
     public Client(){
     }
@@ -198,6 +203,34 @@ public class Client {
      */
     public void setInternational_id(String international_id) {
         this.international_id = international_id;
+    }
+
+    /**
+     * @return the amount
+     */
+    public String getAmount() {
+        return amount;
+    }
+
+    /**
+     * @param amount the amount to set
+     */
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    /**
+     * @return the payment_method
+     */
+    public String getPayment_method() {
+        return payment_method;
+    }
+
+    /**
+     * @param payment_method the payment_method to set
+     */
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
     }
 
 }
