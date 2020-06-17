@@ -29,18 +29,19 @@ public class RechargePage extends Base.BasePage{
     By importe=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Importe')]/following::input[1]");
     By suscripcion_AA=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Suscripción de Altamira')]/following::div[1]");
     By tabla=By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]");
-    By payment=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Método de pago')]/following::div[1]");
-    By tabla_payment=By.xpath("//*[@id=\"ui-id-5\"]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[6]/td[2]/div/table");
+    By payment=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Método de pago')]/following::i[1]");
+    By tabla_payment=By.xpath("//*[@class='refsel_table']");
     By boton_crear=By.xpath("//button[contains(text(),'Crear')]");
     CadenaUtils cadena;
     
       public RechargePage() {
        cadena=new CadenaUtils();
-   
+  
     }
       public Client recargaLinea(Client newClient,String env) throws InterruptedException {
           seleccionar_billingAccount(newClient, env);
           realizar_Recarga(newClient);
+          newClient.getLine();
       
           return newClient;
     } 
@@ -89,7 +90,7 @@ public class RechargePage extends Base.BasePage{
         for (int i = 0; i < list_linea.size(); i++) {
             System.out.println("element lista-->"+list_linea.get(i).getText());
             System.out.println("linea-->"+newClient.getLine());
-            if(cadena.compararCadenas(newClient.getLine(),list_linea.get(i).getText())){
+            if(cadena.compararCadenas(cadena.formatoNumber(newClient.getLine()),list_linea.get(i).getText())){
             WebElement line=list_linea.get(i);
                 click(line);
                 break;
@@ -101,7 +102,9 @@ public class RechargePage extends Base.BasePage{
        WebElement obtener_payment= findElement(tabla_payment);
        List<WebElement> list_payment= obtener_payment.findElements(By.tagName("div"));
         for (int i = 0; i < list_payment.size(); i++) {
-            if(cadena.compararCadenas(list_payment.get(i).getText(), newClient.getPayment_method())){
+            System.out.println("element lista-->"+list_payment.get(i).getText());
+            System.out.println("linea-->"+newClient.getPayment_method());
+            if(cadena.compararCadenas(newClient.getPayment_method(),list_payment.get(i).getText() )){
             WebElement pay=list_payment.get(i);
                 click(pay);
                 break;

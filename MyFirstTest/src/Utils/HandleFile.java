@@ -1005,22 +1005,25 @@ public class HandleFile {
                         row = sheet.createRow(rowIterator);
                     }
                     
-                    // Link recarga
+                    // Link customer
                     Cell cell = row.getCell(0);  
                     if (cell == null)  
                         cell = row.createCell(0);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(client.get(index).getLink_recharge());
                     
-                    // Total recarga
+                    // Linea
                     cell = row.getCell(1);  
                     if (cell == null)  
                         cell = row.createCell(1);  
                     cell.setCellType(CellType.STRING);  
-                    cell.setCellValue(client.get(index).getTotal_recharge());
+                    cell.setCellValue(client.get(index).getLine());
                  
                     rowIterator++;
+                    
+                    
                 }
+                
             
                 try (OutputStream fileOut = new FileOutputStream(sourceFile)) {  
                     wb.write(fileOut);  
