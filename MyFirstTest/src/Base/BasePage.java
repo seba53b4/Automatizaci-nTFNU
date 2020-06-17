@@ -11,6 +11,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -251,6 +252,14 @@ public Boolean isDisplayed(By locator){
     }
     
 }
+
+public String obtener_urlSO(){
+         
+        String url = driver.getCurrentUrl();
+        return url;
+    }
+
+
 
 public void visit(String url){
     

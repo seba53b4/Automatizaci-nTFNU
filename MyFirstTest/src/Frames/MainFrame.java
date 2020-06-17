@@ -20,6 +20,7 @@ import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
+import Tests.TestRecarga;
 import Tests.Test_SimCardLost;
 import Utils.CadenaUtils;
 import Utils.Client;
@@ -42,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
     private HashMap<String, List<Client>>  clientesRes;
     private HashMap<String, List<Plan>> simCardLost;
     private HashMap<String, BaseTest> tests;
+    private HashMap<String, List<Client>> recargas;
     private static  MainFrame mf;
     
     private Usuario user;
@@ -181,6 +183,27 @@ public class MainFrame extends javax.swing.JFrame {
                 str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
                 tb.addRow(new Object[]{false,str,"No iniciado"});
                 tests.put(str, new Test_SimCardLost(p));
+                
+            }
+           
+        }
+        
+        try {
+            recargas = HandleFile.getHandleFile().getRechargeLine();
+        } catch (Exception e) {
+             System.out.println("Error al cargar sim card lost" + e);
+        }
+         
+        tb = (DefaultTableModel) TablaTest.getModel();
+        
+        for (Map.Entry<String, List<Client>> entry : recargas.entrySet()) {
+            for (Client cl : entry.getValue()) {
+                String str = "";
+                BaseTest bt = null;
+                
+                str = "Cargado Archivo - Recarga Linea "+ cl.getAmbiente().toUpperCase()+":    "+cl.getLine() + " en cliente de object_id: "+cl.getObject_id() ;
+                tb.addRow(new Object[]{false,str,"No iniciado"});
+                tests.put(str, new TestRecarga(cl));
                 
             }
            
@@ -327,6 +350,14 @@ public class MainFrame extends javax.swing.JFrame {
                 if (CadenaUtils.compararCadenas("Sim Card Lost", TablaTest.getValueAt(i, 1).toString())) {
                     //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     Test_SimCardLost tap = (Test_SimCardLost) tests.get(TablaTest.getValueAt(i, 1).toString());
+                    Worker wk = new Worker(TablaTest, tap, i);
+                    works.add(wk);
+                    continue;
+                }
+                
+                if (CadenaUtils.compararCadenas("Recarga Linea", TablaTest.getValueAt(i, 1).toString())) {
+                    //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
+                    TestRecarga tap = (TestRecarga) tests.get(TablaTest.getValueAt(i, 1).toString());
                     Worker wk = new Worker(TablaTest, tap, i);
                     works.add(wk);
                     continue;

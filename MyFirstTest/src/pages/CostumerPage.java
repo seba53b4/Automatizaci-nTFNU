@@ -1263,11 +1263,7 @@ public WebElement Obtener_cambioPLR(String nombre_plan) throws InterruptedExcept
     }
      
 }
-     public String obtener_urlSO(){
-         
-        String url = driver.getCurrentUrl();
-        return url;
-    }
+     
   public String get_estadoSO(Plan newPlan){
           
           String urlso=newPlan.getUrlSO();

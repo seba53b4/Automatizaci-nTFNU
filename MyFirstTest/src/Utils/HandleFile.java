@@ -1005,14 +1005,14 @@ public class HandleFile {
                         row = sheet.createRow(rowIterator);
                     }
                     
-                    // Link customer
+                    // Link recarga
                     Cell cell = row.getCell(0);  
                     if (cell == null)  
                         cell = row.createCell(0);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(client.get(index).getLink_recharge());
                     
-                    // Linea
+                    // Estado de recarga
                     cell = row.getCell(1);  
                     if (cell == null)  
                         cell = row.createCell(1);  

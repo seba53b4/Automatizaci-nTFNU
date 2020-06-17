@@ -1,19 +1,18 @@
 package Tests;
 
 
-
+import pages.RechargePage;
 import Base.BasePage;
+import Utils.Client;
 import Utils.HandleFile;
-import Utils.Plan;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
-import pages.CostumerPage;
 import pages.LoginPage;
+//import pages.RechargePage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,29 +24,26 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class Test_SimCardLost extends Base.BaseTest {
-   private CostumerPage ap;
+public class TestRecarga extends Base.BaseTest{
+   private RechargePage ap;
    private HandleFile hf;
    private LoginPage lp;
-   private Plan plan;
-    
-     
-    
-     public Test_SimCardLost(Plan newPlan) {
-        
-        ap = new CostumerPage();
-        plan = newPlan;
-    }
-     
-      @Override
+   private Client client;
+   
+public TestRecarga(Client c){
+    client = c;
+}
+
+
+ @Override
     public String test() {
        try {
-           this.sim_Card_Lost();
+           this.Recarga_Linea();
            return "OK";
        } catch (Exception ex) {
            
            try {
-               HandleFile.getHandleFile().registrarError("ERROR en Sim Card Lost \n\n"+ ex+"\n\n---------------------------------------------------------------------------\n\n");
+               HandleFile.getHandleFile().registrarError("ERROR en Recarga Linea \n\n"+ ex+"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
                Logger.getLogger(TestAltaPP.class.getName()).log(Level.SEVERE, null, ex1);
            }
@@ -56,20 +52,22 @@ public class Test_SimCardLost extends Base.BaseTest {
       //     BasePage.initBaseTest().closeDriver();
        }
     }
-     
-     
-     @Test
-     public void sim_Card_Lost() throws Exception
-     {
+
+
+
+    @Test
+   public void Recarga_Linea() throws Exception
+   {     
          BasePage.initBaseTest();
          BasePage.getNewDriver(); // 
          HandleFile.initHandleFile(); // Se borra cuando se pase a proyecto.tests
-         this.ap = new CostumerPage();
+         this.ap = new RechargePage();
          this.lp = LoginPage.getLoginPage();
          
-         List<Plan> realPlans = new ArrayList<>();
-             
-         String enviroment = plan.getAmbiente();
+         List<Client> realClients = new ArrayList<>();
+         
+         
+         String enviroment = client.getAmbiente();
          this.ap.initUrlBusqueda(enviroment);
          this.lp.Nav(enviroment);
          if(enviroment.contains("preprod")){
@@ -78,17 +76,18 @@ public class Test_SimCardLost extends Base.BaseTest {
          else{
              this.lp.signIn();
          }
-         ;
-         Plan newPlan = this.ap.simCardlost(plan, enviroment);
-         if (newPlan  != null) {
-             realPlans.add(newPlan);
+         
+         Client newClient = this.ap.recargaLinea(client, enviroment);
+         if (newClient.getName() != null) {
+             realClients.add(newClient);
          }
+         
          
          
          // only save in spreadsheet the changed Plan
-         if (realPlans.size() > 0) {
-             HandleFile.getHandleFile().generateRegisteredSimCardLostDatasource(realPlans);
+         if (realClients.size() > 0) {
+             HandleFile.getHandleFile().generateRegisteredRechargeDatasource(realClients);
              
          }
      }
-  }
+}

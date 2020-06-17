@@ -20,7 +20,7 @@ public class Client {
     private String clientId;
     private String line;
     private String link_recharge;
-    private String total_recharge;
+    private String status_recharge;
     private String object_id;
     private String amount;
     private String payment_method;
@@ -152,15 +152,15 @@ public class Client {
     /**
      * @return the total_recharge
      */
-    public String getTotal_recharge() {
-        return total_recharge;
+    public String getStatus_recharge() {
+        return status_recharge;
     }
 
     /**
      * @param total_recharge the total_recharge to set
      */
-    public void setTotal_recharge(String total_recharge) {
-        this.total_recharge = total_recharge;
+    public void setStatus_recharge(String st_recharge) {
+        this.status_recharge = st_recharge;
     }
 
     /**

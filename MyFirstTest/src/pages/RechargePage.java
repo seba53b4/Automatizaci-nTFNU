@@ -1,10 +1,12 @@
 package pages;
 
 
+import static Base.BasePage.driver;
 import Utils.CadenaUtils;
 import Utils.Client;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /*
@@ -32,6 +34,11 @@ public class RechargePage extends Base.BasePage{
     By payment=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Método de pago')]/following::i[1]");
     By tabla_payment=By.xpath("//*[@class='refsel_table']");
     By boton_crear=By.xpath("//button[contains(text(),'Crear')]");
+    By suscripcionesAA = By.xpath("//div[div[div[div[div[div[button[contains(text(),'Nueva recarga')]]]]]]]/following-sibling::table");
+    By boton_recargas = By.xpath("//a[contains(text(),'Recargas')]");
+    By boton_anadir_recargas = By.xpath("//button[contains(text(),'Nueva recarga')]");
+    By nueva_recarga_realizada = By.xpath("//tr[@__gwt_row=\"0\" and @__gwt_subrow=\"0\"]/td/div/div/a[contains(text(),'Aumentar')]/parent::div");
+    By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
     CadenaUtils cadena;
     
       public RechargePage() {
@@ -39,9 +46,11 @@ public class RechargePage extends Base.BasePage{
   
     }
       public Client recargaLinea(Client newClient,String env) throws InterruptedException {
+          
           seleccionar_billingAccount(newClient, env);
           realizar_Recarga(newClient);
-          newClient.getLine();
+          newClient.setLink_recharge(obtener_urlSO());
+          newClient.setStatus_recharge(getText(status_recarga));
       
           return newClient;
     } 
@@ -57,22 +66,26 @@ public class RechargePage extends Base.BasePage{
     }
        public void seleccionar_billingAccount(Client newClient,String env) throws InterruptedException{
      
-       visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newClient.getObject_id());
-        Wait_Click(billaccount);
-        click(billaccount);
-        Wait_Click(newrecharge);
+      
+        /*Wait_Click(newrecharge);
         Thread.sleep(4000);
         click(newrecharge);
-        Thread.sleep(2000);     
+        Thread.sleep(2000);*/     
    }
        public void realizar_Recarga(Client newClient) throws InterruptedException{
+           
+           visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newClient.getObject_id());
+           Wait_Click(billaccount);
+           click(billaccount);
+           getAltamiraUrl(newClient.getLine());
+           Wait_Click(boton_recargas);
+           click(boton_recargas);
+           Wait_Click(boton_anadir_recargas);
+           click(boton_anadir_recargas);
+           //obtener_Line(newClient);
            Wait(importe);
            System.out.println("importe-->"+newClient.getAmount());
            sendKeys(newClient.getAmount(), importe);
-           Thread.sleep(2000);
-           Wait_Click(suscripcion_AA);
-           click(suscripcion_AA);
-           obtener_Line(newClient);
            Thread.sleep(2000);
            Wait_Click(payment);
            click(payment);
@@ -80,6 +93,41 @@ public class RechargePage extends Base.BasePage{
            obtener_Payment(newClient);
            Wait_Click(boton_crear);
            click(boton_crear);
+//           
+          Wait_Click(nueva_recarga_realizada);
+//           Thread.sleep(1000);
+//           click(nueva_recarga_realizada);
+           
+           // Guardar Datos
+           
+            //metodo utilizado
+            JavascriptExecutor jse =(JavascriptExecutor)driver;
+            WebElement nueva_recarga_done = (WebElement)jse.executeScript("return document.getElement(By.xpath('//tr[@__gwt_row=0 and @__gwt_subrow=0]/td/div/div/a[contains(text(),'Aumentar')]/parent::div')).click()");
+            //click(nueva_recarga_done);
+           
+           
+       }
+       
+       public void getAltamiraUrl(String num) throws InterruptedException{
+           
+       Wait(suscripcionesAA);
+       WebElement elem = findElement(suscripcionesAA);
+       
+       List<WebElement> list_linea = elem.findElements(By.tagName("a"));
+       
+       
+           System.out.println("Esto es vacio ??: " + list_linea.isEmpty() +" "+ list_linea );
+        for (int i = 0; i < list_linea.size(); i++) {
+            System.out.println("element lista-->"+list_linea.get(i).getText());
+            System.out.println("linea-->"+cadena.formatoNumber(num));
+            if(cadena.compararCadenas(cadena.formatoNumber(num),list_linea.get(i).getText())){
+            WebElement line=list_linea.get(i);
+                click(line);
+                break;
+            }         
+        }   
+           
+           
        }
        
        public void obtener_Line(Client newClient) throws InterruptedException{
