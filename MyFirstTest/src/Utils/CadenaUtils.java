@@ -44,4 +44,8 @@ public class CadenaUtils{
         }
         return false;
     }
+    //094 838 603
+    public static String formatoNumber(String num){
+        return num.substring(0, 2)+" "+num.substring(2, 5)+" "+num.substring(5, 8);
+    }
 }
