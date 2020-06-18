@@ -625,7 +625,7 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     WebElement btn_enviar = null;
     
     try{
-        Wait_Click(boton_enviar);
+        small_Time_Wait(boton_enviar,1,200);
         btn_enviar = findElement(boton_enviar);
     } catch (NoSuchElementException e){
         System.out.println("elemento no localizado el enviar");
@@ -656,44 +656,6 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     
     
 }
-
-
-
-
-/**
- *
- * @return 
- */
- /*public WebElement seleccionar_CanalX(){
-        WebElement canal=null;
-      
-        WebElement canalD= findElement(combobox);
-    List<WebElement> elemntcanaldistribucion= canalD.findElements(By.tagName("div")); 
-        for (int i = 0; i < elemntcanaldistribucion.size(); i++) {
-            if(getText(elemntcanaldistribucion.get(i)).equals("AGENTES ESPECIALISTAS"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                canal=elemntcanaldistribucion.get(i);
-        
-        }
-        return canal;
-        
-}*/
- /**
-  * Se obtiene la lista de planes 
-  * @param nombre_plan
-  * @return 
-  */
-/*public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
- WebElement pp=null;   
- Wait(Lis_planes);
- WebElement obtener_pp= findElement(Lis_planes);
- List<WebElement> list_obtenerpp= obtener_pp.findElements(By.tagName("div"));
- for (int i = 0; i < list_obtenerpp.size(); i++) {
-            if(list_obtenerpp.get(i).getText().equals(nombre_plan))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                pp=list_obtenerpp.get(i);
-        
-        }
- return pp;
-}*/ 
 
 public void obtener_botonenviar() throws InterruptedException{
     WebElement boton_envia = null;

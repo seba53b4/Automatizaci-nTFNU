@@ -4,18 +4,10 @@ import Utils.HandleFile;
 import Utils.Client;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import limpieza_recurso.Limpieza_Class;
-import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import static org.openqa.selenium.By.name;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 //import static org.openqa.selenium.lift.Finders.table;
 import pages.ClientPage;
-import pages.CostumerPage;
 import pages.LoginPage;
 
 /*

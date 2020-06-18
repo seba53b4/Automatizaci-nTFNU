@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import limpieza_recurso.Limpieza_Class;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -64,91 +63,6 @@ public class HandleFile {
         this.dir = System.getProperty("user.dir") + "\\";
     }
     
-    public HashMap<String, LinkedList<String>> readArchivoEntradaDesconexion()
-    {
-        HashMap<String, LinkedList<String>> map = new HashMap<>();
-        
-        try {
-            FileReader fr = new FileReader(dir+"\\Desconexion\\archivoEntrada.csv");
-            BufferedReader br = new BufferedReader(fr);
-            String linea;
-            String ant ="";
-            String[] aux ;
-            LinkedList<String> auxiliar;
-            while((linea = br.readLine()) != null)
-            {
-                aux = linea.split(";");
-                if (isNumeric(aux[1]) && aux[1].length() == 8) {
-                    if (!map.containsKey(aux[1])) {
-                        map.put(aux[1],new LinkedList<String>());
-                        map.get(aux[2]).add(aux[1]);
-                        
-                        
-                    } else 
-                    {
-                        map.get(aux[2]).add(aux[1]);
-                    }
-                }
-            }
-            fr.close();
-        } catch(Exception e) {
-          System.out.println("Excepcion leyendo fichero archivoEntrada.csv con Error: " + e);
-          
-        }
-        return map;
-    }
-    public boolean writeArchivoSO_Desconexion(HashMap<String, Limpieza_Class> map)
-    {
-        File f = new File(dir+"\\Desconexion\\archivoSO.csv");
-        try {
-            FileOutputStream fos=new FileOutputStream(f);
-            PrintWriter pw=new PrintWriter(fos);           
-            for (HashMap.Entry<String, Limpieza_Class>entry : map.entrySet()) {
-                pw.write(entry.getKey()+";"+entry.getValue().getSO()+";"+entry.getValue().getStatus()+";"+
-                        entry.getValue().getSim()+"\n");
-                
-            }
-            pw.flush();
-            pw.close();
-            fos.close();
-            
-            return true;
-        } catch(Exception e) {
-          System.out.println("Excepcion leyendo fichero archivoSO.csv con Error: " + e);
-          
-        }
-        return false;
-    }
-    public boolean writeArchivoNumeroSIM_Desconexion(String id,String num,String sim)
-    {
-        File f = new File(dir+"\\Desconexion\\archivoNumberSIM.csv");
-        try {
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            String linea = id+";"+num+";"+sim+"\n";
-            bw.write(linea);
-            return true;
-        } catch(Exception e) {
-          System.out.println("Excepcion leyendo fichero archivoSO.csv con Error: " + e);
-          
-        }
-        return false;
-    }
-    public boolean writeArchivoStatus_Desconexion(String id,String estado)
-    {
-        File f = new File(dir+"\\Desconexion\\archivoStatus.csv");
-        try {
-            FileWriter fw = new FileWriter(dir+"\\Desconexion\\archivoStatus.csv",true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            String linea = id+";"+estado+";\n";
-            bw.write(linea);
-            return true;
-        } catch(Exception e) {
-          System.out.println("Excepcion leyendo fichero archivoSO.csv con Error: " + e);
-          
-        }
-        return false;
-    }
     
     public boolean registrarError(String err) throws IOException{
         
