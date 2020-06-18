@@ -993,7 +993,7 @@ public class HandleFile {
                 //creating Workbook instance that refers to .xlsx file  
                 XSSFWorkbook wb = new XSSFWorkbook(fis);
                 //creating a Sheet object to retrieve object
-                // getting the sheet "REAL-PLAN" (index 11)
+                // getting the sheet "REGISTERED RECHARGE" (index 11)
                 XSSFSheet sheet = wb.getSheetAt(11);
                 Integer rowIterator = 1;
                 while (rowIterator <= client.size())                 
@@ -1017,7 +1017,7 @@ public class HandleFile {
                     if (cell == null)  
                         cell = row.createCell(1);  
                     cell.setCellType(CellType.STRING);  
-                    cell.setCellValue(client.get(index).getLine());
+                    cell.setCellValue(client.get(index).getStatus_recharge());
                  
                     rowIterator++;
                     
