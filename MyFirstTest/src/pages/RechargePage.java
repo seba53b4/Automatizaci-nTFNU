@@ -93,19 +93,9 @@ public class RechargePage extends Base.BasePage{
            obtener_Payment(newClient);
            Wait_Click(boton_crear);
            click(boton_crear);
-//           
+           
           Wait_Click(nueva_recarga_realizada);
-//           Thread.sleep(1000);
-//           click(nueva_recarga_realizada);
-           
-           // Guardar Datos
-           
-            //metodo utilizado
-            JavascriptExecutor jse =(JavascriptExecutor)driver;
-            WebElement nueva_recarga_done = (WebElement)jse.executeScript("return document.getElement(By.xpath('//tr[@__gwt_row=0 and @__gwt_subrow=0]/td/div/div/a[contains(text(),'Aumentar')]/parent::div')).click()");
-            //click(nueva_recarga_done);
-           
-           
+
        }
        
        public void getAltamiraUrl(String num) throws InterruptedException{
