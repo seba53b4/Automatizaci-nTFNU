@@ -7,6 +7,8 @@ import Utils.Client;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 /*
@@ -41,16 +43,22 @@ public class RechargePage extends Base.BasePage{
     By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
     CadenaUtils cadena;
     
+    
       public RechargePage() {
        cadena=new CadenaUtils();
   
     }
       public Client recargaLinea(Client newClient,String env) throws InterruptedException {
-          
-          seleccionar_billingAccount(newClient, env);
+         
           realizar_Recarga(newClient);
-          newClient.setLink_recharge(obtener_urlSO());
-          newClient.setStatus_recharge(getText(status_recarga));
+          cargando();
+          String url_SO=obtener_urlSO();
+          Wait(status_recarga);
+          String statusRecarga=getText(status_recarga);
+          System.out.println("link-->"+ url_SO);
+          System.out.println("status-->"+ statusRecarga);
+          newClient.setLink_recharge(url_SO);
+          newClient.setStatus_recharge(statusRecarga);
       
           return newClient;
     } 
@@ -64,14 +72,7 @@ public class RechargePage extends Base.BasePage{
         }
         
     }
-       public void seleccionar_billingAccount(Client newClient,String env) throws InterruptedException{
-     
-      
-        /*Wait_Click(newrecharge);
-        Thread.sleep(4000);
-        click(newrecharge);
-        Thread.sleep(2000);*/     
-   }
+    
        public void realizar_Recarga(Client newClient) throws InterruptedException{
            
            visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newClient.getObject_id());
@@ -83,6 +84,7 @@ public class RechargePage extends Base.BasePage{
            Wait_Click(boton_anadir_recargas);
            click(boton_anadir_recargas);
            //obtener_Line(newClient);
+           Thread.sleep(2000);
            Wait(importe);
            System.out.println("importe-->"+newClient.getAmount());
            sendKeys(newClient.getAmount(), importe);
@@ -93,8 +95,11 @@ public class RechargePage extends Base.BasePage{
            obtener_Payment(newClient);
            Wait_Click(boton_crear);
            click(boton_crear);
-           
-          Wait_Click(nueva_recarga_realizada);
+
+           cargando();
+           Wait_Click(nueva_recarga_realizada);     
+           click(nueva_recarga_realizada);
+
 
        }
        
@@ -150,4 +155,29 @@ public class RechargePage extends Base.BasePage{
         
         }
        }
+           public void cargando() throws InterruptedException
+{
+    
+    WebElement progress = null;
+    for (int i = 1; i < 11; i++) {
+        try{///html/body/div[7]/div /html/body/div[7]
+            progress = findElement(By.xpath("//div[@class=\"nc-loading-overlay\"]"));///html/body/div["+i+"`]/div"));
+            Wait_element_progress(progress);
+            System.out.println(progress);
+            while (progress != null && progress.isDisplayed()){
+                //System.out.println("estado progreso en loading: "+progress.isEnabled());
+                //System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+                Thread.sleep(2000);
+                Wait_element_progress(progress);
+               }
+        } catch (StaleElementReferenceException e)
+            {
+                System.out.println("Error en StaleElementReferenceException en ejecucion de LOADING");
+                //System.out.println(e);
+            }catch (NoSuchElementException e)
+            {
+                 System.out.println("Error en NoSuchElementException  en ejecucion de LOADING");
+            }
+       }
+     }  
 }

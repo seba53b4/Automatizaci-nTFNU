@@ -78,13 +78,13 @@ public TestRecarga(Client c){
          }
          
          Client newClient = this.ap.recargaLinea(client, enviroment);
-         if (newClient.getName() != null) {
+         if (newClient.getLink_recharge() != null) {
              realClients.add(newClient);
          }
          
          
          
-         // only save in spreadsheet the changed Plan
+         // only save in spreadsheet the recharge
          if (realClients.size() > 0) {
              HandleFile.getHandleFile().generateRegisteredRechargeDatasource(realClients);
              
