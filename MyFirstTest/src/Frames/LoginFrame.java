@@ -2,6 +2,11 @@ package Frames;
 
 
 import Objects.Usuario;
+import java.awt.event.ActionEvent;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JOptionPane;
 import pages.LoginPage;
 
@@ -29,8 +34,34 @@ public class LoginFrame extends javax.swing.JFrame {
        
         estaLogueado = false;
         this.setLocationRelativeTo(null);
+        
+        KeyListener actionEnter = new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    System.out.println("ENTRO AL ENTER");
+                    btn_LogIn.doClick();
+                } else {
+                    System.out.println("ALGO HIZO");
+                }
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                }
+        };
+        this.psw_Field.addKeyListener(actionEnter);
+        this.txtField_User.addKeyListener(actionEnter);
+        
+        
     }
+    
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,11 +84,14 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(51, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtField_User.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 16)); // NOI18N
         txtField_User.setForeground(new java.awt.Color(51, 51, 255));
         txtField_User.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtField_User.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
         jPanel1.add(txtField_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 140, 30));
 
+        psw_Field.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 16)); // NOI18N
+        psw_Field.setForeground(new java.awt.Color(51, 51, 255));
         psw_Field.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         psw_Field.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
         jPanel1.add(psw_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 140, 30));
@@ -76,8 +110,8 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Constantia", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Hello there !!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 330, 50));
+        jLabel1.setText("Automated Tool");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 330, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

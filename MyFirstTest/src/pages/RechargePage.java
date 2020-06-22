@@ -4,12 +4,15 @@ package pages;
 import static Base.BasePage.driver;
 import Utils.CadenaUtils;
 import Utils.Client;
+import java.util.Date;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,6 +44,7 @@ public class RechargePage extends Base.BasePage{
     By boton_anadir_recargas = By.xpath("//button[contains(text(),'Nueva recarga')]");
     By nueva_recarga_realizada = By.xpath("//tr[@__gwt_row=\"0\" and @__gwt_subrow=\"0\"]/td/div/div/a[contains(text(),'Aumentar')]/parent::div");
     By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
+    
     CadenaUtils cadena;
     
     
@@ -50,8 +54,15 @@ public class RechargePage extends Base.BasePage{
     }
       public Client recargaLinea(Client newClient,String env) throws InterruptedException {
          
+          Date iniTest = new Date();
+         
           realizar_Recarga(newClient);
           cargando();
+        /*  Wait(nueva_recarga_realizada);
+          String str = getText(nueva_recarga_realizada);
+          System.out.println(str);
+          */
+          
           String url_SO=obtener_urlSO();
           Wait(status_recarga);
           String statusRecarga=getText(status_recarga);
@@ -72,18 +83,35 @@ public class RechargePage extends Base.BasePage{
         }
         
     }
+       public void scrollUntilElement(WebElement wb){
+           JavascriptExecutor js = (JavascriptExecutor) driver;
+           js.executeScript("argumentos[0].scrollIntoView();", wb);
+       }
+       
     
        public void realizar_Recarga(Client newClient) throws InterruptedException{
            
-           visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newClient.getObject_id());
+           visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newClient.getObject_id());
+            
            Wait_Click(billaccount);
            click(billaccount);
            getAltamiraUrl(newClient.getLine());
+           
+           
            Wait_Click(boton_recargas);
            click(boton_recargas);
+           
+           // Scroll up 
+           Actions clicker = new Actions(driver);
+           clicker.sendKeys(Keys.PAGE_UP);
+           Thread.sleep(1000);
+           clicker.perform(); 
+           
+           
            Wait_Click(boton_anadir_recargas);
            click(boton_anadir_recargas);
-           //obtener_Line(newClient);
+           
+            //obtener_Line(newClient);
            Thread.sleep(2000);
            Wait(importe);
            System.out.println("importe-->"+newClient.getAmount());
