@@ -14,6 +14,7 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
@@ -279,6 +280,60 @@ public void visit(String url){
             
     
 }
+
+public void cargando() throws InterruptedException
+{
+    
+    WebElement progress = null;
+    for (int i = 1; i < 11; i++) {
+        try{///html/body/div[7]/div /html/body/div[7]
+            progress = findElement(By.xpath("//div[@class=\"nc-loading-overlay\"]"));///html/body/div["+i+"`]/div"));
+            Wait_element_progress(progress);
+            System.out.println(progress);
+            while (progress != null && progress.isDisplayed()){
+                //System.out.println("estado progreso en loading: "+progress.isEnabled());
+                //System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+                Thread.sleep(2000);
+                Wait_element_progress(progress);
+            }
+        } catch (StaleElementReferenceException e)
+        {
+            System.out.println("Error en StaleElementReferenceException en ejecucion de LOADING");
+            //System.out.println(e);
+        }catch (NoSuchElementException e)
+        {
+            System.out.println("Error en NoSuchElementException  en ejecucion de LOADING");
+        }
+    }
+}
+
+
+public void loading() throws InterruptedException
+{
+    
+    WebElement progress = null;
+    for (int i = 1; i < 11; i++) {
+        try{///html/body/div[7]/div /html/body/div[7]
+            progress = findElement(By.xpath("//div[@class='popupContent']"));///html/body/div["+i+"`]/div"));
+            Wait_element_progress(progress);
+            System.out.println(progress);
+            while (progress != null && progress.isDisplayed()){
+                //System.out.println("estado progreso en loading: "+progress.isEnabled());
+                //System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+                Thread.sleep(2000);
+                Wait_element_progress(progress);
+            }
+        } catch (StaleElementReferenceException e)
+        {
+            System.out.println("Error en StaleElementReferenceException en ejecucion de LOADING");
+            //System.out.println(e);
+        }catch (NoSuchElementException e)
+        {
+            System.out.println("Error en NoSuchElementException  en ejecucion de LOADING");
+        }
+    }
+}
+
 
 }
 
