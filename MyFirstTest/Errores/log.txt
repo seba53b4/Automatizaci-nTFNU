@@ -47,3 +47,89 @@ java.lang.NullPointerException
 
 ---------------------------------------------------------------------------
 
+08: 24: 54 AM 18-jun-AM - ERROR en Recarga Linea 
+
+org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=83.0.4103.106)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:52373}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 13527ba6264e4c079f3f61af0a2243dd
+
+---------------------------------------------------------------------------
+
+08: 27: 56 AM 18-jun-AM - ERROR en Recarga Linea 
+
+org.openqa.selenium.JavascriptException: javascript error: missing ) after argument list
+  (Session info: chrome=83.0.4103.106)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:52515}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: dc804e415e5de9c2579061b497299f5a
+
+---------------------------------------------------------------------------
+
+08: 30: 28 AM 18-jun-AM - ERROR en Recarga Linea 
+
+org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <div class="nc-field-text-readonly nc-field-reference-readonly">...</div> is not clickable at point (370, 229). Other element would receive the click: <div id="nc_loading_524500748410224200-overlay" class="nc-loading-overlay" style="left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute; z-index: 100010;"></div>
+  (Session info: chrome=83.0.4103.106)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:52736}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 308a293cf92c08c77f0fdf29d28dde74
+
+---------------------------------------------------------------------------
+
+08: 39: 37 AM 18-jun-AM - ERROR en Recarga Linea 
+
+org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <div class="nc-field-text-readonly nc-field-reference-readonly">...</div> is not clickable at point (370, 229). Other element would receive the click: <div id="nc_loading_1396226279564547300-overlay" class="nc-loading-overlay" style="left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute; z-index: 100010;"></div>
+  (Session info: chrome=83.0.4103.106)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:53440}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: c71a1759a6d2eb3647ae38bc0ce7b9a3
+
+---------------------------------------------------------------------------
+
+08: 42: 18 AM 18-jun-AM - ERROR en Recarga Linea 
+
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//td/div[contains(text(),'Estado')]/following::span[1]"}
+  (Session info: chrome=83.0.4103.106)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:53624}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 42b618bc8dd281db26eb1dca497d3953
+*** Element info: {Using=xpath, value=//td/div[contains(text(),'Estado')]/following::span[1]}
+
+---------------------------------------------------------------------------
+
+10: 54: 55 AM 18-jun-AM - ERROR en Alta de Cliente Residencial
+
+element not interactable
+  (Session info: chrome=83.0.4103.106)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.106, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:57646}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 42ad65b5e0a4de9b99fbea4d87b67ace
+
+---------------------------------------------------------------------------
+
+10: 56: 39 AM 18-jun-AM - ERROR en Alta de Cliente Residencial
+
+C:\Users\ipupo\Documents\GitHub\Automatizaci-nTFNU\MyFirstTest\registers.xlsx (El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso): Error registering Real Client Data Source!
+
+---------------------------------------------------------------------------
+
+11: 11: 18 AM 18-jun-AM - ERROR en Alta de PP 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+

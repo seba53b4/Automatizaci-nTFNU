@@ -148,24 +148,7 @@ public class Client {
     public void setLink_recharge(String link_recharge) {
         this.link_recharge = link_recharge;
     }
-
-    /**
-     * @return the total_recharge
-     */
-    public String getStatus_recharge() {
-        return status_recharge;
-    }
-
-    /**
-     * @param total_recharge the total_recharge to set
-     */
-    public void setStatus_recharge(String st_recharge) {
-        this.status_recharge = st_recharge;
-    }
-
-    /**
-     * @return the object_id
-     */
+    
     public String getObject_id() {
         return object_id;
     }
@@ -231,6 +214,20 @@ public class Client {
      */
     public void setPayment_method(String payment_method) {
         this.payment_method = payment_method;
+    }
+
+    /**
+     * @return the status_recharge
+     */
+    public String getStatus_recharge() {
+        return status_recharge;
+    }
+
+    /**
+     * @param status_recharge the status_recharge to set
+     */
+    public void setStatus_recharge(String status_recharge) {
+        this.status_recharge = status_recharge;
     }
 
 }
