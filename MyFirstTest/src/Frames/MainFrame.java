@@ -110,19 +110,20 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultTableModel tb ;
         try {
             clientesRes = HandleFile.getHandleFile().readRegisterDataSource("new_residential_client");
+            tb = (DefaultTableModel) TablaTest.getModel();
+            
+            for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
+                for (Client cl : entry.getValue()) {
+                    String str = "Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new TestNewResiClient(cl));
+                }
+            }
         } catch (Exception e) {
             System.out.println("Error al cargar hoja de residencial" + e);
         }
         
-        tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
-            for (Client cl : entry.getValue()) {
-                String str = "Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
-                tb.addRow(new Object[]{false,str,"No iniciado"});
-                tests.put(str, new TestNewResiClient(cl));
-            }
-        }
         try {
             clientesEmp = HandleFile.getHandleFile().readRegisterDataSource("new_enterprise_client");
             
@@ -143,60 +144,58 @@ public class MainFrame extends javax.swing.JFrame {
         
         try {
             planes = HandleFile.getHandleFile().readRegisterDataSource("new_plan");
+            tb = (DefaultTableModel) TablaTest.getModel();
+            
+            for (Map.Entry<String, List<Plan>> entry : planes.entrySet()) {
+                for (Plan p : entry.getValue()) {
+                    String str = "";
+                    BaseTest bt = null;
+                    if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
+                        str = "Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                        tb.addRow(new Object[]{false,str,"No iniciado"});
+                        tests.put(str, new TestAltaPP(p));
+                        
+                    } else {
+                        str = "Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                        tb.addRow(new Object[]{false,str,"No iniciado"});
+                        tests.put(str, new TestAltaPosP(p));
+                    }
+                }
+                
+            }
         } catch (Exception e) {
              System.out.println("Error al cargar plan" + e);
         }
          
-        tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Plan>> entry : planes.entrySet()) {
-            for (Plan p : entry.getValue()) {
-                String str = "";
-                BaseTest bt = null;
-                if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
-                    str = "Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                    tb.addRow(new Object[]{false,str,"No iniciado"});
-                    tests.put(str, new TestAltaPP(p));
-                    
-                } else {
-                    str = "Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                    tb.addRow(new Object[]{false,str,"No iniciado"});
-                    tests.put(str, new TestAltaPosP(p));
-                }
-            }
-           
-        }
         
         try {
             simCardLost = HandleFile.getHandleFile().getSimCardLostPlanDatSource();
+            tb = (DefaultTableModel) TablaTest.getModel();
+            
+            for (Map.Entry<String, List<Plan>> entry : simCardLost.entrySet()) {
+                for (Plan p : entry.getValue()) {
+                    String str = "";
+                    BaseTest bt = null;
+                    
+                    str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new Test_SimCardLost(p));
+                    
+                }
+                
+        }
         } catch (Exception e) {
              System.out.println("Error al cargar sim card lost" + e);
         }
          
-        tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Plan>> entry : simCardLost.entrySet()) {
-            for (Plan p : entry.getValue()) {
-                String str = "";
-                BaseTest bt = null;
-                
-                str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                tb.addRow(new Object[]{false,str,"No iniciado"});
-                tests.put(str, new Test_SimCardLost(p));
-                
-            }
-           
-        }
         
         try {
             recargas = HandleFile.getHandleFile().getRechargeLine();
-        } catch (Exception e) {
-             System.out.println("Error al cargar sim card lost" + e);
-        }
-         
-        tb = (DefaultTableModel) TablaTest.getModel();
+            tb = (DefaultTableModel) TablaTest.getModel();
         
-        for (Map.Entry<String, List<Client>> entry : recargas.entrySet()) {
+            for (Map.Entry<String, List<Client>> entry : recargas.entrySet()) {
             for (Client cl : entry.getValue()) {
                 String str = "";
                 BaseTest bt = null;
@@ -206,8 +205,14 @@ public class MainFrame extends javax.swing.JFrame {
                 tests.put(str, new TestRecarga(cl));
                 
             }
+            }
            
+        } catch (Exception e) {
+             System.out.println("Error al cargar recargas" + e);
         }
+         
+        
+        
         
         
         
