@@ -100,11 +100,9 @@ public class RechargePage extends Base.BasePage{
            
            Date iniTest = new Date();
            visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newClient.getObject_id());
-            
            Wait_Click(billaccount);
            click(billaccount);
            getAltamiraUrl(newClient.getLine());
-           
            Wait_Click(boton_recargas);
            click(boton_recargas);
            cargando();
@@ -114,7 +112,6 @@ public class RechargePage extends Base.BasePage{
            Thread.sleep(4000);
            clicker.perform(); 
            Thread.sleep(1000);
-           
            Wait_Click(boton_anadir_recargas);
            click(boton_anadir_recargas);
            
@@ -136,9 +133,7 @@ public class RechargePage extends Base.BasePage{
            String str = getText(nueva_recarga_realizada);
            Date recargaDate = Utils.getInstance().toDate(str);
            click(nueva_recarga_realizada);
-           
            return iniTest.before(recargaDate);
-          
 
        }
        
