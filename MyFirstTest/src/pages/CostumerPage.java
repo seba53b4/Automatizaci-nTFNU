@@ -477,7 +477,6 @@ public void alta_PP(Plan newPlan) throws InterruptedException{
     
     obtener_factcreada_pp();
     Thread.sleep(250);
-    
     // Revision - Validar Factura
     
     System.out.println("Entra a Validar");
@@ -493,7 +492,7 @@ public void alta_PP(Plan newPlan) throws InterruptedException{
     
     if (btn_enviar != null) {
         System.out.println("Entra en enviar");
-        obtener_botonenviar();
+        click(btn_enviar);
         System.out.println("Sale de enviar");
     }else {
         System.out.println("El boton enviar ya fue clickeado");
@@ -607,9 +606,9 @@ public void alta_PLR(Plan newPlan) throws InterruptedException{
     click(boton_guardar_firma);
     loading();
     
-    System.out.println("Entra a Validar");
+    System.out.println("Entra a Validar Factura");
     validar_Factura();
-    System.out.println("Sale Validar");
+    System.out.println("Sale Validar Factura");
     cerrarProcesoSO(newPlan);
     
  } 
@@ -635,7 +634,6 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
         System.out.println("El boton enviar ya fue clickeado");
     }
     
-    
     Thread.sleep(600);
     String so = obtener_nombre_SO();
     System.out.println(obtener_nombre_SO());
@@ -648,7 +646,6 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     String statusSO=get_estadoSO(newPlan);
     newPlan.setStatuSO(statusSO);
     newPlan.setName(newPlan.getName());
-    
     
 }
 
