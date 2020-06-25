@@ -548,17 +548,11 @@ public class HandleFile {
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(clients.get(index).getSecondName());
                     
-                    // DNI
+                    
+                    // RUT
                     cell = row.getCell(3);  
                     if (cell == null)  
                         cell = row.createCell(3);  
-                    cell.setCellType(CellType.STRING);  
-//                    cell.setCellValue(clients.get(index).getDni());
-                    
-                    // RUT
-                    cell = row.getCell(4);  
-                    if (cell == null)  
-                        cell = row.createCell(4);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(clients.get(index).getRut());
                     
@@ -978,7 +972,7 @@ public class HandleFile {
             }
            return sourceMap;
        } catch (Exception e) {
-           throw new Exception(e.getMessage() + ": Error getting Sim Card lost Data Source!");
+           throw new Exception(e.getMessage() + ": Error getting Recarga Data Source!");
        }
    }
     

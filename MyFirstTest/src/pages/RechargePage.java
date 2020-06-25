@@ -13,6 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import Utils.Utils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -52,24 +53,29 @@ public class RechargePage extends Base.BasePage{
        cadena=new CadenaUtils();
   
     }
-      public Client recargaLinea(Client newClient,String env) throws InterruptedException {
+      public Client recargaLinea(Client newClient,String env) throws InterruptedException, Exception {
          
-          Date iniTest = new Date();
-         
-          realizar_Recarga(newClient);
+          
+          boolean ret = realizar_Recarga(newClient);
           cargando();
         /*  Wait(nueva_recarga_realizada);
           String str = getText(nueva_recarga_realizada);
           System.out.println(str);
           */
-          
-          String url_SO=obtener_urlSO();
-          Wait(status_recarga);
-          String statusRecarga=getText(status_recarga);
-          System.out.println("link-->"+ url_SO);
-          System.out.println("status-->"+ statusRecarga);
-          newClient.setLink_recharge(url_SO);
-          newClient.setStatus_recharge(statusRecarga);
+        if (ret) {
+            String url_SO=obtener_urlSO();
+            Wait(status_recarga);
+            String statusRecarga=getText(status_recarga);
+            System.out.println("link-->"+ url_SO);
+            System.out.println("status-->"+ statusRecarga);
+            newClient.setLink_recharge(url_SO);
+            newClient.setStatus_recharge(statusRecarga);
+            
+          } else {
+            newClient.setLink_recharge(newClient.getAmbiente()+" "+ newClient.getLine());
+            newClient.setStatus_recharge("NO GENERO RECARGA ");
+            throw new Exception("ERROR EN GENERAR RECARGA "+ newClient.getLine());
+          }
       
           return newClient;
     } 
@@ -89,30 +95,29 @@ public class RechargePage extends Base.BasePage{
        }
        
     
-       public void realizar_Recarga(Client newClient) throws InterruptedException{
+       public boolean realizar_Recarga(Client newClient) throws InterruptedException{
            
+           
+           Date iniTest = new Date();
            visit("https://noprd-"+newClient.getAmbiente()+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newClient.getObject_id());
-            
            Wait_Click(billaccount);
            click(billaccount);
            getAltamiraUrl(newClient.getLine());
-           
-           
            Wait_Click(boton_recargas);
            click(boton_recargas);
-           
+           cargando();
            // Scroll up 
            Actions clicker = new Actions(driver);
            clicker.sendKeys(Keys.PAGE_UP);
-           Thread.sleep(1000);
+           Thread.sleep(4000);
            clicker.perform(); 
-           
-           
+           Thread.sleep(1000);
            Wait_Click(boton_anadir_recargas);
            click(boton_anadir_recargas);
            
             //obtener_Line(newClient);
            Thread.sleep(2000);
+           cargando();
            Wait(importe);
            System.out.println("importe-->"+newClient.getAmount());
            sendKeys(newClient.getAmount(), importe);
@@ -123,11 +128,12 @@ public class RechargePage extends Base.BasePage{
            obtener_Payment(newClient);
            Wait_Click(boton_crear);
            click(boton_crear);
-
            cargando();
            Wait_Click(nueva_recarga_realizada);     
+           String str = getText(nueva_recarga_realizada);
+           Date recargaDate = Utils.getInstance().toDate(str);
            click(nueva_recarga_realizada);
-
+           return iniTest.before(recargaDate);
 
        }
        
@@ -183,29 +189,30 @@ public class RechargePage extends Base.BasePage{
         
         }
        }
-           public void cargando() throws InterruptedException
-{
-    
-    WebElement progress = null;
-    for (int i = 1; i < 11; i++) {
-        try{///html/body/div[7]/div /html/body/div[7]
-            progress = findElement(By.xpath("//div[@class=\"nc-loading-overlay\"]"));///html/body/div["+i+"`]/div"));
-            Wait_element_progress(progress);
-            System.out.println(progress);
-            while (progress != null && progress.isDisplayed()){
-                //System.out.println("estado progreso en loading: "+progress.isEnabled());
-                //System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
-                Thread.sleep(2000);
-                Wait_element_progress(progress);
+       
+       public void cargando() throws InterruptedException
+       {
+           
+           WebElement progress = null;
+           for (int i = 1; i < 11; i++) {
+               try{///html/body/div[7]/div /html/body/div[7]
+                   progress = findElement(By.xpath("//div[@class=\"nc-loading-overlay\"]"));///html/body/div["+i+"`]/div"));
+                   Wait_element_progress(progress);
+                   System.out.println(progress);
+                   while (progress != null && progress.isDisplayed()){
+                       //System.out.println("estado progreso en loading: "+progress.isEnabled());
+                       //System.out.println("estado progreso displeied en loading: "+progress.isDisplayed());
+                       Thread.sleep(2000);
+                       Wait_element_progress(progress);
+                   }
+               } catch (StaleElementReferenceException e)
+               {
+                   System.out.println("Error en StaleElementReferenceException en ejecucion de CARGANDO");
+                   //System.out.println(e);
+               }catch (NoSuchElementException e)
+               {
+                   System.out.println("Error en NoSuchElementException  en ejecucion de CARGANDO");
                }
-        } catch (StaleElementReferenceException e)
-            {
-                System.out.println("Error en StaleElementReferenceException en ejecucion de LOADING");
-                //System.out.println(e);
-            }catch (NoSuchElementException e)
-            {
-                 System.out.println("Error en NoSuchElementException  en ejecucion de LOADING");
-            }
-       }
-     }  
+           }
+       }  
 }

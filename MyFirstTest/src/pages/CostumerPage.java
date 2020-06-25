@@ -175,7 +175,7 @@ public class CostumerPage extends Base.BasePage{
     /*Para Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida*/
    public void seleccionar_CanalOrder(Plan newPlan,String env) throws InterruptedException{
      
-       visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
+        visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
         Wait_Click(nuevaSO);
         click(nuevaSO);
         Wait_Click(canaldistribucion);
@@ -477,7 +477,6 @@ public void alta_PP(Plan newPlan) throws InterruptedException{
     
     obtener_factcreada_pp();
     Thread.sleep(250);
-    
     // Revision - Validar Factura
     
     System.out.println("Entra a Validar");
@@ -493,7 +492,7 @@ public void alta_PP(Plan newPlan) throws InterruptedException{
     
     if (btn_enviar != null) {
         System.out.println("Entra en enviar");
-        obtener_botonenviar();
+        click(btn_enviar);
         System.out.println("Sale de enviar");
     }else {
         System.out.println("El boton enviar ya fue clickeado");
@@ -552,9 +551,9 @@ public void alta_PP(Plan newPlan) throws InterruptedException{
      click(boton_guardar_firma);
      loading();
      
-     System.out.println("Entra a Validar");
+     System.out.println("Entra a Validar factura");
      validar_Factura();
-     System.out.println("Sale Validar");
+     System.out.println("Sale Validar factura");
      
      Thread.sleep(250);
      validar_Deuda();
@@ -587,12 +586,9 @@ public void alta_PLR(Plan newPlan) throws InterruptedException{
     
     //Facturacion y pago
     loading();
-    
     click(fact_pago2);
-    
     obtener_factcreada_posp();
     Thread.sleep(400);
-    
     // Revision
     Wait_Click(boton_contrato);
     click(boton_contrato);
@@ -610,11 +606,9 @@ public void alta_PLR(Plan newPlan) throws InterruptedException{
     click(boton_guardar_firma);
     loading();
     
-    System.out.println("Entra a Validar");
+    System.out.println("Entra a Validar Factura");
     validar_Factura();
-    System.out.println("Sale Validar");
-    
-    
+    System.out.println("Sale Validar Factura");
     cerrarProcesoSO(newPlan);
     
  } 
@@ -625,7 +619,7 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     WebElement btn_enviar = null;
     
     try{
-        Wait_Click(boton_enviar);
+        Thread.sleep(2000);
         btn_enviar = findElement(boton_enviar);
     } catch (NoSuchElementException e){
         System.out.println("elemento no localizado el enviar");
@@ -640,7 +634,6 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
         System.out.println("El boton enviar ya fue clickeado");
     }
     
-    
     Thread.sleep(600);
     String so = obtener_nombre_SO();
     System.out.println(obtener_nombre_SO());
@@ -654,46 +647,7 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     newPlan.setStatuSO(statusSO);
     newPlan.setName(newPlan.getName());
     
-    
 }
-
-
-
-
-/**
- *
- * @return 
- */
- /*public WebElement seleccionar_CanalX(){
-        WebElement canal=null;
-      
-        WebElement canalD= findElement(combobox);
-    List<WebElement> elemntcanaldistribucion= canalD.findElements(By.tagName("div")); 
-        for (int i = 0; i < elemntcanaldistribucion.size(); i++) {
-            if(getText(elemntcanaldistribucion.get(i)).equals("AGENTES ESPECIALISTAS"))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                canal=elemntcanaldistribucion.get(i);
-        
-        }
-        return canal;
-        
-}*/
- /**
-  * Se obtiene la lista de planes 
-  * @param nombre_plan
-  * @return 
-  */
-/*public WebElement obtenerList_Planes(String nombre_plan){//metodos utilizados
- WebElement pp=null;   
- Wait(Lis_planes);
- WebElement obtener_pp= findElement(Lis_planes);
- List<WebElement> list_obtenerpp= obtener_pp.findElements(By.tagName("div"));
- for (int i = 0; i < list_obtenerpp.size(); i++) {
-            if(list_obtenerpp.get(i).getText().equals(nombre_plan))//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
-                pp=list_obtenerpp.get(i);
-        
-        }
- return pp;
-}*/ 
 
 public void obtener_botonenviar() throws InterruptedException{
     WebElement boton_envia = null;
@@ -717,20 +671,12 @@ public Boolean validar_Deuda() throws InterruptedException
     By button_yes = By.xpath("//button[@aria-disabled='false' and span[contains(text(),'Sí')]]"); //(/html/body/div[8]/div/div/div[3]/div/button[1]");
     try{
         
-        
-        
-        small_Time_Wait(button_yes,2,200);
-        
+        Thread.sleep(2000);
         WebElement boton= findElement(button_yes);
-        
         System.out.println("boton cartel deuda-->"+boton);
-        
-        
         if (boton!= null) {
-            
             click(boton);
             ret=true;
-            
         }
         
     }catch (TimeoutException e)
@@ -976,6 +922,7 @@ public void obtener_factcreada_pp() throws InterruptedException{//metodos utiliz
     if (!hay) {
         
         Wait_Click(cuenta_facturacion);
+        Thread.sleep(2000);
         click(cuenta_facturacion);
         Thread.sleep(2000);
         Wait(boton_crear_nuevacuenta_facturacion_pp);
@@ -1038,7 +985,8 @@ for (WebElement wb : facturacreada) {
 
     if (!hay) {
        
-       Wait(cuenta_facturacion);
+        Wait(cuenta_facturacion);
+        Thread.sleep(2000);
         click(cuenta_facturacion);
         Thread.sleep(2000);
         findElement(boton_crear_nuevacuenta_facturacion_pp);

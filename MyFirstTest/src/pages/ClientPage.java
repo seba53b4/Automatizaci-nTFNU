@@ -186,7 +186,7 @@ public class ClientPage extends Base.BasePage{
          // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
          // objeto Cliente
          else {
-             Thread.sleep(10000);
+             Thread.sleep(8000);
              String clientId = getClientIdByUrl(driver.getCurrentUrl());
              newClient.setClientId(clientId);
          }

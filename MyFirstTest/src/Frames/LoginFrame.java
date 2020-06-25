@@ -43,10 +43,10 @@ public class LoginFrame extends javax.swing.JFrame {
             @Override
             public void keyPressed(KeyEvent e){
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    System.out.println("ENTRO AL ENTER");
+                   // System.out.println("ENTRO AL ENTER");
                     btn_LogIn.doClick();
                 } else {
-                    System.out.println("ALGO HIZO");
+                   // System.out.println("ALGO HIZO");
                 }
             }
             
