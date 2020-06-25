@@ -84,7 +84,7 @@ public void small_Wait(By e){
          }
      });  
 }
-public void small_Time_Wait(By e, int tiempo, int lapso){
+public void small_Time_Wait(By e, int tiempo, int lapso) {
 
      FluentWait wai= new FluentWait(driver);
      wai.withTimeout(tiempo,TimeUnit.SECONDS);

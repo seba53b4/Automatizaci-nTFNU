@@ -1,7 +1,13 @@
 
 import Base.BasePage;
 import Frames.LoginFrame;
+
 import Utils.CadenaUtils;
+import Utils.Utils;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 
@@ -13,6 +19,14 @@ public class MyFirstTest{
         LoginFrame lf = new LoginFrame();
         lf.setVisible(true);
         lf.show();
+
+//          String str = "Aumentar 09/14/2019 13:14:03 $150.00";
+//          Utils u = new Utils();
+//          Date dat = u.toDate(str);
+//          System.out.println(dat.toString());
+          
+          
+
         
 //        BasePage.initBaseTest();
 //        
