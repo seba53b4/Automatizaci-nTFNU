@@ -14,27 +14,28 @@ public class CadenaUtils{
     // pivote - PosP
     // Comaramos el primero con el segundo, el primero como pivote
     public static boolean compararCadenas(String pivote, String str){
-        
-        if (pivote.length() > str.length()) {
+        String povitillo = pivote.toLowerCase();
+        String stringuillo = str.toLowerCase();
+        if (povitillo.length() > stringuillo.length()) {
             return false;
         } else {
             //boolean ret = false;
-            for (int i = 0; i < str.length(); i++) {
+            for (int i = 0; i < stringuillo.length(); i++) {
                 
-                if (str.charAt(i) == pivote.charAt(0)) {
+                if (stringuillo.charAt(i) == povitillo.charAt(0)) {
                     // System.out.println("Primer Comparacion - Compara pivote char "+ pivote.charAt(0) + " compara con "+ str.charAt(i));
                     int aux = i;
-                    for (int j = 0; j < pivote.length(); j++) {
+                    for (int j = 0; j < povitillo.length(); j++) {
                         /*if (str.charAt(aux) == ' ' && pivote.charAt(j) == ' ') {
                         System.out.println("son vacios");
                         aux++;
                         continue;
                         }*/
-                        if (str.charAt(aux) != pivote.charAt(j)) {
+                        if (stringuillo.charAt(aux) != povitillo.charAt(j)) {
                             //  System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
                             break;
                         }
-                        if (j == pivote.length()-1) {
+                        if (j == povitillo.length()-1) {
                             return true;
                         }
                         aux++;
