@@ -159,6 +159,7 @@ public class CostumerPage extends Base.BasePage{
         loading();
         cambiar_Plan(newPlan);
         loading();
+        Thread.sleep(1000);
         Terminar_Cambio_Plan(newPlan);
     return newPlan;
     }
@@ -222,8 +223,10 @@ public class CostumerPage extends Base.BasePage{
    
    /*Cambio Plan*/
    public void cambiar_Plan(Plan newPlan) throws InterruptedException{
+       
        Thread.sleep(500);
        Wait_Click(opcion_cambiado);
+       Thread.sleep(500);
        click(opcion_cambiado);
        loading();
        WebElement select =null;

@@ -293,13 +293,14 @@ public class HandleFile {
                 // getting the sheet "REAL-RESCLIENTS" (index 2)
                 XSSFSheet sheet = wb.getSheetAt(2);
                 Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 while (rowIterator <= clients.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                        row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Client ID
@@ -432,13 +433,14 @@ public class HandleFile {
                 // getting the sheet "REAL-ENTCLIENTS" (index 3)
                 XSSFSheet sheet = wb.getSheetAt(3);
                 Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 while (rowIterator <= clients.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                        row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Client ID
@@ -557,13 +559,14 @@ public class HandleFile {
                 // getting the sheet "REAL-PLAN" (index 5)
                 XSSFSheet sheet = wb.getSheetAt(5);
                 Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 while (rowIterator <= plan.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                        row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Name Plan
@@ -672,7 +675,9 @@ public class HandleFile {
                 //creating a Sheet object to retrieve object
                 // getting the sheet "REAL-PLAN" (index 7)
                 XSSFSheet sheet = wb.getSheetAt(7);
-                Integer rowIterator = 1;
+               
+                Integer rowIterator = sheet.getPhysicalNumberOfRows();
+                
                 while (rowIterator <= plan.size())                 
                 {  
                     Integer index = rowIterator - 1;
@@ -792,13 +797,14 @@ public class HandleFile {
                 // getting the sheet "REAL-PLAN" (index 9)
                 XSSFSheet sheet = wb.getSheetAt(9);
                 Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 while (rowIterator <= plan.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                        row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Name Plan
@@ -911,13 +917,14 @@ public class HandleFile {
                 // getting the sheet "REGISTERED RECHARGE" (index 11)
                 XSSFSheet sheet = wb.getSheetAt(11);
                 Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 while (rowIterator <= client.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                        row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Link recarga

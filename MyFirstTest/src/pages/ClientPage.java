@@ -151,6 +151,7 @@ public class ClientPage extends Base.BasePage{
          obtener_Categoria_Em();
          Thread.sleep(3000);
          click(obtener_Categoria_Em());
+         Wait(direccion_CE);
          sendKeys(newClient.getAddress(), direccion_CE);
          Thread.sleep(2000);
          Wait(obtener_direccion_CE);
