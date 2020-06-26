@@ -775,17 +775,24 @@ public class HandleFile {
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(plan.get(index).getName());
                     
-                    // Link SO
+                   // New Plan
                     cell = row.getCell(1);  
                     if (cell == null)  
                         cell = row.createCell(1);  
                     cell.setCellType(CellType.STRING);  
-                    cell.setCellValue(plan.get(index).getUrlSO());
+                    cell.setCellValue(plan.get(index).getName_change_plan());
                     
-                    // status SO
+                    // Link SO
                     cell = row.getCell(2);  
                     if (cell == null)  
                         cell = row.createCell(2);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(plan.get(index).getUrlSO());
+                    
+                    // status SO
+                    cell = row.getCell(3);  
+                    if (cell == null)  
+                        cell = row.createCell(3);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(plan.get(index).getStatuSO());
                     

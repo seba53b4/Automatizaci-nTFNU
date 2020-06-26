@@ -307,7 +307,60 @@ public void cargando() throws InterruptedException
     }
 }
 
-
+public WebElement buscarElement(By e,int lapso) throws InterruptedException{
+    
+    WebElement ret = null; 
+    try{
+        Wait(e,2);
+        ret = findElement(e);
+    }catch (TimeoutException ex) {
+        System.out.println("BuscarElement - No se encontro " + e);
+    }catch (NoSuchElementException ex) {
+        System.out.println("BuscarElement - No se encontro " + e);
+    }
+    return ret;
+    
+}
+public WebElement Wait(By e, int lapso) throws InterruptedException{
+    // Inicializa y espera hasta que se haga clic en el element(link): tiempo de espera en 10 segundos
+    //try
+    WebElement wb = null;
+    int i =0;
+    lapso *= 1000;
+    while (wb == null) {
+        i++;
+        try{
+            System.out.println("el valor de i es: " + i);
+            Thread.sleep(i * 500);
+            wb = findElement(e);
+            if (wb != null) {
+                return wb;
+            }
+            
+        }catch(TimeoutException r ) {
+            System.err.println("NO esta visible el elemento: " + e);
+        }
+        catch (NoSuchElementException t) {
+            System.err.println("El elemento localizado " + e);
+        }catch (ElementClickInterceptedException ea){
+            System.err.println("Elemento interceptado al clickear " + e);
+        }
+        catch (ElementNotInteractableException w) {
+            System.err.println("Esperar a que el elemento sea interactuable" + e);
+        }catch (UnhandledAlertException w) {
+            System.err.println("Aparece un mensaje de Alerta antes de " + e);
+        }
+        catch (NullPointerException z) {
+            System.err.println("Esperar a que el elemento no este vacio" + e);
+        }
+        
+        if ((i*500) >= lapso) {
+                System.out.println("entra al lapso compare");
+                return null;
+            }
+    }
+    return wb;
+}
 public void loading() throws InterruptedException
 {
     
