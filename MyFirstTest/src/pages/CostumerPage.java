@@ -159,6 +159,7 @@ public class CostumerPage extends Base.BasePage{
         loading();
         cambiar_Plan(newPlan);
         loading();
+        Thread.sleep(1000);
         Terminar_Cambio_Plan(newPlan);
     return newPlan;
     }
@@ -222,9 +223,12 @@ public class CostumerPage extends Base.BasePage{
    
    /*Cambio Plan*/
    public void cambiar_Plan(Plan newPlan) throws InterruptedException{
+       
        Thread.sleep(500);
        Wait_Click(opcion_cambiado);
+       Thread.sleep(500);
        click(opcion_cambiado);
+       loading();
        WebElement select =null;
        System.out.println("nombre plan a cambiar-->"+newPlan.getName_change_plan());
        
@@ -232,6 +236,7 @@ public class CostumerPage extends Base.BasePage{
                (CadenaUtils.compararCadenas("PLK", newPlan.getName_change_plan())) ){
            select = this.Obtener_cambioPP(newPlan.getName_change_plan());
            click(select);
+           
        }
        else  if(CadenaUtils.compararCadenas("C0",newPlan.getName_change_plan()) || (CadenaUtils.compararCadenas("C1",newPlan.getName_change_plan()) ) || 
                (CadenaUtils.compararCadenas("C2",newPlan.getName_change_plan()) ) || CadenaUtils.compararCadenas("C3",newPlan.getName_change_plan()) 
@@ -243,6 +248,7 @@ public class CostumerPage extends Base.BasePage{
            select = this.Obtener_cambioPLR(newPlan.getName_change_plan());
            click(select);
        }
+       loading();
    }
    
    public void Terminar_Cambio_Plan(Plan newPlan) throws InterruptedException{
@@ -813,7 +819,7 @@ public void validar_Factura() throws InterruptedException
             btn_cerrarSO = findElement(boton_cerrarSO);
         }catch (NoSuchElementException e)
         {
-            System.out.println("El boton cerrar SO no ses encuentra en proceso de VALIDAR "+ btn_cerrarSO.toString());
+            System.out.println("El boton cerrar SO no ses encuentra en proceso de VALIDAR "+ boton_cerrarSO.toString());
         }catch (NullPointerException e)
         {
             System.out.println("error validar boron cerrar SO -  NullPointerException");

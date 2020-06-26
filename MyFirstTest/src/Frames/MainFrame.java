@@ -5,7 +5,6 @@
  */
 package Frames;
 
-import Base.BasePage;
 import Base.BaseTest;
 import Objects.Usuario;
 import Utils.EnterpriseClient;
@@ -14,22 +13,22 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import pages.LoginPage;
-
-
 import Tests.TestAltaPP;
 import Tests.TestAltaPosP;
 import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
 import Tests.TestRecarga;
+import Tests.Test_CambioPlan;
 import Tests.Test_SimCardLost;
 import Utils.CadenaUtils;
 import Utils.Client;
 import Utils.Plan;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
     private HashMap<String, List<Plan>> simCardLost;
     private HashMap<String, BaseTest> tests;
     private HashMap<String, List<Client>> recargas;
+    private HashMap<String, List<Plan>> cambioPlan;
     private static  MainFrame mf;
     
     private Usuario user;
@@ -81,9 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
         return mf;
     }
     
-   private void iniciarComponentes() {
-  
-   }
+   
    
     public MainFrame() {
        imagenfondo image=new imagenfondo();
@@ -210,6 +208,24 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (Exception e) {
              System.out.println("Error al cargar recargas" + e);
         }
+
+        
+        try {
+            cambioPlan = HandleFile.getHandleFile().readRegisterDataSource("change_plan");;
+            tb = (DefaultTableModel) TablaTest.getModel();
+            for (Map.Entry<String, List<Plan>> entry : cambioPlan.entrySet()) {
+                for (Plan p : entry.getValue()) {
+                    String str = "";
+                    BaseTest bt = null;
+                    str = "Cargado Archivo - Cambio Plan "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " to "+p.getName_change_plan()+" en cliente: "+ p.getObject_id() ;
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new Test_CambioPlan(p));
+                    
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar cambio de plan" + e);
+        }
          
         
         
@@ -312,11 +328,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void ButtonEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEjecutarActionPerformed
         
         LinkedList<Worker> works = new LinkedList<>();
+        
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
-            if ( TablaTest.getValueAt(i, 0).equals(true)) {
-                
+            if (TablaTest.getValueAt(i, 0).equals(true)) {
                 if (CadenaUtils.compararCadenas("Alta cliente residencial", TablaTest.getValueAt(i, 1).toString())){
-                    
                     TestNewResiClient tn = (TestNewResiClient) tests.get(TablaTest.getValueAt(i, 1).toString());
                     if (tn != null) {
                         System.out.println(" NO ES NULL el test resid");
@@ -325,7 +340,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Alta cliente empresarial", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestEmpClient tn = (TestEmpClient) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -333,7 +347,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("PP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = (TestAltaPP) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -348,7 +361,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Sim Card Lost", TablaTest.getValueAt(i, 1).toString())) {
                     //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     Test_SimCardLost tap = (Test_SimCardLost) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -356,7 +368,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Recarga Linea", TablaTest.getValueAt(i, 1).toString())) {
                     //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestRecarga tap = (TestRecarga) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -364,11 +375,20 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
+                if (CadenaUtils.compararCadenas("Cambio Plan", TablaTest.getValueAt(i, 1).toString())){
+                    Test_CambioPlan tn = (Test_CambioPlan) tests.get(TablaTest.getValueAt(i, 1).toString());
+                    if (tn != null) {
+                        System.out.println(" NO ES NULL el test resid");
+                    }
+                    Worker wk = new Worker(TablaTest, tn, i);
+                    works.add(wk);
+                    continue;
+                }
             }
         }
-        for (Worker wk : works) {
-            wk.execute();
-            System.out.println("Ejecutando");
+        if (!works.isEmpty()) {
+            WorkerExecutor wex = new WorkerExecutor(works);
+            wex.start();
         }
     }//GEN-LAST:event_ButtonEjecutarActionPerformed
 
