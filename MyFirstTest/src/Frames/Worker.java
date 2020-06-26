@@ -8,6 +8,7 @@ package Frames;
 import Base.BasePage;
 import Base.BaseTest;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 import javax.swing.JTable;
 import javax.swing.SwingWorker;
@@ -26,6 +27,7 @@ public class Worker extends SwingWorker<Void,Void>{
     private static Worker wk;
     BaseTest bt ;
     private Semaphore sm;
+    List<BaseTest> tests;
    
     public static Worker getWorker(){
         return wk;
@@ -41,6 +43,11 @@ public class Worker extends SwingWorker<Void,Void>{
         this.bt = bt;
         wk = this;
         sm = new Semaphore(1);
+        tests = new LinkedList<>();
+    }
+
+    public void setTests(List<BaseTest> tests) {
+        this.tests = tests;
     }
     
     public void cleanBarra(){
@@ -55,19 +62,19 @@ public class Worker extends SwingWorker<Void,Void>{
        // barra.setVisible(false);
     } 
                 
+    
+    
     @Override
     protected Void doInBackground() throws Exception {
         try
         {
            sm.acquire();
-           //BasePage.initBaseTest();
            System.out.println("PROBANDO ");
-          
            String str = bt.test();
            tabla.setValueAt(str, ident, 2);
            //bt.CerrarNavegador();
            sm.release();
-           
+            
           // MainFrame.getInstance().enableBotonEjecutar llamo a Mianframe y dejo enable el boton ejecutar
         } catch (Exception e)
         {

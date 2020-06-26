@@ -26,6 +26,9 @@ import Utils.Plan;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -325,9 +328,9 @@ public class MainFrame extends javax.swing.JFrame {
     private void ButtonEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEjecutarActionPerformed
         
         LinkedList<Worker> works = new LinkedList<>();
+        
         for (int i = 0; i < TablaTest.getRowCount(); i++) {
-            if ( TablaTest.getValueAt(i, 0).equals(true)) {
-                
+            if (TablaTest.getValueAt(i, 0).equals(true)) {
                 if (CadenaUtils.compararCadenas("Alta cliente residencial", TablaTest.getValueAt(i, 1).toString())){
                     TestNewResiClient tn = (TestNewResiClient) tests.get(TablaTest.getValueAt(i, 1).toString());
                     if (tn != null) {
@@ -337,7 +340,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Alta cliente empresarial", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestEmpClient tn = (TestEmpClient) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -345,7 +347,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("PP", TablaTest.getValueAt(i, 1).toString())) {
                     System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestAltaPP tap = (TestAltaPP) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -360,7 +361,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Sim Card Lost", TablaTest.getValueAt(i, 1).toString())) {
                     //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     Test_SimCardLost tap = (Test_SimCardLost) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -368,7 +368,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Recarga Linea", TablaTest.getValueAt(i, 1).toString())) {
                     //System.out.println("Es boolean y esta seleccionado la pos; "+ i);
                     TestRecarga tap = (TestRecarga) tests.get(TablaTest.getValueAt(i, 1).toString());
@@ -376,7 +375,6 @@ public class MainFrame extends javax.swing.JFrame {
                     works.add(wk);
                     continue;
                 }
-                
                 if (CadenaUtils.compararCadenas("Cambio Plan", TablaTest.getValueAt(i, 1).toString())){
                     Test_CambioPlan tn = (Test_CambioPlan) tests.get(TablaTest.getValueAt(i, 1).toString());
                     if (tn != null) {
@@ -388,8 +386,9 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         }
-        for (Worker wk : works) {
-            wk.execute();
+        if (!works.isEmpty()) {
+            WorkerExecutor wex = new WorkerExecutor(works);
+            wex.start();
         }
     }//GEN-LAST:event_ButtonEjecutarActionPerformed
 
