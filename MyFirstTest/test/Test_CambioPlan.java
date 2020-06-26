@@ -35,8 +35,9 @@ public class Test_CambioPlan extends Base.BaseTest {
    public void Cambio_Plan() throws Exception
    {     
       BasePage.initBaseTest();
+      BasePage.getNewDriver();
         this.ap = new CostumerPage();
-        this.lp = LoginPage.getLoginPage();
+        this.lp = LoginPage.initLoginPage("ipupo","Movistar.12345");
         this.hf = new HandleFile();
        List<Plan> realPlans = new ArrayList<>();
         HashMap<String, List<Plan>> dataSource = this.hf.readRegisterDataSource("change_plan");
