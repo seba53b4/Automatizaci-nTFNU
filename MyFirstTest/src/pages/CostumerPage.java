@@ -205,6 +205,12 @@ public class CostumerPage extends Base.BasePage{
        Thread.sleep(200);
        Wait_Click(seleccionariccid);
        click(seleccionariccid);
+       loading();
+       Wait_Click(boton_revision);
+       Thread.sleep(500);
+       click(boton_revision);
+       validar_Factura();
+       cerrarProcesoSO(plan,false);
        
              
        
@@ -256,7 +262,7 @@ public class CostumerPage extends Base.BasePage{
        Thread.sleep(400);
        Wait_Click(boton_revision);
        click(boton_revision);
-       cerrarProcesoSO(newPlan);
+       cerrarProcesoSO(newPlan,false);
        
    }
    
@@ -351,17 +357,7 @@ public class CostumerPage extends Base.BasePage{
        
        validar_Deuda();
         
-       //Wait(boton_cerrarSO);
-       String so = obtener_nombre_SO_CambioPlan();
-       Thread.sleep(500);
-       Wait_Click(boton_cerrarSO);
-       click(boton_cerrarSO);
-       obtener_SO(so);
-       String url_SO=obtener_urlSO();
-       newPlan.setUrlSO(url_SO);
-       String statusSO= get_estadoSO();
-       newPlan.setStatuSO(statusSO);
-       newPlan.setName(newPlan.getName());
+       cerrarProcesoSO(newPlan, false);
       
        
    }
@@ -548,7 +544,7 @@ public class CostumerPage extends Base.BasePage{
     
     validar_Deuda();
     
-    cerrarProcesoSO(newPlan);        
+    cerrarProcesoSO(newPlan,true);        
  }
  
    public void alta_PLC(Plan newPlan) throws InterruptedException{
@@ -606,7 +602,7 @@ public class CostumerPage extends Base.BasePage{
      
      Thread.sleep(250);
      validar_Deuda();
-     cerrarProcesoSO(newPlan);
+     cerrarProcesoSO(newPlan,true);
  }
   
 public void alta_PLR(Plan newPlan) throws InterruptedException{
@@ -656,12 +652,12 @@ public void alta_PLR(Plan newPlan) throws InterruptedException{
     System.out.println("Entra a Validar Factura");
     validar_Factura();
     System.out.println("Sale Validar Factura");
-    cerrarProcesoSO(newPlan);
+    cerrarProcesoSO(newPlan,true);
     
  } 
 
 
-public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
+public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedException{
     
     WebElement btn_enviar = null;
     
@@ -680,19 +676,38 @@ public void cerrarProcesoSO(Plan newPlan) throws InterruptedException{
     }else {
         System.out.println("El boton enviar ya fue clickeado");
     }
+    if (especial) {
+        
+        Thread.sleep(600);
+        String so = obtener_nombre_SO();
+        System.out.println(obtener_nombre_SO());
+        Thread.sleep(250);
+        Wait_Click(boton_cerrarSO);
+        click(boton_cerrarSO);
+        obtener_SO(so);
+        String url_SO=obtener_urlSO();
+        newPlan.setUrlSO(url_SO);
+        String statusSO=get_estadoSO();
+        newPlan.setStatuSO(statusSO);
+        newPlan.setName(newPlan.getName());
+        
+    } else {
+        
+        //Wait(boton_cerrarSO);
+        String so = obtener_nombre_SO_CambioPlan();
+        Thread.sleep(500);
+        Wait_Click(boton_cerrarSO);
+        click(boton_cerrarSO);
+        obtener_SO(so);
+        String url_SO=obtener_urlSO();
+        newPlan.setUrlSO(url_SO);
+        String statusSO= get_estadoSO();
+        newPlan.setStatuSO(statusSO);
+        newPlan.setName(newPlan.getName());
+        
+    }
     
-    Thread.sleep(600);
-    String so = obtener_nombre_SO();
-    System.out.println(obtener_nombre_SO());
-    Thread.sleep(250);
-    Wait_Click(boton_cerrarSO);
-    click(boton_cerrarSO);
-    obtener_SO(so);
-    String url_SO=obtener_urlSO();
-    newPlan.setUrlSO(url_SO);
-    String statusSO=get_estadoSO();
-    newPlan.setStatuSO(statusSO);
-    newPlan.setName(newPlan.getName());
+    
     
 }
 
@@ -1255,7 +1270,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
         WebElement nombre_so = findElement(nombre_orden_venta);
         String nombre_orden= getText(nombre_so);
         //System.out.println("nombre SO"+ nombre_orden);
-        return nombre_orden.substring(0, 13);
+        return nombre_orden.substring(0, 14);
     }   
    
    public String getTypePlan(String namePlan){
