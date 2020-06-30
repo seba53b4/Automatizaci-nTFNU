@@ -290,6 +290,9 @@ public class HandleFile {
                 case "recharge_line":
                     sourceMap = getRechargeLine();
                 break;
+                case "change_usim":
+                    sourceMap = getChangeUSIM();
+                break;
            }
            
 
@@ -759,18 +762,19 @@ public class HandleFile {
                 //creating Workbook instance that refers to .xlsx file  
                 XSSFWorkbook wb = new XSSFWorkbook(fis);
                 //creating a Sheet object to retrieve object
-                // getting the sheet "REAL-PLAN" (index 7)
+                // getting the sheet "Changed-PLAN" (index 7)
                 XSSFSheet sheet = wb.getSheetAt(7);
-               
-                Integer rowIterator = sheet.getPhysicalNumberOfRows();
+                 Integer rowIterator = 1;
+                 Integer cantInicial = sheet.getPhysicalNumberOfRows();
                 
                 while (rowIterator <= plan.size())                 
                 {  
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
-                    Row row = sheet.getRow(rowIterator);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
+                    
                     if (row == null) {
-                        row = sheet.createRow(rowIterator);
+                         row = sheet.createRow(rowIterator+cantInicial);
                     }
                     
                     // Name Plan
@@ -1042,6 +1046,65 @@ public class HandleFile {
            throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
        }
     }
+     //Caso 7:Change USIM
+     public HashMap<String, List<Plan>> getChangeUSIM() throws Exception {
+       try {
+            HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            if (sourceFile.exists()){
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "Change usim" (index 12)
+                XSSFSheet sheet = wb.getSheetAt(12);
+                //iterating over excel file
+                Iterator<Row> itr = sheet.iterator(); 
+                itr.next();
+                while (itr.hasNext())                 
+                {  
+                    Row row = itr.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
+                    Plan plan = new Plan();
+                    String enviroment = null;
+                    while (cellIterator.hasNext())   
+                    {  
+                        Cell cell = cellIterator.next();
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        //String data0= cell.getStringCellValue();
+                        Integer columnIndex = cell.getColumnIndex();
+                        switch(columnIndex){
+                            case 0: //enviroment
+                                enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                plan.setAmbiente(row.getCell(columnIndex).getStringCellValue());
+                                if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
+                                    sourceMap.put(enviroment, new ArrayList<>());
+                                }
+                            break;
+                             case 1: //object id
+                                plan.setObject_id(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 2: //name plan
+                                plan.setName(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 3: //new SIM
+                                plan.setName_change_sim(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                       
+                        }
+                    }
+                    if(plan.getObject_id()!= null) {
+                        sourceMap.get(enviroment).add(plan);
+                    }
+                }
+                wb.close();
+            }
+           return sourceMap;
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error getting Recarga Data Source!");
+       }
+   }
 }
 
     

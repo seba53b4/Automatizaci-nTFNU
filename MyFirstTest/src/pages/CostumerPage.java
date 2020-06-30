@@ -11,6 +11,7 @@ import java.util.List;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -77,7 +78,7 @@ public class CostumerPage extends Base.BasePage{
     By list_botonenviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]");
     By boton_enviar= By.xpath("//div[@class=\"tfn_button_panel_submit\" and a[contains(text(),'Enviar')]]");
     By boton_factSinPagar= By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'][@aria-disabled='false'and span[contains(text(),'Sí')]] ");
-    By estado_so= By.xpath("/html/body/div[6]/div[3]/div[1]/div[2]/div[1]/div[2]/div/form/table/tbody/tr/td/table/tbody/tr[14]/td[2]/div/table/tbody/tr/td/div/div/div");
+    By estado_so= By.xpath("//td[div[contains(text(),\"Estado\")]]/following-sibling::td");
     By boton_cerrarSO = By.xpath("//div[@class=\"box_bottom close\"]/a[contains(text(),'Cerrar')]");
     By opcion_cambiado= By.xpath("//h1[contains(text(),'Cambiado a')]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
@@ -95,6 +96,7 @@ public class CostumerPage extends Base.BasePage{
     By lista_plr=By.xpath("//div[@class=\"roe-widget-header__sh-inner _hidden\" and contains(text(),'Regulares')]");
     By btn_approve_desactivado = By.xpath("//a[contains(text(),'Approve') and @style=\"display: none;\"]");
     By btn_approve_activado = By.xpath("//a[contains(text(),'Approve')]");
+    By cambio_tarjeta_sim=By.xpath("//div[@class='expand-btn-container']/following::span[contains(text(),\"El cambio de la tarjeta SIM\")]");
     
     public CostumerPage() {
        super();     
@@ -177,11 +179,48 @@ public class CostumerPage extends Base.BasePage{
         Terminar(newPlan);
     return newPlan;
     }
+       // CAMBIO DE USIM
+ 
+   public Plan cambiarUSIM(Plan plan,String env) throws InterruptedException{
+       
+        seleccionar_CanalOrder(plan, plan.getAmbiente());
+        loading();
+        obtener_PPActivo(plan, "");
+        loading();
+        changeUSIM(plan);
+        return plan;
+        
+   }
+   
+   public void changeUSIM(Plan plan) throws InterruptedException{
+       Wait_Click(cambio_tarjeta_sim);
+       click(cambio_tarjeta_sim);
+       Thread.sleep(2000);
+       loading();
+       Wait(iccid);
+       WebElement iccid=findElement(this.iccid);
+       iccid.clear();
+       loading();
+       sendKeys(plan.getName_change_sim(), this.iccid);//Keys.chord(Keys.CONTROL, "a"), "55"
+       Thread.sleep(200);
+       Wait_Click(seleccionariccid);
+       click(seleccionariccid);
+       
+             
+       
+   } 
+   //FIN CAMBIO DE USIM
     
     /*Para Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida*/
    public void seleccionar_CanalOrder(Plan newPlan,String env) throws InterruptedException{
-     
-        visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
+      if(env.equals("preprod")){
+      visit("https://pretoms.temu.com.uy/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
+      
+      }
+      else{
+       visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
+      }
+        
         Wait_Click(nuevaSO);
         click(nuevaSO);
         Wait_Click(canaldistribucion);
@@ -901,6 +940,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             Wait_Click(cuenta_facturacion);
             Thread.sleep(2000);
             click(cuenta_facturacion);
+            loading();
             Thread.sleep(2000);
             Wait(boton_crear_nuevacuenta_facturacion_pp);
             click(boton_crear_nuevacuenta_facturacion_pp);
@@ -966,10 +1006,12 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             Wait(cuenta_facturacion);
             Thread.sleep(2000);
             click(cuenta_facturacion);
+            loading();
             Thread.sleep(2000);
             findElement(boton_crear_nuevacuenta_facturacion_pp);
             Wait(boton_crear_nuevacuenta_facturacion_pp);
             click(boton_crear_nuevacuenta_facturacion_pp);
+            loading();
             Thread.sleep(4000);
             WebElement boton_rev= findElement(boton_revision1);
             click(boton_rev);

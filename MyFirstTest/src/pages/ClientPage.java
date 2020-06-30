@@ -22,29 +22,29 @@ public class ClientPage extends Base.BasePage{
      By opcion_ClienteRe= By.xpath("//span[contains(text(),\"Cliente residencial\")]");
      By opcion_ClienteEm= By.xpath("//span[contains(text(),'Cliente empresial')]");
      By nombreE=By.xpath("//input[@class='gwt-TextBox nc-field-text-input'][1]");
-     By RUT = By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[3]/td[2]/div/table/tbody/tr/td/input");
+     By RUT = By.xpath("//td[div[contains(text(),\"R.U.T\")]]/following-sibling::td/descendant::input");
      By apellidoR=By.xpath("//input[@class='gwt-TextBox nc-field-text-input']//following::input[1]");
-     By categoria_cliente=By.xpath("//i[@class=\"refsel_arrow\"][1]");
-     By categoria_CE=By.xpath("//i[@class=\"refsel_arrow\"][1]");
-     By table_categoria_empresarial=By.xpath("/html/body/div[34]/div[2]/div[1]/div[2]");
+     By categoria_cliente=By.xpath("//td[div[contains(text(),\"Categoría de cliente\")]]/following-sibling::td");
+     //By categoria_CE=By.xpath("//i[@class=\"refsel_arrow\"][1]");
+     By table_categoria_empresarial=By.xpath("//div[@class=\"ui-widget-overlay-under-wrapper\"]/following-sibling::div");
      By list_cc= By.xpath("/html/body/div[34]/div[2]/div[1]");   //"/html/body/div[34]");
      By obtener_CR = By.xpath("//div[@class=\"refsel_name\" and contains(text(),'Particulares') and contains(text(),'Valor')] [1]");
      By obtener_pasaporte=By.xpath("/html/body/div[34]/div[2]/div[1]/div[1]");
      By numero_pasaporte= By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/input");
      By escribir_direccion_CR=By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
      By desplegar_direccion=By.xpath("/html/body/div[35]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[9]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/i");
-     By contacto_primario=By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[7]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td[1]/div/div");
+     By contacto_primario=By.xpath("//td[div[contains(text(),\"Contacto primario\")]]/following-sibling::td/descendant::i");
      By table_contacto_primario= By.xpath("/html/body/div[34]/div[2]/div[1]/div[3]");
-     By rol_contacto_primario= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[8]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div");
+     By rol_contacto_primario= By.xpath("//td[div[contains(text(),\"Rol de contacto primario\")]]/following-sibling::td/descendant::i");
      By obtener_rol_contacto_primario= By.xpath("//div[contains(text(),'Firmante')]");
-     By numero_doc= By.xpath("//tr[@class='gwt-row']//following::input[9]");
-     By direccion_cliente= By.xpath("//tr[@class='gwt-row']//following::input[15]");
-     By direccion_CE= By.xpath("/html/body/div[33]/div/div/div[2]/div/div[2]/table/tbody/tr/td/div/form/table/tbody/tr/td/table/tbody/tr[5]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/div/div/div/input");
+     By numero_doc= By.xpath("//td[div[contains(text(),\"Número de documento\")]]/following-sibling::td/descendant::input");
+     By direccion_cliente= By.xpath("//td[div[contains(text(),\"Dirección de cliente\")]]/following-sibling::td/descendant::input[3]");
+     By direccion_CE= By.xpath("//td[div[contains(text(),\"Dirección legal\")]]/following-sibling::td/descendant::input[3]");
      By obtener_direccion_CE= By.xpath("//div[@class=\"refsel_table\"]//following::div[2]");
      By obtener_direccion= By.xpath("//div[@class=\"refsel_table\"]//following::div[2]");
      By boton_crear=By.xpath("//button[contains(text(),'Crear y consultar los detalles')]");
      By popup_cliente_existente = By.xpath("/html/body/div[33]/div/div[2]");
-     By seleccionar_tipo_doc= By.xpath("//i[@class=\"refsel_arrow\"]//following::i[1]");
+     By seleccionar_tipo_doc= By.xpath("//td[div[contains(text(),\"Tipo de documento\")]]/following::i[1]");
      By table_DNI=By.xpath("//div[@class=\"refsel_table_holder ps-container ps-theme-default\"]");
      
      
@@ -52,7 +52,7 @@ public class ClientPage extends Base.BasePage{
      
      
     public void initUrlBusqueda(String env){
-        if (env.toLowerCase() != "preprod") {
+        if (!env.toLowerCase().equals("preprod")) {
             visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
             
         } else
@@ -69,13 +69,17 @@ public class ClientPage extends Base.BasePage{
     public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException, Exception
     {
         Actions action=new Actions(driver);
-        Wait(creacion_rapida);
+        Wait_Click(creacion_rapida);
         WebElement cliente_resi=findElement(creacion_rapida);
-        Thread.sleep(250);
-        action.moveToElement(cliente_resi).build().perform();
         Thread.sleep(2000);
-        Wait(opcion_ClienteRe);
+        action.moveToElement(cliente_resi);
+        Thread.sleep(5000);
+        action.build().perform();
+        Thread.sleep(5000);
+        Wait_Click(opcion_ClienteRe);
+        WebElement opcion_resi=findElement(opcion_ClienteRe);
         Thread.sleep(2000);
+         action.moveToElement(opcion_resi).build().perform();
         click(opcion_ClienteRe);
         Thread.sleep(2000);
         Wait(nombreE);
@@ -83,10 +87,11 @@ public class ClientPage extends Base.BasePage{
         Wait(apellidoR);
         sendKeys(newClient.getSecondName(), apellidoR);
         Thread.sleep(2000);
+        Wait_Click(categoria_cliente);
         click(categoria_cliente);
         obtener_CR(newClient);
-        Thread.sleep(500);
-        Wait(seleccionar_tipo_doc);
+        Thread.sleep(2000);
+        Wait_Click(seleccionar_tipo_doc);
         click(seleccionar_tipo_doc);
         obtener_TipoDoc(newClient);
         Wait(direccion_cliente);
@@ -114,7 +119,7 @@ public class ClientPage extends Base.BasePage{
         // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
         // objeto Cliente
         else {
-            Thread.sleep(10000);
+            Thread.sleep(2500);
             
             String clientId = getClientIdByUrl(driver.getCurrentUrl());
             newClient.setClientId(clientId);
@@ -138,25 +143,27 @@ public class ClientPage extends Base.BasePage{
          Wait(creacion_rapida);
          
          WebElement cliente_resi=findElement(creacion_rapida);
-         Thread.sleep(250);
-         action.moveToElement(cliente_resi).build().perform();
          Thread.sleep(2000);
-         Wait(opcion_ClienteEm);
+         action.moveToElement(cliente_resi);
+         Thread.sleep(5000);
+         action.build().perform();
+         Thread.sleep(5000);
+         Wait_Click(opcion_ClienteEm);
          click(opcion_ClienteEm);
          Thread.sleep(2000);
          sendKeys(newClient.getName(), nombreE);
          sendKeys(newClient.getRut(), RUT);
          Thread.sleep(2000);
-         click(categoria_CE);
+         click(categoria_cliente);
          obtener_Categoria_Em();
          Thread.sleep(3000);
          click(obtener_Categoria_Em());
          Wait(direccion_CE);
          sendKeys(newClient.getAddress(), direccion_CE);
          Thread.sleep(2000);
-         Wait(obtener_direccion_CE);
+         Wait(obtener_direccion);
          Thread.sleep(2000);
-         click(obtener_direccion_CE);
+         click(obtener_direccion);
          Wait(contacto_primario);
          Thread.sleep(4000);
          click(contacto_primario);
@@ -243,13 +250,13 @@ public class ClientPage extends Base.BasePage{
             if(getText(list_obtenertd.get(i)).equals("International Passport (Pasaporte Internacional)")){
             td=list_obtenertd.get(i);
              click(td);
-             Wait(numero_doc);
+             Wait_Click(numero_doc);
              sendKeys(newClient.getPassport(), numero_doc);
             } 
             if(!(newClient.getInternational_id().equals("null")) && getText(list_obtenertd.get(i)).equals("National ID (Documento de identidad)")) {
             td=list_obtenertd.get(i);
             click(td);
-            Wait(numero_doc);
+            Wait_Click(numero_doc);
             sendKeys(newClient.getInternational_id(), numero_doc);
             }
         }

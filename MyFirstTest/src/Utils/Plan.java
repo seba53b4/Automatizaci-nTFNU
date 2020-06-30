@@ -19,6 +19,7 @@ public class Plan {
     private String urlSO;
     private String statuSO;
     private String name_change_plan;
+    private String name_change_sim;
     
      public Plan(String name) {
         this.name = name;
@@ -133,6 +134,20 @@ public class Plan {
      */
     public void setName_change_plan(String name_change_plan) {
         this.name_change_plan = name_change_plan;
+    }
+
+    /**
+     * @return the name_change_sim
+     */
+    public String getName_change_sim() {
+        return name_change_sim;
+    }
+
+    /**
+     * @param name_change_sim the name_change_sim to set
+     */
+    public void setName_change_sim(String name_change_sim) {
+        this.name_change_sim = name_change_sim;
     }
 }
  
