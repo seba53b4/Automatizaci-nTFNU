@@ -931,6 +931,73 @@ public class HandleFile {
            throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
        }
     }
+   //Caso 5.1:Generar registro sim card lost
+     public void generateRegisteredChangeUSIMDatasource(List<Plan> plan) throws Exception{
+      try {
+            
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers.xlsx");
+            if (sourceFile.exists() && plan.size() > 0){
+                
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "REAL-PLAN" (index 9)
+                XSSFSheet sheet = wb.getSheetAt(13);
+                Integer rowIterator = 1;
+                Integer cantInicial = sheet.getPhysicalNumberOfRows();
+                while (rowIterator <= plan.size())                 
+                {  
+                    Integer index = rowIterator - 1;
+                    System.out.println("index -> " + index);
+                    System.out.println("Nueva row -> " + rowIterator+cantInicial);
+                    Row row = sheet.getRow(rowIterator+cantInicial);
+                    if (row == null) {
+                        row = sheet.createRow(rowIterator+cantInicial);
+                    }
+                    
+                    // Environment
+                    Cell cell = row.getCell(0);  
+                    if (cell == null)  
+                        cell = row.createCell(0);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(plan.get(index).getAmbiente());
+                    
+                    // object id
+                    cell = row.getCell(1);  
+                    if (cell == null)  
+                        cell = row.createCell(1);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(plan.get(index).getObject_id());
+                    
+                    // link SO
+                    cell = row.getCell(2);  
+                    if (cell == null)  
+                        cell = row.createCell(2);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(plan.get(index).getUrlSO());
+                    
+                    // status SO
+                    cell = row.getCell(3);  
+                    if (cell == null)  
+                        cell = row.createCell(3);  
+                    cell.setCellType(CellType.STRING);  
+                    cell.setCellValue(plan.get(index).getStatuSO());
+                    
+                    
+                    rowIterator++;
+                }
+            
+                try (OutputStream fileOut = new FileOutputStream(sourceFile)) {  
+                    wb.write(fileOut);  
+                    wb.close();
+                }
+            } 
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
+       }
+    }
      //Caso 6:Recharge line
     public HashMap<String, List<Client>> getRechargeLine() throws Exception {
        try {
@@ -1102,7 +1169,7 @@ public class HandleFile {
             }
            return sourceMap;
        } catch (Exception e) {
-           throw new Exception(e.getMessage() + ": Error getting Recarga Data Source!");
+           throw new Exception(e.getMessage() + ": Error getting Change USIM Data Source!");
        }
    }
 }

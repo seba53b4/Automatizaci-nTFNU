@@ -768,9 +768,6 @@ public void validar_Factura() throws InterruptedException
     WebElement btn_cerrarSO = null;
     int i=0;
     
-    
-    
-    
     try{
         //Thread.sleep(5000);
         Wait(nombre_clase_boton_nueva_factura_enabled);
@@ -878,9 +875,6 @@ public void validar_Factura() throws InterruptedException
         {
             System.out.println("error validar boron cerrar SO -  NullPointerException");
         }
-        
-        
-        
         
     }
 }

@@ -19,6 +19,7 @@ import Tests.TestEmpClient;
 import Tests.TestNewResiClient;
 import Tests.TestRecarga;
 import Tests.Test_CambioPlan;
+import Tests.Test_ChangeUSIM;
 import Tests.Test_SimCardLost;
 import Utils.CadenaUtils;
 import Utils.Client;
@@ -26,9 +27,6 @@ import Utils.Plan;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +42,8 @@ public class MainFrame extends javax.swing.JFrame {
     private HashMap<String, BaseTest> tests;
     private HashMap<String, List<Client>> recargas;
     private HashMap<String, List<Plan>> cambioPlan;
+    private HashMap<String, List<Plan>> cambioUSIM;
+    
     private static  MainFrame mf;
     
     private Usuario user;
@@ -226,6 +226,24 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Error al cargar cambio de plan" + e);
         }
+        
+        
+        try {
+            cambioUSIM = HandleFile.getHandleFile().readRegisterDataSource("change_usim");
+            
+
+              tb = (DefaultTableModel) TablaTest.getModel();
+
+            for (Map.Entry<String, List<Plan>> entry : cambioUSIM.entrySet()) {
+                for (Plan p : entry.getValue()) {
+                    String str = "Cargado Archivo - Cambio USIM "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " new sim: "+ p.getName_change_sim();
+                    tests.put(str, new Test_ChangeUSIM(p));
+                    tb.addRow(new Object[]{false, str,"No iniciado"});
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar CHange USIM" + e);
+        }
          
         
         
@@ -379,6 +397,15 @@ public class MainFrame extends javax.swing.JFrame {
                     Test_CambioPlan tn = (Test_CambioPlan) tests.get(TablaTest.getValueAt(i, 1).toString());
                     if (tn != null) {
                         System.out.println(" NO ES NULL el test resid");
+                    }
+                    Worker wk = new Worker(TablaTest, tn, i);
+                    works.add(wk);
+                    continue;
+                }
+                if (CadenaUtils.compararCadenas("Cambio USIM", TablaTest.getValueAt(i, 1).toString())){
+                    Test_ChangeUSIM tn = (Test_ChangeUSIM) tests.get(TablaTest.getValueAt(i, 1).toString());
+                    if (tn != null) {
+                        System.out.println(" NO ES NULL el test change USIM");
                     }
                     Worker wk = new Worker(TablaTest, tn, i);
                     works.add(wk);
