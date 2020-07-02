@@ -72,14 +72,14 @@ public class ClientPage extends Base.BasePage{
         Wait_Click(creacion_rapida);
         WebElement cliente_resi=findElement(creacion_rapida);
         Thread.sleep(2000);
-        action.moveToElement(cliente_resi);
-        Thread.sleep(5000);
-        action.build().perform();
-        Thread.sleep(5000);
+        action.moveToElement(cliente_resi).perform();
+        Thread.sleep(2000);
+        //action.perform();
+        
         Wait_Click(opcion_ClienteRe);
         WebElement opcion_resi=findElement(opcion_ClienteRe);
         Thread.sleep(2000);
-         action.moveToElement(opcion_resi).build().perform();
+        action.moveToElement(opcion_resi).build().perform();
         click(opcion_ClienteRe);
         Thread.sleep(2000);
         Wait(nombreE);
@@ -93,17 +93,18 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(2000);
         Wait_Click(seleccionar_tipo_doc);
         click(seleccionar_tipo_doc);
+        Thread.sleep(800);
         obtener_TipoDoc(newClient);
         Wait(direccion_cliente);
         sendKeys(newClient.getAddress(), direccion_cliente);
-        Thread.sleep(4000);
+        Thread.sleep(2500);
         Wait(obtener_direccion);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         click(obtener_direccion);
         Wait(boton_crear);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         click(boton_crear);
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         // 1- existe el cliente (se muestra popup POSIBLES DUPLICADOS)
         // entonces ejecuto el flujo correspondiente a Cliente Duplicado
         List<WebElement> existentElements = findElements(popup_cliente_existente);
@@ -143,11 +144,9 @@ public class ClientPage extends Base.BasePage{
          Wait(creacion_rapida);
          
          WebElement cliente_resi=findElement(creacion_rapida);
-         Thread.sleep(2000);
-         action.moveToElement(cliente_resi);
-         Thread.sleep(5000);
-         action.build().perform();
-         Thread.sleep(5000);
+         Thread.sleep(1000);
+         action.moveToElement(cliente_resi).perform();
+         Thread.sleep(1000);
          Wait_Click(opcion_ClienteEm);
          click(opcion_ClienteEm);
          Thread.sleep(2000);

@@ -193,6 +193,7 @@ public class CostumerPage extends Base.BasePage{
    }
    
    public void changeUSIM(Plan plan) throws InterruptedException{
+       
        Wait_Click(cambio_tarjeta_sim);
        click(cambio_tarjeta_sim);
        Thread.sleep(2000);
@@ -677,7 +678,7 @@ public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedEx
         System.out.println("El boton enviar ya fue clickeado");
     }
     if (especial) {
-        
+        // Caso - Enunciado completo "Modificacion So#123123123 ha sido enviada"
         Thread.sleep(600);
         String so = obtener_nombre_SO();
         System.out.println(obtener_nombre_SO());
@@ -692,7 +693,7 @@ public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedEx
         newPlan.setName(newPlan.getName());
         
     } else {
-        
+         // Caso - Enunciado simple "SO #123123123"
         //Wait(boton_cerrarSO);
         String so = obtener_nombre_SO_CambioPlan();
         Thread.sleep(500);
@@ -706,9 +707,6 @@ public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedEx
         newPlan.setName(newPlan.getName());
         
     }
-    
-    
-    
 }
 
 public void obtener_botonenviar() throws InterruptedException{
