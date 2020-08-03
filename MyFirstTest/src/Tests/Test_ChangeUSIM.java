@@ -68,11 +68,11 @@ public class Test_ChangeUSIM extends Base.BaseTest{
          this.ap.initUrlBusqueda(enviroment);
          this.lp.Nav(enviroment);
          
-         if(enviroment.contains("preprod")){
+        // if(enviroment.contains("preprod")){
              this.lp.signIn_preprod();
-         } else {
-                this.lp.signIn();
-         }
+        // } else {
+        //        this.lp.signIn();
+        // }
          List<Plan> newPlans = new LinkedList<>();
          Plan newPlan = this.ap.cambiarUSIM(plan, enviroment);
          if (newPlan.getName() != null) {
