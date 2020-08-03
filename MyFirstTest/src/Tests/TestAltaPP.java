@@ -65,12 +65,12 @@ public class TestAltaPP extends Base.BaseTest{
        String enviroment = plan.getAmbiente();
        this.ap.initUrlBusqueda(enviroment);
        this.lp.Nav(enviroment);
-       if(enviroment.contains("preprod")){
+       //if(enviroment.contains("preprod")){
            this.lp.signIn_preprod();
-       }
-       else{
-           this.lp.signIn();
-       }
+       //}
+      // else{
+        //   this.lp.signIn();
+      // }
        Plan newPlan = this.ap.AltaPP(plan,enviroment);
        if (newPlan != null) {
            realPlans.add(newPlan);
