@@ -41,8 +41,8 @@ public class CostumerPage extends Base.BasePage{
     By nombre_orden_venta= By.xpath("//div[@class='roe-widget-header' and h1[contains(text(),'SO')]]");
     By seleccionPP= By.cssSelector("td:nth-child(1) > .box_selection .roe-widget-content:nth-child(2) .roe-widget-header__sh-inner");
     By table= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[2]/table");
-    By table_plc= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[3]/table");
-    By table_plr = By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td/table/tbody/tr/td[1]/div/div[3]/div[4]");
+    By table_plc= By.xpath("//div[div[@class='roe-widget-header__sh-inner' and contains(text(),'Cuenta Controlada')]]//following-sibling::table");
+    By table_plr = By.xpath("//div[div[@class=\"roe-widget-header__sh-inner\" and contains(text(),'Regulares')]]//following-sibling::table");
     By tabla_cuenta_controlada=By.xpath("//div[@class='roe-widget-header__sh-inner _hidden' and contains(text(),'Cuenta Controlada')]");
     By productosasociados=By.cssSelector("body > div.wizard_layout.header_visible > div.content_wrapper.open_right > div:nth-child(3) > div.left_col > div.left_col__inner > div.left_col__inner-wrap > div:nth-child(2)");
     By seleccionarPLTEJ=By.className("roe-widget-content");
@@ -369,7 +369,7 @@ public class CostumerPage extends Base.BasePage{
    public void initUrlBusqueda(String env){
        if (!env.toLowerCase().contains("preprod") ) {
            
-           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
            
        } else
        {

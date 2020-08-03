@@ -472,3 +472,16 @@ java.lang.StringIndexOutOfBoundsException: String index out of range: 3
 
 ---------------------------------------------------------------------------
 
+11: 58: 01 AM 03-ago-AM - ERROR en Alta de PosPago 
+
+org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=84.0.4147.105)
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'MUYDL0105TD', ip: '192.168.105.217', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.105, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\ipupo\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:49581}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 491a308946047497822f4c71bd37d855
+*** Element info: {Using=xpath, value=//button[contains(text(),'Nueva orden de venta')]}
+
+---------------------------------------------------------------------------
+

@@ -70,12 +70,12 @@ public class TestEmpClient extends Base.BaseTest {
         String enviroment = cliente.getAmbiente();
         this.cp.initUrlBusqueda(enviroment);
         this.lp.Nav(enviroment);
-        if(enviroment.contains("preprod")){
+      //  if(enviroment.contains("preprod")){
             this.lp.signIn_preprod();
-        }
-        else{
-            this.lp.signIn();
-        }
+        //}
+       // else{
+       //     this.lp.signIn();
+       // }
         
         EnterpriseClient newClient = this.cp.crear_Cliente_Empresarial(cliente);
         if (newClient != null) {
