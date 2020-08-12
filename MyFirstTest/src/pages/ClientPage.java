@@ -69,15 +69,18 @@ public class ClientPage extends Base.BasePage{
     public Client crear_Cliente_Residencial(Client newClient, boolean handleDuplicate) throws InterruptedException, Exception
     {
         Actions action=new Actions(driver);
-        Wait_Click(creacion_rapida);
+        Wait(creacion_rapida);
+      
         WebElement cliente_resi=findElement(creacion_rapida);
         Thread.sleep(2000);
-        action.moveToElement(cliente_resi).perform();
+        action.moveToElement(cliente_resi).build().perform();
         Thread.sleep(2000);
         //action.perform();
         
         Wait_Click(opcion_ClienteRe);
-        WebElement opcion_resi=findElement(opcion_ClienteRe);
+        Thread.sleep(2000);
+        WebElement opcion_resi = findElement(opcion_ClienteRe);
+        
         Thread.sleep(2000);
         action.moveToElement(opcion_resi).build().perform();
         click(opcion_ClienteRe);
@@ -99,7 +102,7 @@ public class ClientPage extends Base.BasePage{
         sendKeys(newClient.getAddress(), direccion_cliente);
         Thread.sleep(2500);
         Wait(obtener_direccion);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         click(obtener_direccion);
         Wait(boton_crear);
         Thread.sleep(1000);

@@ -94,9 +94,12 @@ public class LoginPage extends Base.BasePage{
         else{
             click(botonnavegador);
             click(linknavegador);
+            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
         }
+        
     }
     public void signIn_preprod() throws InterruptedException{
+        
         
         click(userNT_preprod);
         if(isDisplayed(user)){

@@ -37,6 +37,10 @@ public class TestNewResiClient extends Base.BaseTest {
      }
      
      
+     public Client getCliente(){
+         return client;
+     }
+     
     @Override
     public String test() {
          try {
@@ -61,6 +65,7 @@ public class TestNewResiClient extends Base.BaseTest {
         
         BasePage.getNewDriver();
         this.cp = new ClientPage();
+        
         this.lp = LoginPage.getLoginPage();
         
         List<Client> realClients = new ArrayList<>();

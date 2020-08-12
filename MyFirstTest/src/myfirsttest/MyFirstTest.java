@@ -1,5 +1,19 @@
 
+import Base.BasePage;
 import Frames.LoginFrame;
+import Test_PLM_Regression.TC1;
+import Tests.TestNewResiClient;
+import Utils.Client;
+import Utils.HandleFile;
+import Utils.Plan;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import pages.LoginPage;
 
 
 
@@ -9,11 +23,40 @@ import Frames.LoginFrame;
 public class MyFirstTest{
     
     public static void main(String [] args) {
-            LoginFrame lf = new LoginFrame();
+       /*     LoginFrame lf = new LoginFrame();
             lf.setVisible(true);
-            lf.show();
+            lf.show();*/
 
-//          String str = "Aumentar 09/14/2019 13:14:03 $150.00";
+            // String name, String ape, String cat, String typeDoc, String numD, String nat, String dir
+            BasePage.initBaseTest();
+            HandleFile.initHandleFile();
+            
+            LoginPage.initLoginPage("seolivera", "wartel.1");
+            try {
+            HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().readRegisterDataSource("new_residential_client");
+            
+            for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
+                for (Client cl : entry.getValue()) {
+                    
+                    System.out.println("ENTRAA");
+                    if (cl == null) {
+                        System.out.println("ES NULO");
+                    }
+                    TestNewResiClient tr = new TestNewResiClient(cl);
+                    tr.test();
+                    TC1 tc1 = new TC1(cl);
+                    tc1.test();
+//          
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar hoja de residencial" + e);
+        }
+            
+            
+            
+            
+            String str = "Aumentar 09/14/2019 13:14:03 $150.00";
 //          Utils u = new Utils();
 //          Date dat = u.toDate(str);
 //          System.out.println(dat.toString());
