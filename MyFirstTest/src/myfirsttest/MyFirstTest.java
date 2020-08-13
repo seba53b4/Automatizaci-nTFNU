@@ -32,25 +32,33 @@ public class MyFirstTest{
             HandleFile.initHandleFile();
             
             LoginPage.initLoginPage("seolivera", "wartel.1");
-            try {
+            
+        try {
+            
+            String str = HandleFile.getHandleFile().getICCID_Regresion("uat");
+            System.out.println("La linea " + str);
+            /*try {
             HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().getNewClientDatSourcePLM();
             
             for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
-                for (Client cl : entry.getValue()) {
-                    
-                    System.out.println("ENTRAA");
-                    if (cl == null) {
-                        System.out.println("ES NULO");
-                    }
-                    TestNewResiClient tr = new TestNewResiClient(cl);
-                    tr.test();
-                    TC1 tc1 = new TC1(cl);
-                    tc1.test();
-//          
-                }
+            for (Client cl : entry.getValue()) {
+            
+            System.out.println("ENTRAA");
+            if (cl == null) {
+            System.out.println("ES NULO");
             }
-        } catch (Exception e) {
+            TestNewResiClient tr = new TestNewResiClient(cl);
+            tr.test();
+            TC1 tc1 = new TC1(cl);
+            tc1.test();
+            //
+            }
+            }
+            } catch (Exception e) {
             System.out.println("Error al cargar hoja de residencial" + e);
+            }*/
+        } catch (Exception ex) {
+            Logger.getLogger(MyFirstTest.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             

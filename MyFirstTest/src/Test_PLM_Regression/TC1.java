@@ -34,24 +34,18 @@ public class TC1 extends BaseTest {
    
     public TC1(Client client) throws Exception{
         HandleFile.initHandleFile();
-        HashMap<String,List<Plan>> plan = HandleFile.getHandleFile().getMSISDN_ICCIDPLM();
         clte = client;
         p = new Plan("PLR315");
         System.out.println("Object id cliente : " + clte.getClientId());
-         for (Map.Entry<String, List<Plan>> entry : plan.entrySet()) {
-            for (Iterator<Plan> it = entry.getValue().iterator(); it.hasNext();) {
-                p = it.next();
-                p.setAmbiente(clte.getAmbiente());
-                p.setObject_id(clte.getClientId());
-                p.setName("PLR315");
-                //p1.setAmbiente(clte.getAmbiente());
-                //p1.setObject_id(clte.getClientId());
-                //p.setICCID("89598076102034958108");
-                //p.setMSISDN("95059314");
-                this.test_alta_plr = new Tests.TestAltaPosP(p);
-                this.test_cambio= new Test_CambioPlan(p);
-            }
-  }
+        
+        p.setAmbiente(clte.getAmbiente());
+        p.setObject_id(clte.getClientId());
+        p.setMSISDN(HandleFile.getHandleFile().getMSISDN_Regresion(p.getAmbiente()));
+        p.setICCID(HandleFile.getHandleFile().getICCID_Regresion(p.getAmbiente()));
+        //p.setMSISDN("95059314");
+        this.test_alta_plr = new Tests.TestAltaPosP(p);
+        this.test_cambio= new Test_CambioPlan(p);
+  
  }
 
     @Override
