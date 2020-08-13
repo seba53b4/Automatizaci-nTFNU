@@ -265,9 +265,125 @@ public class HandleFile {
     }
     
     
-    
-    
-    //Registrar casos de pruebas
+    //************************REGISTRAR REEGRESIONES PLM*********************************************************
+    //***********************************************************************************************************
+    public HashMap<String, List<Client>> getNewClientDatSourcePLM() throws Exception {
+       try {
+            HashMap<String, List<Client>> sourceMap = new HashMap<String, List<Client>>();
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers_Regressiones_PLM.xlsx");
+            if (sourceFile.exists()){
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "POTENTIAL-RESCLIENTS" (index 0)
+                XSSFSheet sheet = wb.getSheetAt(0);
+                //iterating over excel file
+                Iterator<Row> itr = sheet.iterator(); 
+                itr.next();
+                while (itr.hasNext())                 
+                {  
+                    Row row = itr.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
+                    Client newClient = new Client();
+                    String enviroment = null;
+                    
+                    while (cellIterator.hasNext())   
+                    {  
+                        Cell cell = cellIterator.next();
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        Integer columnIndex = cell.getColumnIndex();
+                         switch(columnIndex){
+                         
+                             case 0: //enviroment
+                                enviroment = row.getCell(columnIndex).getStringCellValue().toLowerCase();
+                                newClient.setAmbiente(row.getCell(columnIndex).getStringCellValue());
+                                if (!sourceMap.containsKey(enviroment) && enviroment.length() > 0) {
+                                    sourceMap.put(enviroment, new ArrayList<>());
+                                }
+                                
+                            break;
+                            case 1: //name
+                                newClient.setName(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 2: //second name
+                                newClient.setSecondName(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 3: //passport
+                                newClient.setPassport(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 4: //id
+                                newClient.setInternational_id(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 5: //address
+                                newClient.setAddress(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                        }
+                             
+                    }
+                    if(newClient.getName() != null) {
+                        sourceMap.get(enviroment).add(newClient);
+                    }
+                }
+                wb.close();
+            }
+           return sourceMap;
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error getting New Client Data Source!");
+       }
+   }
+    public HashMap<String, List<Plan>> getMSISDN_ICCIDPLM() throws Exception {
+       try {
+            HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers_Regressiones_PLM.xlsx");
+            if (sourceFile.exists()){
+               //obtaining bytes from the file
+                FileInputStream fis = new FileInputStream(sourceFile);  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                //creating a Sheet object to retrieve object
+                // getting the sheet "MSISDN_ICCID" (index 1)
+                XSSFSheet sheet = wb.getSheetAt(1);
+                //iterating over excel file
+                Iterator<Row> itr = sheet.iterator(); 
+                itr.next();
+                while (itr.hasNext())                 
+                {  
+                    Row row = itr.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
+                    Plan newPlan = new Plan();
+                    String msisdn = null;
+                    
+                    while (cellIterator.hasNext())   
+                    {  
+                        Cell cell = cellIterator.next();
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        Integer columnIndex = cell.getColumnIndex();
+                         switch(columnIndex){
+                         
+                            case 0: //MSISDN
+                                newPlan.setMSISDN(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                            case 2: //ICCID
+                                newPlan.setICCID(row.getCell(columnIndex).getStringCellValue());
+                            break;
+                        }
+                             
+                    }
+                    if(newPlan.getICCID()!= null) {
+                        sourceMap.get(msisdn).add(newPlan);
+                    }
+                }
+                wb.close();
+            }
+           return sourceMap;
+       } catch (Exception e) {
+           throw new Exception(e.getMessage() + ": Error getting New Client Data Source!");
+       }
+   }
+   //************************REGISTRAR CASOS DE PRUEBAS ESPECIFICOS*********************************************************
+    //***********************************************************************************************************
     public HashMap readRegisterDataSource(String registerCase) throws Exception {
        try {
            HashMap sourceMap = new HashMap<>();

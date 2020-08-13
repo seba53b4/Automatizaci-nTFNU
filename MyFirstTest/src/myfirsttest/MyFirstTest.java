@@ -33,7 +33,7 @@ public class MyFirstTest{
             
             LoginPage.initLoginPage("seolivera", "wartel.1");
             try {
-            HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().readRegisterDataSource("new_residential_client");
+            HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().getNewClientDatSourcePLM();
             
             for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
                 for (Client cl : entry.getValue()) {
