@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import limpieza_recurso.Limpieza_Class;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -334,11 +333,10 @@ public class HandleFile {
            throw new Exception(e.getMessage() + ": Error getting New Client Data Source!");
        }
    }
-    public String getMSISDN_Regresion(String env) throws Exception {
+    public HashMap<String, List<Plan>> getMSISDN_ICCIDPLM() throws Exception {
        try {
-
-           File sourceFile = new File(this.testExternalSourceBaseDir + "registers_Regressiones_PLM.xlsx");
-           String msisdn = null;
+            HashMap<String, List<Plan>> sourceMap = new HashMap<String, List<Plan>>();
+            File sourceFile = new File(this.testExternalSourceBaseDir + "registers_Regressiones_PLM.xlsx");
             if (sourceFile.exists()){
                //obtaining bytes from the file
                 FileInputStream fis = new FileInputStream(sourceFile);  
@@ -355,146 +353,35 @@ public class HandleFile {
                     Row row = itr.next();
                     Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
                     Plan newPlan = new Plan();
-                   
-                    
+                    String msisdn = null;
                     
                     while (cellIterator.hasNext())   
                     {  
                         Cell cell = cellIterator.next();
                         cell.setCellType(Cell.CELL_TYPE_STRING);
                         Integer columnIndex = cell.getColumnIndex();
-                        
-                        
-                        
-                        switch(columnIndex){
+                         switch(columnIndex){
                          
                             case 0: //MSISDN
-                                msisdn = row.getCell(columnIndex).getStringCellValue();
+                                newPlan.setMSISDN(row.getCell(columnIndex).getStringCellValue());
                             break;
-                            case 1: //DIsponibilidad
-                                System.out.println("valor de la celda de disponibilidad "+row.getCell(columnIndex).getStringCellValue());
-                                if (row.getCell(columnIndex).getStringCellValue().equals("ok")) {
-                                    System.out.println("entra en disponibilidad");
-                                    
-                                    Cell cell2 = row.getCell(1);
-                                    System.out.println(cell2.getStringCellValue());
-                                    cell2 = row.createCell(1);
-                                    cell2.setCellType(CellType.STRING);  
-                                cell2.setCellValue("en uso");
-                                    
-                                } else {
-                                   continue;
-                                }
-                            break;
-                            case 2: //Ambiente
-                                if (msisdn != null) {
-                                    row.getCell(columnIndex).setCellValue(env);
-                                }
+                            case 2: //ICCID
+                                newPlan.setICCID(row.getCell(columnIndex).getStringCellValue());
                             break;
                         }
                              
                     }
+                    if(newPlan.getICCID()!= null) {
+                        sourceMap.get(msisdn).add(newPlan);
+                    }
                 }
                 wb.close();
             }
-           return msisdn;
+           return sourceMap;
        } catch (Exception e) {
            throw new Exception(e.getMessage() + ": Error getting New Client Data Source!");
        }
    }
-    
-     public String getICCID_Regresion(String env) throws Exception {
-       try {
-
-           File sourceFile = new File(this.testExternalSourceBaseDir + "registers_Regressiones_PLM.xlsx");
-           String sim = null;
-            if (sourceFile.exists()){
-               //obtaining bytes from the file
-                FileInputStream fis = new FileInputStream(sourceFile);  
-                //creating Workbook instance that refers to .xlsx file  
-                XSSFWorkbook wb = new XSSFWorkbook(fis);
-                //creating a Sheet object to retrieve object
-                // getting the sheet "MSISDN_ICCID" (index 1)
-                XSSFSheet sheet = wb.getSheetAt(2);
-                //iterating over excel file
-                Iterator<Row> itr = sheet.iterator(); 
-                itr.next();
-                while (itr.hasNext())                 
-                {  
-                    Row row = itr.next();
-                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column 
-                    Plan newPlan = new Plan();
-                   
-                    
-                    
-                    while (cellIterator.hasNext())   
-                    {  
-                        Cell cell = cellIterator.next();
-                        cell.setCellType(Cell.CELL_TYPE_STRING);
-                        Integer columnIndex = cell.getColumnIndex();
-                        
-                        switch(columnIndex){
-                         
-                            case 0: //MSISDN
-                                sim = row.getCell(columnIndex).getStringCellValue();
-                            break;
-                            case 1: //Disponibilidad
-                                System.out.println("valor de la celda de disponibilidad "+row.getCell(columnIndex).getStringCellValue());
-                                if (row.getCell(columnIndex).getStringCellValue().equals("ok")) {
-                                 
-                                    if (row == null) {
-                                        
-                                        
-                                        Row rowAux = sheet.createRow(row.getRowNum());
-                                        rowAux.createCell(0);
-                                        rowAux.createCell(1);
-                                        rowAux.createCell(2);
-                                        
-                                        Cell cell2 = rowAux.getCell(0);
-                                        cell2 = rowAux.createCell(0);
-                                        cell2.setCellType(CellType.STRING);
-                                        cell2.setCellValue(row.getCell(0).getStringCellValue());
-                                        
-                                        cell2 = rowAux.getCell(1);
-                                        cell2 = rowAux.createCell(1);
-                                        cell2.setCellType(CellType.STRING);
-                                        cell2.setCellValue("en uso");
-                                        
-                                        
-                                        cell2 = rowAux.getCell(2);
-                                        cell2 = rowAux.createCell(2);
-                                        cell2.setCellType(CellType.STRING);
-                                        cell2.setCellValue(env);
-                                    }     
-                                    /*
-                                    Row row2 = sheet.createRow(row.getRowNum());
-                                    
-                                    Cell cell2 = row.createCell(1, CellType.STRING);
-                                    cell2.setCellValue("en uso");
-                                    row.getCell(1).setCellValue("en uso");
-                                  */  
-                                } else {
-                                    sim = null;
-                                }
-                            break;
-                            case 2: //Ambiente
-                                if (sim != null) {
-                                    row.getCell(columnIndex).setCellValue(env);
-                                }
-                            break;
-                        }
-                             
-                    }
-                }
-                wb.close();
-            }
-           return sim;
-       } catch (Exception e) {
-           throw new Exception(e.getMessage() + ": Error obteniendo el MSISDN en ARhcivo Regression!");
-       }
-   }
-    
-    
    //************************REGISTRAR CASOS DE PRUEBAS ESPECIFICOS*********************************************************
     //***********************************************************************************************************
     public HashMap readRegisterDataSource(String registerCase) throws Exception {
@@ -624,7 +511,7 @@ public class HandleFile {
                     // Client ID
                     Cell cell = row.getCell(0);  
                     if (cell == null)  
-                        cell = row.createCell(0);  
+                    cell = row.createCell(0);  
                     cell.setCellType(CellType.STRING);  
                     cell.setCellValue(clients.get(index).getClientId());
                     
