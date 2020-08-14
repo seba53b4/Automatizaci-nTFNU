@@ -444,7 +444,6 @@ public class HandleFile {
                                  
                                     if (row == null) {
                                         
-                                        
                                         Row rowAux = sheet.createRow(row.getRowNum());
                                         rowAux.createCell(0);
                                         rowAux.createCell(1);
@@ -998,6 +997,7 @@ public class HandleFile {
                 
                 while (rowIterator <= plan.size())                 
                 {  
+                    
                     Integer index = rowIterator - 1;
                     System.out.println("index -> " + index);
                     Row row = sheet.getRow(rowIterator+cantInicial);
@@ -1160,6 +1160,96 @@ public class HandleFile {
            throw new Exception(e.getMessage() + ": Error registering Recharge Data Source!");
        }
     }
+     
+     private List<String> cargaNumbers()
+    {
+        List<String> numbers = new LinkedList<String>();
+        try {
+        FileReader fr = new FileReader(dir+"MSISDN.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String linea;
+        while((linea = br.readLine()) != null)
+        {
+            if (this.esCorrectoNumber(linea)) {
+                numbers.add(linea);
+                System.out.println(linea);
+            } else {/*
+                if (linea.isEmpty()) {
+                    fallos.add("Número entrada vacia: "+ linea);
+                } else fallos.add("Número con fallo de entrada: "+ linea);
+            */
+            }
+        }
+      } catch(Exception e) {
+          System.out.println("Excepcion leyendo fichero " +": " + e);
+        }
+        return numbers;
+    }
+     
+     public boolean esCorrectoNumber(String str)
+     {
+         if (str.length() == 8 && (str.substring(0, 2).equals("93")||str.substring(0, 2).equals("94") || str.substring(0, 2).equals("95"))) {
+             char[] linea = str.toCharArray();
+             for (char c : linea)
+             {
+                 if (!Character.isDigit(c))
+                 {
+                     return false;
+                 }
+             }
+         } else return false;
+         
+         return true;
+     }
+     
+     public boolean esCorrectoSim(String str)
+     {
+         
+         if ( str.length() == 20 && str.substring(0, 5).equals("89598")) {
+             char[] linea = str.toCharArray();
+             for (char c : linea)
+             {
+                 if (!Character.isDigit(c))
+                 {
+                     return false;
+                 }
+             }
+             
+         } else return false;
+         return true;
+     }
+     
+    
+    
+    private List<String> cargaSims()
+    {
+        List<String> sims = new LinkedList<String>();
+        
+        try {
+        FileReader fr = new FileReader(dir+"ICCID.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String linea;
+        while((linea = br.readLine()) != null)
+        {
+            if (this.esCorrectoSim(linea)) {
+                sims.add(linea);
+                //System.out.println(linea);
+            } else {
+                /*if (linea.isEmpty()) {
+                    fallos.add("Sim entrada vacía: "+ linea+"\n");
+                } else
+                fallos.add("Sim con fallo de entrada: "+ linea+"\n");
+                */
+            }
+        }
+      } catch(Exception e) {
+          System.out.println("Excepcion leyendo fichero " +": " + e);
+          
+        }
+        return sims;
+    }
+     
+     
    //Caso 5.1:Generar registro sim card lost
      public void generateRegisteredChangeUSIMDatasource(List<Plan> plan) throws Exception{
       try {
