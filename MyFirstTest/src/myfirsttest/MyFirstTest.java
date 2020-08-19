@@ -1,18 +1,16 @@
 
 import Base.BasePage;
-import Frames.LoginFrame;
-import Test_PLM_Regression.TC1;
+import Objects.Cliente;
+import Objects.ClienteRes;
+import Test_PLM_Regression.TC4;
 import Tests.TestNewResiClient;
 import Utils.Client;
 import Utils.HandleFile;
-import Utils.Plan;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 import pages.LoginPage;
 
 
@@ -30,38 +28,40 @@ public class MyFirstTest{
             // String name, String ape, String cat, String typeDoc, String numD, String nat, String dir
             BasePage.initBaseTest();
             HandleFile.initHandleFile();
-            
             LoginPage.initLoginPage("seolivera", "wartel.1");
             
-        try {
-            
-            String str = HandleFile.getHandleFile().getICCID_Regresion("uat");
-            System.out.println("La linea " + str);
-            /*try {
-            HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().getNewClientDatSourcePLM();
-            
-            for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
-            for (Client cl : entry.getValue()) {
-            
-            System.out.println("ENTRAA");
-            if (cl == null) {
-            System.out.println("ES NULO");
-            }
-            TestNewResiClient tr = new TestNewResiClient(cl);
-            tr.test();
-            TC1 tc1 = new TC1(cl);
-            tc1.test();
-            //
-            }
-            }
+        //try {
+            //String str = HandleFile.getHandleFile().getICCID_Regresion("uat");
+            //System.out.println("La linea " + str);
+            try {
+                /*HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().getNewClientDatSourcePLM();
+                
+                for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
+                    for (Client cl : entry.getValue()) {
+                        System.out.println("ENTRAA");
+                        if (cl == null) {
+                            System.out.println("ES NULO");
+                        }*/
+                        Client cl = new Client("name", "ape", "asd23azz", "", "18 de julio");
+                        cl.setClientId("9158077353213983571");
+                        cl.setAmbiente("e2e");
+                        
+                        
+                        //TestNewResiClient tr = new TestNewResiClient(cl);
+                        //tr.test();
+                        TC4 tc4 = new TC4(cl);
+                        tc4.test();
+                  /*  }
+                    
+                }
             } catch (Exception e) {
-            System.out.println("Error al cargar hoja de residencial" + e);
+                System.out.println("Error al cargar hoja de residencial" + e);
             }*/
         } catch (Exception ex) {
             Logger.getLogger(MyFirstTest.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-            
+        
             
             
             String str = "Aumentar 09/14/2019 13:14:03 $150.00";

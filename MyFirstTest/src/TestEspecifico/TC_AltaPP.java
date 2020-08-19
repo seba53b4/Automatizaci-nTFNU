@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Test_PLM_Regression;
+package TestEspecifico;
 
+import Test_PLM_Regression.*;
 import Base.BaseTest;
+import Tests.TestAltaPP;
 import Tests.TestNewResiClient;
 import Tests.Test_CambioPlan;
 import Utils.Client;
@@ -21,18 +23,15 @@ import org.junit.Test;
  *
  * @author ipupo
  */
-public class TC1 extends BaseTest {
+public class TC_AltaPP extends BaseTest {
     
-    private Tests.TestNewResiClient test_new_resi;
-    private Tests.TestAltaPosP test_alta_plr;
-    private Tests.Test_CambioPlan test_cambio;
-    private Tests.Proceso_Desconexion desconexion;
+    private TestAltaPP alta_pp;
     private Plan p;
     private Client clte;
     
     //private Tests.Test Desconexion incluirlo
    
-    public TC1(Client client) throws Exception{
+    public TC_AltaPP(Client client) throws Exception{
         HandleFile.initHandleFile();
         clte = client;
         p = new Plan("PLR315");
@@ -43,24 +42,17 @@ public class TC1 extends BaseTest {
         p.setMSISDN(HandleFile.getHandleFile().getMSISDN_Regresion(p.getAmbiente()));
         p.setICCID(HandleFile.getHandleFile().getICCID_Regresion(p.getAmbiente()));
         //p.setMSISDN("95059314");
-        this.test_alta_plr = new Tests.TestAltaPosP(p);
-        this.test_cambio= new Test_CambioPlan(p);
+        this.alta_pp = new TestAltaPP(p);
   
  }
 
     @Override
     public String test() {
         
-        //Crea el Alta del PLR
-        test_alta_plr.test();
+        
+        alta_pp.test();
         
         
-        // Cambio to Low PLR
-        p.setName_change_plan("PLR310");
-        test_cambio.test();
-        
-        // Deberia hacer de esconexion
-         desconexion.test();
       
         return "hello there!";
     }
