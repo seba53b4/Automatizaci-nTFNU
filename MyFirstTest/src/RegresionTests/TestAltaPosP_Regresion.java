@@ -1,4 +1,4 @@
-package Tests;
+package RegresionTests;
 
 
 
@@ -25,17 +25,13 @@ import pages.LoginPage;
  *
  * @author ipupo
  */
-public class TestAltaPosP extends Base.BaseTest {
+   public class TestAltaPosP_Regresion extends Tests.TestAltaPosP {
    private CostumerPage ap;
    private LoginPage lp;
-   private Plan plan;
-
-    public Plan getPlan() {
-        return plan;
-    }
+   
      
-    public TestAltaPosP(Plan p) {
-        this.plan = p;
+    public TestAltaPosP_Regresion(Plan p) {
+        super(p);
     }
 
     @Override
@@ -47,14 +43,13 @@ public class TestAltaPosP extends Base.BaseTest {
            try {
                HandleFile.getHandleFile().registrarError("ERROR en Alta de PosPago \n\n"+ ex +"\n\n---------------------------------------------------------------------------\n\n");
            } catch (IOException ex1) {
-               Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex1);
+               Logger.getLogger(TestAltaPosP_Regresion.class.getName()).log(Level.SEVERE, null, ex1);
            }
            return "Falló";
        }finally{
            //BasePage.initBaseTest().closeDriver();
        }
     }
-    
     
     
     @Test
@@ -65,7 +60,7 @@ public class TestAltaPosP extends Base.BaseTest {
        this.ap = new CostumerPage();
        this.lp = LoginPage.getLoginPage();
        List<Plan> realPlans = new ArrayList<>(); //pp plr plc
-       String enviroment = plan.getAmbiente();
+       String enviroment = super.getPlan().getAmbiente();
        this.ap.initUrlBusqueda(enviroment);
        this.lp.Nav(enviroment);
       // if(enviroment.contains("preprod")){
@@ -73,22 +68,22 @@ public class TestAltaPosP extends Base.BaseTest {
       // } else{
        //    this.lp.signIn();
       // }
-       Plan newPlan = this.ap.AltaPosP(plan,enviroment);
+       Plan newPlan = this.ap.AltaPosP(super.getPlan(),enviroment);
        
+       
+       /*
        if (newPlan != null) {
            System.out.println("NO ES NULO EL PLAN");
            realPlans.add(newPlan);
            plan = newPlan;
        } else {
            System.out.println("ES RE NULO EL PLAN");
-       }
-       this.guardarProceso(realPlans);
+       }*/
+       
+       
    }
    
-//@Override
-  public void guardarProceso(List<Plan> l) throws Exception{
-      HandleFile.getHandleFile().generateRegisteredNewPlanDatasource(l);
-  }
-          
+   
+  
 }
 

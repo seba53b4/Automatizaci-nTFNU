@@ -78,7 +78,7 @@ public class CostumerPage extends Base.BasePage{
     By list_botonenviar= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]");
     By boton_enviar= By.xpath("//div[@class=\"tfn_button_panel_submit\" and a[contains(text(),'Enviar')]]");
     By boton_factSinPagar= By.xpath("//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only'][@aria-disabled='false'and span[contains(text(),'Sí')]] ");
-    By estado_so= By.xpath("//td[div[contains(text(),\"Estado\")]]/following-sibling::td");
+    By estado_so= By.xpath("//td[div[contains(text(),'Estado de cumplimiento')]]//following-sibling::td[1]");// "//td[div[contains(text(),\"Estado\")]]/following-sibling::td");
     By boton_cerrarSO = By.xpath("//div[@class=\"box_bottom close\"]/a[contains(text(),'Cerrar')]");
     By opcion_cambiado= By.xpath("//h1[contains(text(),'Cambiado a')]");
     By lista_plancambio_regular= By.xpath("/html/body/div[3]/div[3]/div[2]/div[2]/table/tbody/tr/td[1]/div[2]/div[2]/div[3]/div[2]/div/div[1]");
@@ -98,9 +98,20 @@ public class CostumerPage extends Base.BasePage{
     By btn_approve_activado = By.xpath("//a[contains(text(),'Approve')]");
     By cambio_tarjeta_sim=By.xpath("//div[@class='expand-btn-container']/following::span[contains(text(),\"El cambio de la tarjeta SIM\")]");
     
+    private static CostumerPage  cp; 
+    
     public CostumerPage() {
        super();     
     }
+    
+    public static CostumerPage getInstance(){
+        if (cp == null) {
+            cp = new CostumerPage();
+        }
+        return cp;
+    }
+    
+    
      public Plan AltaPP(Plan newPlan) throws InterruptedException {
         return AltaPP(newPlan,"");
     }
@@ -707,6 +718,17 @@ public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedEx
         newPlan.setName(newPlan.getName());
         
     }
+}
+
+public String estadoSOFinal(){
+    ///String str = "";
+    while (!get_estadoSO().equals("Ok") &&!get_estadoSO().contains("Error")) {
+        actualizarPagina();
+        System.out.println(get_estadoSO());
+        //Thread.sleep(1000);
+    }
+    
+    return get_estadoSO();
 }
 
 public void obtener_botonenviar() throws InterruptedException{

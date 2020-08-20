@@ -361,6 +361,17 @@ public WebElement Wait(By e, int lapso) throws InterruptedException{
     }
     return wb;
 }
+
+
+public void actualizarPagina(){
+    //first: get the current URL in a String variable
+    String currentURL = driver.getCurrentUrl();
+    //second: call the current URL
+    driver.get(currentURL); 
+}
+
+
+
 public void loading() throws InterruptedException
 {
     
@@ -386,6 +397,8 @@ public void loading() throws InterruptedException
         }
     }
 }
+
+
 
 
 }

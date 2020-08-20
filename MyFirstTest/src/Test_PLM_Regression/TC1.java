@@ -60,6 +60,7 @@ public class TC1 extends BaseTest {
         //Crea el Alta del PLR
         test_alta_plr.test();
         
+        
         // Cambio to Low PLR
         p.setName_change_plan("PLR310");
         test_cambio.test();

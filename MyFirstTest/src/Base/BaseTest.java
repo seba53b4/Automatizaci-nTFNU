@@ -5,6 +5,7 @@
  */
 package Base;
 
+import java.util.List;
 import org.junit.After;
 
 /**
@@ -28,4 +29,5 @@ public class BaseTest {
            
     }
     
+    //public void guardarProceso(List<Object> l){}
 }
