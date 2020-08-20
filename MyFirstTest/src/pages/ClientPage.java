@@ -49,7 +49,14 @@ public class ClientPage extends Base.BasePage{
      
      
      
+     public static ClientPage cp;
      
+     public static ClientPage getInstance(){
+         if (cp == null) {
+             cp = new ClientPage();
+         }
+         return cp;
+     }
      
     public void initUrlBusqueda(String env){
         if (!env.toLowerCase().equals("preprod")) {

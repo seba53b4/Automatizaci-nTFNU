@@ -2,6 +2,7 @@
 import Base.BasePage;
 import Objects.Cliente;
 import Objects.ClienteRes;
+import Test_PLM_Regression.TC1;
 import Test_PLM_Regression.TC4;
 import Tests.TestNewResiClient;
 import Utils.Client;
@@ -26,10 +27,10 @@ public class MyFirstTest{
             lf.show();*/
 
             // String name, String ape, String cat, String typeDoc, String numD, String nat, String dir
-            BasePage.initBaseTest();
+           /* BasePage.initBaseTest();
             HandleFile.initHandleFile();
             LoginPage.initLoginPage("seolivera", "wartel.1");
-            
+            */
         //try {
             //String str = HandleFile.getHandleFile().getICCID_Regresion("uat");
             //System.out.println("La linea " + str);
@@ -43,14 +44,14 @@ public class MyFirstTest{
                             System.out.println("ES NULO");
                         }*/
                         Client cl = new Client("name", "ape", "asd23azz", "", "18 de julio");
-                        cl.setClientId("9158077353213983571");
+                        cl.setClientId("9147446331113197269");
                         cl.setAmbiente("e2e");
                         
                         
                         //TestNewResiClient tr = new TestNewResiClient(cl);
                         //tr.test();
-                        TC4 tc4 = new TC4(cl);
-                        tc4.test();
+                        TC1 tc1 = new TC1(cl);
+                        tc1.test();
                   /*  }
                     
                 }

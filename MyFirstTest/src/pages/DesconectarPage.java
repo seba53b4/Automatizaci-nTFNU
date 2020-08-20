@@ -6,6 +6,7 @@
 package pages;
 
 import static Base.BasePage.driver;
+import Utils.Plan;
 import java.util.HashMap;
 import java.util.List;
 import limpieza_recurso.Limpieza_Class;
@@ -22,8 +23,8 @@ import org.openqa.selenium.WebElement;
  */
 public class DesconectarPage extends Base.BasePage{
     
-    private HashMap<String, String> soCreadas;
-    private Proceso_Desconexion proceso_desconexion;
+    //private HashMap<String, String> soCreadas;
+    //private Proceso_Desconexion proceso_desconexion;
     private CostumerPage page;
 
     
@@ -66,13 +67,23 @@ public class DesconectarPage extends Base.BasePage{
     By estado_logico_linea_usado= By.xpath("/html/body/div[4]/div[3]/div[1]/form[2]/table/tbody/tr/td/div[1]/table/tbody/tr/td[4]");
     By tabla_añadido= By.xpath("//b[contains(text(),'Añadido:')]");
     
-    public DesconectarPage(Proceso_Desconexion pd)
-    {
-        page= new CostumerPage();
-        soCreadas = new HashMap<>();
-        proceso_desconexion= pd;
-        
+    public static DesconectarPage dp;
+    
+    
+    public static DesconectarPage getInstance(){
+        if (dp == null){
+            dp = new DesconectarPage();
+        }
+        return dp;
     }
+    
+    
+    public DesconectarPage()
+    {
+        page = CostumerPage.getInstance();
+    }
+    
+    
     
     public void initUrlBusqueda(String env){
         System.out.println(env);
@@ -92,8 +103,10 @@ public class DesconectarPage extends Base.BasePage{
         click(botonbusuqeda);
         //  getDatosDesconexion().get(linea).setSim(sim.getText());
     }
-    public void Desconectar(String linea) throws InterruptedException{
-        WebElement fact_pago2=findElement(page.botonfact_pago);
+    public void Desconectar(Plan p) throws InterruptedException, java.lang.Exception{
+        String linea = p.getMSISDN();
+        page.seleccionar_CanalOrder(p, p.getAmbiente());
+     /* WebElement fact_pago2=findElement(page.botonfact_pago);
         //WebElement esta_desco_boton = findElement(deshabilitado_desconectar);
         Wait(linkcliente);
         click(linkcliente);
@@ -108,21 +121,16 @@ public class DesconectarPage extends Base.BasePage{
         Wait_Click(page.seleccionar_agente_esoecialista);
         click(page.seleccionar_agente_esoecialista);
         Wait(botonCrear);
-        click(botonCrear);
+        click(botonCrear);*/
         page.loading();
         
         //Wait_element(obtener_linea(linea));
         Thread.sleep(4000);
-        if(obtener_linea(linea) == null)
-        {
-            getDatosDesconexion().get(linea).setStatus("Multilinea");
-        }
-        else{
-            Thread.sleep(4000);
+        
             click(obtener_linea(linea));
             if(esta_BotonDesconectar()){
-                getDatosDesconexion().get(linea).setStatus("Error de linea");
-                
+                //getDatosDesconexion().get(linea).setStatus("Error de linea");
+                throw Exception("Boton Desconectar no se meustra");
             } else
             {
                 page.loading();
@@ -140,10 +148,8 @@ public class DesconectarPage extends Base.BasePage{
                 Wait(page.boton_revision);
                 Thread.sleep(6000);
                 click(findElement(page.boton_revision));
-                if(existe_Añadido(linea)){
-                    getDatosDesconexion().get(linea).setStatus("Linea añadida por error de SO");
-                }
-                else{
+                
+             
                     if (page.esta_configurar_Contrato()) {
                         click(configurar_ContratoBTN);
                         Thread.sleep(3000);
@@ -185,17 +191,17 @@ public class DesconectarPage extends Base.BasePage{
                         
                     }
                     System.out.println(obtener_urlSO());
-                    getDatosDesconexion().get(linea).setSO(obtener_urlSO());
-                    getDatosDesconexion().get(linea).setStatus("Desconexion");
-                }
+                   // getDatosDesconexion().get(linea).setSO(obtener_urlSO());
+                   // getDatosDesconexion().get(linea).setStatus("Desconexion");
+                
             }
-        }
+        
     }     
-    
+    /*
     public HashMap<String,Limpieza_Class> getDatosDesconexion()
     {
         return proceso_desconexion.getDatosLimpieza();
-    }
+    }*/
     
     public WebElement obtener_linea(String linea) throws InterruptedException{
         WebElement ppactivo = null;
@@ -256,9 +262,9 @@ public class DesconectarPage extends Base.BasePage{
         String url =driver.getCurrentUrl();
         return url;
     }
-    public HashMap<String, String> getSoCreadas() {
+    /*public HashMap<String, String> getSoCreadas() {
         return soCreadas;
-    }
+    }*/
     public boolean esta_BotonDesconectar(){
         WebElement esta_desco_boton = null;
         try{
@@ -282,6 +288,7 @@ public class DesconectarPage extends Base.BasePage{
     
     
     }*/
+    /*
     public Boolean get_estadoSOProcesado(String linea){
         
         String urlso=getDatosDesconexion().get(linea).getSO();
@@ -295,7 +302,7 @@ public class DesconectarPage extends Base.BasePage{
         }
         
         return so;
-    }
+    }*/
     
     public void cambio_estado(String linea) throws InterruptedException{
         sendKeys(linea.substring(0, 2), primerpartelinea);
@@ -359,7 +366,7 @@ public class DesconectarPage extends Base.BasePage{
     public void set_SIM(String linea){
         if(obtener_sim() == true){
             WebElement sim= page.findElement(get_sim);
-            getDatosDesconexion().get(linea).setSim(sim.getText());
+     //       getDatosDesconexion().get(linea).setSim(sim.getText());
         }
     }
     public String obtener_nombreCliente(){
@@ -382,5 +389,9 @@ public class DesconectarPage extends Base.BasePage{
         }
         
         return false;
+    }
+
+    private Exception Exception(String boton_Desconectar_no_se_meustra) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
