@@ -27,14 +27,14 @@ public class Proceso_Desconexion extends Base.BaseTest{
     
     //private HandleFile hf;
     //HashMap<String, LinkedList<String>> datosEntrada;
-    HashMap<String, Limpieza_Class> datosLimpieza;
     Plan p;
     DesconectarPage dp;
-
-    /*public HashMap<String, Limpieza_Class> getDatosLimpieza() {
-        return datosLimpieza;
+    
+    public Proceso_Desconexion(Plan plan){
+        p = plan;
     }
-    */
+    
+    
     @Override
     public String test() {
        try {
@@ -52,55 +52,37 @@ public class Proceso_Desconexion extends Base.BaseTest{
       //     BasePage.initBaseTest().closeDriver();
        }
     }
+    
    @Test
-    public void desconectar() throws InterruptedException, IOException{
-         BasePage.initBaseTest();
+    public void desconectar() throws InterruptedException, IOException, Exception{
+        BasePage.initBaseTest();
         
         //hf = HandleFile.getHandleFile();
         //datosEntrada = hf.readArchivoEntradaDesconexion();
-        datosLimpieza = new HashMap<>();
         //cargaDatosLimpieza();
-        datosLimpieza.put(p.getMSISDN(),new Limpieza_Class(p.getMSISDN()));
         
-      LoginPage lp = LoginPage.getLoginPage();
-  
-      BasePage.getNewDriver();
-      
-      
-      //for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
-          
-          String enviroment = p.getAmbiente();
-          dp.initUrlBusqueda(enviroment);
-          lp.Nav(enviroment);
-         // if(enviroment.contains("preprod")){
-              lp.signIn_preprod();
-          //}
-         // else{
-          //    lp.signIn();
-          //}
-         // for (String num : entry.getValue()) {
-              System.out.println(p.getMSISDN());
-              dp.initUrlBusqueda(enviroment);
-              dp.buscarLinea(p.getMSISDN());
-              if(dp.obtener_estado_logicoLinea()== true &&
-                      !dp.obtener_nombreCliente().contains("ADOVAL S.A.")){
-                  dp.set_SIM(p.getMSISDN());
-                  dp.Desconectar(p.getMSISDN());
-                  dp.getDatosDesconexion();
-                  //hf.writeArchivoSO_Desconexion(dp.getSoCreadas());
-                  //dp.initUrlBusqueda(enviroment);
-                  
-                  //dp.cambio_estado(num);
-                  //busqueda estado logico , iccid
-              }
-              else
-              {
-                  System.out.println("ENTRA ACA EN ESTADO LOGICO ");
-                  datosLimpieza.get(p.getMSISDN()).setStatus("Error estado lógico");
-                 // HandleFile.getHandleFile().writeArchivoSO_Desconexion(datosLimpieza.get(num));
-                //  MainFrame.getInstance().modificarEstadoLinea(num,entry.getKey(), "Error estado lógico");
-              }
-              
+        LoginPage lp = LoginPage.getLoginPage();
+        
+        //BasePage.getNewDriver();
+        //for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
+        
+        String enviroment = p.getAmbiente();
+        dp.initUrlBusqueda(enviroment);
+        lp.Nav(enviroment);
+        // if(enviroment.contains("preprod")){
+        lp.signIn_preprod();
+        //}
+        // else{
+        //    lp.signIn();
+        //}
+        // for (String num : entry.getValue()) {
+        System.out.println(p.getMSISDN());
+        //dp.initUrlBusqueda(enviroment);
+        dp.buscarLinea(p.getMSISDN());
+        
+        dp.set_SIM(p.getMSISDN());
+        dp.Desconectar(p);
+        
           }
           
      // }

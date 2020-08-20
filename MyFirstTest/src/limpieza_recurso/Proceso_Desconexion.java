@@ -50,13 +50,13 @@ public class Proceso_Desconexion {
     public void desconectar() throws InterruptedException{
         
       LoginPage lp = LoginPage.initLoginPage("ipupo","Movistar.1234");
-      DesconectarPage dp = new DesconectarPage(this);
+     // DesconectarPage dp = new DesconectarPage(this);
       BasePage.getNewDriver();
       
       for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
           
           String enviroment = entry.getKey();
-          dp.initUrlBusqueda(entry.getKey());
+       //   dp.initUrlBusqueda(entry.getKey());
           lp.Nav(enviroment);
           if(enviroment.contains("preprod")){
               lp.signIn_preprod();
@@ -64,7 +64,7 @@ public class Proceso_Desconexion {
           else{
               lp.signIn();
           }
-          for (String num : entry.getValue()) {
+      /*   for (String num : entry.getValue()) {
               System.out.println(num);
               dp.initUrlBusqueda(entry.getKey());
               dp.buscarLinea(num);
@@ -85,12 +85,12 @@ public class Proceso_Desconexion {
               }
               
           }
-          
+       */   
       }
           
     }
     public void verificar() throws InterruptedException{
-        DesconectarPage dp = new DesconectarPage(this);
+        /*//DesconectarPage dp = new DesconectarPage(this);
         Limpieza_Class value;
         for (HashMap.Entry<String, LinkedList<String>>entry : datosEntrada.entrySet()) {
             for (String numero : entry.getValue()) {
@@ -106,7 +106,7 @@ public class Proceso_Desconexion {
                     }
             }
             hf.writeArchivoSO_Desconexion(datosLimpieza);
-        }
+        }*/
         
         
     }

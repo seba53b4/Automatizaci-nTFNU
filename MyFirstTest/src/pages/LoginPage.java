@@ -31,6 +31,8 @@ public class LoginPage extends Base.BasePage{
     private String usuario;
     private String password;
     
+    
+    
     public void setUsuario(String usuario) {
        // this.usuario = usuario;
        // loginP. usaurio = usuario;

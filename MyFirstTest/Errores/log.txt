@@ -485,3 +485,71 @@ Session ID: 491a308946047497822f4c71bd37d855
 
 ---------------------------------------------------------------------------
 
+04: 48: 02 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]"}
+  (Session info: chrome=84.0.4147.135)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'DESKTOP-F8NO6MQ', ip: '192.168.1.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.135, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\Seba-OS\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:50475}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 27a3caedd8c7af2b6e968bb93bc662b3
+*** Element info: {Using=xpath, value=//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]}
+
+---------------------------------------------------------------------------
+
+04: 51: 42 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]"}
+  (Session info: chrome=84.0.4147.135)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'DESKTOP-F8NO6MQ', ip: '192.168.1.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.135, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\Seba-OS\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:50667}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 679c49cd68befb6c5bac03e3608ceb83
+*** Element info: {Using=xpath, value=//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]}
+
+---------------------------------------------------------------------------
+
+04: 52: 39 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]"}
+  (Session info: chrome=84.0.4147.135)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'DESKTOP-F8NO6MQ', ip: '192.168.1.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.135, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\Seba-OS\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:50729}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 531cfbb0f1296cf16ff69f822e988c92
+*** Element info: {Using=xpath, value=//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]}
+
+---------------------------------------------------------------------------
+
+04: 57: 34 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]"}
+  (Session info: chrome=84.0.4147.135)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
+System info: host: 'DESKTOP-F8NO6MQ', ip: '192.168.1.8', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_111'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.135, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\Seba-OS\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:51650}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 53a9615d852a6a36bf66bb9537d228e5
+*** Element info: {Using=xpath, value=//a[@class="gwt-InlineHyperlink roe-pathList"][@href="#payment" and contains(text(),'Facturación y pago')]}
+
+---------------------------------------------------------------------------
+
+05: 07: 32 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+05: 08: 50 PM 20-ago-PM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
