@@ -122,21 +122,20 @@ public class DesconectarPage extends Base.BasePage{
         click(page.seleccionar_agente_esoecialista);
         Wait(botonCrear);
         click(botonCrear);*/
-        page.loading();
-        
+        //page.loading();
         //Wait_element(obtener_linea(linea));
-        Thread.sleep(4000);
-        
-            click(obtener_linea(linea));
-            if(esta_BotonDesconectar()){
+        //Thread.sleep(4000);
+        loading();
+        click(obtener_linea(linea));
+         /*if(esta_BotonDesconectar()){
                 //getDatosDesconexion().get(linea).setStatus("Error de linea");
                 throw Exception("Boton Desconectar no se meustra");
             } else
-            {
-                page.loading();
-                Wait(desconectar);
-                Thread.sleep(4000);
-                click(desconectar);
+            {*/
+           loading();
+           Wait_Click(desconectar);
+           Thread.sleep(4000);
+           click(desconectar);
                 
                 Wait(comentario);
                 Thread.sleep(4000);
@@ -195,18 +194,17 @@ public class DesconectarPage extends Base.BasePage{
                    // getDatosDesconexion().get(linea).setStatus("Desconexion");
                 
             }
-        
-    }     
+         
     /*
     public HashMap<String,Limpieza_Class> getDatosDesconexion()
     {
         return proceso_desconexion.getDatosLimpieza();
     }*/
     
-    public WebElement obtener_linea(String linea) throws InterruptedException{
+    public WebElement obtener_linea(String linea){
         WebElement ppactivo = null;
         Wait(page.productosasociados);
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
         System.out.println("prod asociados "+page.productosasociados);
         String conEspacios =linea.substring(0, 2)+" "+ linea.substring(2, 5)+" "+linea.substring(5, 8);
         WebElement tableproductasociados= findElement(page.productosasociados);
@@ -215,15 +213,16 @@ public class DesconectarPage extends Base.BasePage{
         for (int i = 0; i < planes.size(); i++) {
             
             if(getText(planes.get(i)).contains(conEspacios)){
-                try {
+               // try {
                     ppactivo=planes.get(i);
-                    return ppactivo;
-                } catch (TimeoutException e) {
-                    System.out.println("ERROR "+ e.toString());
-                    return null;
-                }
-            }
+                    //return ppactivo;
+               // } catch (TimeoutException e) {
+                   // System.out.println("ERROR "+ e.toString());
+                   // return null;
+               // }
+            //}
             
+           }
         }
         return ppactivo;
     }

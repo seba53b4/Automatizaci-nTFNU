@@ -7,6 +7,7 @@ import Test_PLM_Regression.TC4;
 import Tests.TestNewResiClient;
 import Utils.Client;
 import Utils.HandleFile;
+import Utils.Plan;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,10 @@ public class MyFirstTest{
                             System.out.println("ES NULO");
                         }*/
                         Client cl = new Client("name", "ape", "asd23azz", "", "18 de julio");
+                        Plan pl= new Plan();
                         cl.setClientId("9147446331113197269");
                         cl.setAmbiente("e2e");
+                        pl.setMSISDN("94421183");//Este dato viene del Plan Creado
                         
                         
                         //TestNewResiClient tr = new TestNewResiClient(cl);

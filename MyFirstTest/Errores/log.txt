@@ -553,3 +553,51 @@ java.lang.NullPointerException
 
 ---------------------------------------------------------------------------
 
+09: 07: 36 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 18: 36 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 38: 41 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 45: 05 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 49: 34 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 52: 38 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 58: 06 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
+09: 59: 22 AM 21-ago-AM - ERROR en TestCase1 en Regresion de PLM 
+
+java.lang.NullPointerException
+
+---------------------------------------------------------------------------
+
