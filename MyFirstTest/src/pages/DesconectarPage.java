@@ -126,7 +126,10 @@ public class DesconectarPage extends Base.BasePage{
         //Wait_element(obtener_linea(linea));
         //Thread.sleep(4000);
         loading();
-        click(obtener_linea(linea));
+        page.obtener_PPActivo(p, p.getMSISDN());
+        
+        
+        
          /*if(esta_BotonDesconectar()){
                 //getDatosDesconexion().get(linea).setStatus("Error de linea");
                 throw Exception("Boton Desconectar no se meustra");
@@ -206,15 +209,16 @@ public class DesconectarPage extends Base.BasePage{
         Wait(page.productosasociados);
         //Thread.sleep(3000);
         System.out.println("prod asociados "+page.productosasociados);
-        String conEspacios =linea.substring(0, 2)+" "+ linea.substring(2, 5)+" "+linea.substring(5, 8);
+        String conEspacios = linea.substring(0, 2)+" "+ linea.substring(2, 5)+" "+linea.substring(5, 8);
         WebElement tableproductasociados= findElement(page.productosasociados);
         List<WebElement> planes= tableproductasociados.findElements(By.tagName("span"));
         
         for (int i = 0; i < planes.size(); i++) {
-            
-            if(getText(planes.get(i)).contains(conEspacios)){
+            System.out.println("Span "+i+" "+ planes.get(i));
+            if( Utils.CadenaUtils.compararCadenas(conEspacios, getText(planes.get(i)))){//   getText(planes.get(i)).(conEspacios)){
                // try {
                     ppactivo=planes.get(i);
+                    System.out.println("Span correcto "+i+" "+ planes.get(i));
                     //return ppactivo;
                // } catch (TimeoutException e) {
                    // System.out.println("ERROR "+ e.toString());

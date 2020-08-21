@@ -33,10 +33,6 @@ import pages.LoginPage;
  */
 public class TC1 extends BaseTest {
     
-    private Tests.TestNewResiClient test_new_resi;
-    private Tests.TestAltaPosP test_alta_plr;
-    private Tests.Test_CambioPlan test_cambio;
-    private Tests.Proceso_Desconexion desconexion;
     private Plan p;
     private Client clte;
     
@@ -45,17 +41,17 @@ public class TC1 extends BaseTest {
     public TC1(Client client) throws Exception{
         HandleFile.initHandleFile();
         clte = client;
-        p = new Plan("PLKAM3");
+        p = new Plan("PLR310");
         System.out.println("Object id cliente : " + clte.getClientId());
         
-        p.setMSISDN("94421183");
+        p.setMSISDN("94797890");
+        p.setICCID("89598076101039727120");
         p.setAmbiente(clte.getAmbiente());
         p.setObject_id(clte.getClientId());
         p.setMSISDN(HandleFile.getHandleFile().getMSISDN_Regresion(p.getAmbiente()));
         p.setICCID(HandleFile.getHandleFile().getICCID_Regresion(p.getAmbiente()));
         //p.setMSISDN("95059314");
-        this.test_alta_plr = new Tests.TestAltaPosP(p);
-        this.test_cambio= new Test_CambioPlan(p);
+       
   
  }
 
@@ -96,20 +92,34 @@ public class TC1 extends BaseTest {
        lp.Nav(enviroment);
        lp.signIn_preprod();
        
-       /*
        //Alta de cliente
        clp.crear_Cliente_Residencial(clte);
+       System.out.println("Despues de alta " + clte.getClientId());
+       
        //Alta de PLR
-       cp.alta_PLR(p);
+       p.setObject_id(clte.getClientId());
+       cp.get_Type_PlanPos(p,p.getAmbiente());
        
-       // Cambio to Low PLR
-       p.setName_change_plan("PLR310");
-       cp.cambioPlan(p, p.getAmbiente());
-       */
+       String str = cp.estadoSOFinal();
+       System.out.println("ANTES de PLR to low: " + str );
+       if (str.equals("Ok")) {
+           // Cambio to Low PLR
+           p.setName_change_plan("PLR310");
+           cp.cambioPlan(p, p.getAmbiente());
+       } else {
+           throw new Exception(" TESTCASE1 - PLM_REGRESION - PLR to low");
+       }
+      
+       str = cp.estadoSOFinal();
+       System.out.println("ANTES de PLR to disconnect: " + str );
+       if (str.equals("Ok")) {
+           // Deberia hacer de desconexion
+           dp.initUrlBusqueda(enviroment);
+           dp.Desconectar(p);
+       } else {
+           throw new Exception(" TESTCASE1 - PLM_REGRESION - PLR to disconnect");
+       }
        
-       // Deberia hacer de esconexion
-       dp.initUrlBusqueda(enviroment);
-       dp.Desconectar(p);
       
    }
 }

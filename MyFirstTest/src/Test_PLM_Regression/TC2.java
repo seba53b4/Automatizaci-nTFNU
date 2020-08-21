@@ -9,9 +9,10 @@ package Test_PLM_Regression;
  *
  * @author ipupo
  */
-public class TC2 {
+public class TC2 extends Base.BaseTest {
     
     private Tests.TestNewResiClient test_alta_client;
     private Tests.Test_CambioPlan test_cambio_low_plc_pp;
+    
     
 }

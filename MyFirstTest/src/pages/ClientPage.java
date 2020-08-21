@@ -66,7 +66,6 @@ public class ClientPage extends Base.BasePage{
         {
              visit("https://pretoms.temu.com.uy/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
         }
-        
     }
     
     public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException , Exception{
@@ -121,6 +120,7 @@ public class ClientPage extends Base.BasePage{
         Thread.sleep(2000);
         if (existentElements.size() > 0) {
             
+            System.out.println("ENTRO A DUPLICADO");
             if(handleDuplicate) {
                 System.out.println("Duplicated Client");
                 //ejecuto el flujo para duplicados
@@ -130,10 +130,11 @@ public class ClientPage extends Base.BasePage{
         // 2- si no existe, entonces obtengo el ClientId del cliente y actualizo
         // objeto Cliente
         else {
-            Thread.sleep(2500);
             
+            Thread.sleep(1000);
             String clientId = getClientIdByUrl(driver.getCurrentUrl());
             newClient.setClientId(clientId);
+            System.out.println(newClient.getClientId());
         }
         
         return newClient;
@@ -219,10 +220,6 @@ public class ClientPage extends Base.BasePage{
      Thread.sleep(2000);
      click(obtener_CR);
      Thread.sleep(2000);
-     
-     
-   
-    
     
     }
     public WebElement obtener_Categoria(){//metodo utilizado

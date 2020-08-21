@@ -44,9 +44,9 @@ public class MyFirstTest{
                         if (cl == null) {
                             System.out.println("ES NULO");
                         }*/
-                        Client cl = new Client("name", "ape", "asd23azz", "", "18 de julio");
+                        Client cl = new Client("Nativo Automation", "181", "asvz1z", "", "18 de julio");
                         Plan pl= new Plan();
-                        cl.setClientId("9147446331113197269");
+                        //cl.setClientId("9147446331113197269");
                         cl.setAmbiente("e2e");
                         pl.setMSISDN("94421183");//Este dato viene del Plan Creado
                         
