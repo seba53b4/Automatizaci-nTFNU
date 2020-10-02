@@ -85,17 +85,7 @@ public class DesconectarPage extends Base.BasePage{
     
     
     
-    public void initUrlBusqueda(String env){
-        System.out.println(env);
-        if (!env.equals("preprod")) {
-            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
-            
-        } else
-        {
-             visit("https://pretoms.temu.com.uy/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
-        }
-        
-    }
+   
     public void buscarLinea(String linea) throws InterruptedException{
         sendKeys(linea.substring(0, 2), primerpartelinea);
         sendKeys(linea.substring(2, 5), segundapartelinea);

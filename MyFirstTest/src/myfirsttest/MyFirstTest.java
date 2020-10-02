@@ -1,5 +1,6 @@
 
 import Base.BasePage;
+import Frames.LoginFrame;
 import Objects.Cliente;
 import Objects.ClienteRes;
 import Test_PLM_Regression.TC1;
@@ -23,27 +24,23 @@ import pages.LoginPage;
 public class MyFirstTest{
     
     public static void main(String [] args) {
-       /*     LoginFrame lf = new LoginFrame();
+        
+    
+            LoginFrame lf = new LoginFrame();
             lf.setVisible(true);
-            lf.show();*/
+            lf.show();
 
             // String name, String ape, String cat, String typeDoc, String numD, String nat, String dir
-           /* BasePage.initBaseTest();
+           BasePage.initBaseTest();
             HandleFile.initHandleFile();
-            LoginPage.initLoginPage("seolivera", "wartel.1");
-            */
+            LoginPage.initLoginPage("seolivera", "movistar.1");
+            
         //try {
             //String str = HandleFile.getHandleFile().getICCID_Regresion("uat");
             //System.out.println("La linea " + str);
-            try {
-                /*HashMap<String,List<Client>> clientesRes = HandleFile.getHandleFile().getNewClientDatSourcePLM();
-                
-                for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
-                    for (Client cl : entry.getValue()) {
-                        System.out.println("ENTRAA");
-                        if (cl == null) {
-                            System.out.println("ES NULO");
-                        }*/
+           
+            /*9try {
+               
                         Client cl = new Client("Nativo Automation", "181", "asvz1z", "", "18 de julio");
                         Plan pl= new Plan();
                         //cl.setClientId("9147446331113197269");
@@ -55,20 +52,20 @@ public class MyFirstTest{
                         //tr.test();
                         TC1 tc1 = new TC1(cl);
                         tc1.test();
-                  /*  }
-                    
-                }
+              
+                   
+                
             } catch (Exception e) {
                 System.out.println("Error al cargar hoja de residencial" + e);
-            }*/
+            
         } catch (Exception ex) {
             Logger.getLogger(MyFirstTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
+        }*/
+           
         
             
             
-            String str = "Aumentar 09/14/2019 13:14:03 $150.00";
+          //  String str = "Aumentar 09/14/2019 13:14:03 $150.00";
 //          Utils u = new Utils();
 //          Date dat = u.toDate(str);
 //          System.out.println(dat.toString());

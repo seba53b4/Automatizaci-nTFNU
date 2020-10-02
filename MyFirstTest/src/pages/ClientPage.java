@@ -58,15 +58,7 @@ public class ClientPage extends Base.BasePage{
          return cp;
      }
      
-    public void initUrlBusqueda(String env){
-        if (!env.toLowerCase().equals("preprod")) {
-            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
-            
-        } else
-        {
-             visit("https://pretoms.temu.com.uy/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
-        }
-    }
+  
     
     public Client crear_Cliente_Residencial(Client newClient) throws InterruptedException , Exception{
         return crear_Cliente_Residencial(newClient, false);

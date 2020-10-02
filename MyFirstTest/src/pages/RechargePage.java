@@ -35,19 +35,21 @@ public class RechargePage extends Base.BasePage{
     By billaccount=By.xpath("//a[@href and contains(text(),\"Cuentas de facturación\")]");
     By newrecharge=By.xpath("//button[@class='TableCtrl-button TableCtrl-button-icon NewNote'and contains(text(),\"Nueva recarga\")]");
     By importe=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Importe')]/following::input[1]");
+    By canal_pago = By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Canal de pago')]/following::td[1]");
+    By option_canalPago = By.xpath("//option[contains(text(),'POS - Store-CRM')]");
     By suscripcion_AA=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Suscripción de Altamira')]/following::div[1]");
     By tabla=By.xpath("//*[@id=\"nc_refsel_list\"]/div[2]");
     By payment=By.xpath("//tr[@class='gwt-row']//div[contains(text(),'Método de pago')]/following::i[1]");
     By tabla_payment=By.xpath("//*[@class='refsel_table']");
-    By boton_crear=By.xpath("//button[contains(text(),'Crear')]");
+    By boton_crear=By.xpath("//button[contains(text(),'Create') or contains(text(),'Crear')]");
     By suscripcionesAA = By.xpath("//div[div[div[div[div[div[button[contains(text(),'Nueva recarga')]]]]]]]/following-sibling::table");
     By boton_recargas = By.xpath("//a[contains(text(),'Recargas')]");
     By boton_anadir_recargas = By.xpath("//button[contains(text(),'Nueva recarga')]");
     By nueva_recarga_realizada = By.xpath("//tr[@__gwt_row=\"0\" and @__gwt_subrow=\"0\"]/td/div/div/a[contains(text(),'Aumentar')]/parent::div");
     By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
     
-    CadenaUtils cadena;
     
+    CadenaUtils cadena;
     
       public RechargePage() {
        cadena=new CadenaUtils();
@@ -79,16 +81,7 @@ public class RechargePage extends Base.BasePage{
       
           return newClient;
     } 
-       public void initUrlBusqueda(String env){
-        if (env.toLowerCase() != "preprod") {
-            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
-            
-        } else
-        {
-             visit("https://pretoms.temu.com.uy/common/search.jsp?explorer_mode=disable&object=9141907040613227268&o=9155890323313723269");
-        }
-        
-    }
+      
        public void scrollUntilElement(WebElement wb){
            JavascriptExecutor js = (JavascriptExecutor) driver;
            js.executeScript("argumentos[0].scrollIntoView();", wb);
@@ -122,10 +115,17 @@ public class RechargePage extends Base.BasePage{
            System.out.println("importe-->"+newClient.getAmount());
            sendKeys(newClient.getAmount(), importe);
            Thread.sleep(2000);
+           
            Wait_Click(payment);
            click(payment);
            Thread.sleep(2000);
            obtener_Payment(newClient);
+           
+           
+           Wait_Click(canal_pago);
+           click(canal_pago);
+           Wait_Click(option_canalPago);
+           click(option_canalPago);
            Wait_Click(boton_crear);
            click(boton_crear);
            cargando();
@@ -149,7 +149,7 @@ public class RechargePage extends Base.BasePage{
         for (int i = 0; i < list_linea.size(); i++) {
             System.out.println("element lista-->"+list_linea.get(i).getText());
             System.out.println("linea-->"+cadena.formatoNumber(num));
-            if(cadena.compararCadenas(cadena.formatoNumber(num),list_linea.get(i).getText())){
+            if(cadena.compararCadenas(cadena.formatoNumber(num),list_linea.get(i).getText()) || cadena.compararCadenas(num,list_linea.get(i).getText())){
             WebElement line=list_linea.get(i);
                 click(line);
                 break;

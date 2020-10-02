@@ -374,17 +374,7 @@ public class CostumerPage extends Base.BasePage{
        
    }
    /*Para Test Alta Cliente y Plan*/
-   public void initUrlBusqueda(String env){
-       if (!env.toLowerCase().contains("preprod") ) {
-           
-           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
-           
-       } else
-       {
-           visit("https://pretoms.temu.com.uy/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
-       }
-       
-   }
+  
    public void seleccionar_Canal(Plan newPlan,String env) throws InterruptedException{
        
        //click(recientes);
@@ -438,9 +428,8 @@ public class CostumerPage extends Base.BasePage{
        Wait_Click(tabla_cuenta_controlada);
        Thread.sleep(5000);
        click(tabla_cuenta_controlada);
-       //Wait(table_plc);
-       WebElement tablePP = new WebDriverWait(driver, 10)
-               .until(ExpectedConditions.visibilityOfElementLocated(table_plc));
+       Wait(table_plc);
+       WebElement tablePP = findElement(table_plc);
        List<WebElement> ppc= tablePP.findElements(By.tagName("span"));
        for (int j = 0; j < ppc.size(); j++) {
            if(ppc.get(j).getText().contains(newPlan.getName())){//En dependencia de los permisos del usuario podra acceder a diferentes canal de distribucion
@@ -965,7 +954,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
         }
 
         if (!hay) {
-
+            loading();
             Wait_Click(cuenta_facturacion);
             Thread.sleep(2000);
             click(cuenta_facturacion);
@@ -1031,7 +1020,8 @@ public boolean esta_configurar_Contrato() throws InterruptedException
         }
 
         if (!hay) {
-
+            
+            loading();
             Wait(cuenta_facturacion);
             Thread.sleep(2000);
             click(cuenta_facturacion);
@@ -1090,7 +1080,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             }
         }
         if (!hay) {
-
+            loading();
             Wait_Click(cuenta_fact_posp);
             click(cuenta_fact_posp);
             Thread.sleep(5000);

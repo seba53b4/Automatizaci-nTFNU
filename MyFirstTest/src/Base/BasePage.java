@@ -57,6 +57,17 @@ public static void getNewDriver(){
     driver.manage().window().maximize();
 }
 
+ public void initUrlBusqueda(String env){
+       if (!env.toLowerCase().contains("preprod") ) {
+           
+           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
+           
+       } else
+       {
+           visit("https://pretoms.temu.com.uy/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+       }
+       
+   }
 
 public void closeDriver(){
     this.driver.quit();
