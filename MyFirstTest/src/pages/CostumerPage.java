@@ -70,7 +70,7 @@ public class CostumerPage extends Base.BasePage{
     By servicios_lista=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div");
     By select_cuenta_facturacion= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]");
     By boton_revision= By.xpath("//a[@class='gwt-InlineHyperlink roe-pathList'][@href='#review' and contains(text(),'Revisión')]");
-    By boton_contrato= By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
+    By boton_contrato = By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("//span[@class='ui-button-text' and contains(text(),'Confirmar')]");
     By boton_contrato_confirmar2=By.xpath("/html/body/div[8]/div/div/div[3]/div/button[1]");
     By boton_confirmar_firma= By.xpath("//a[@href='#' and contains(text(),'Firmar')]");

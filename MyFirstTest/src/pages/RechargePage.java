@@ -129,6 +129,7 @@ public class RechargePage extends Base.BasePage{
            Wait_Click(boton_crear);
            click(boton_crear);
            cargando();
+           Thread.sleep(2000);
            Wait_Click(nueva_recarga_realizada);     
            String str = getText(nueva_recarga_realizada);
            Date recargaDate = Utils.getInstance().toDate(str);

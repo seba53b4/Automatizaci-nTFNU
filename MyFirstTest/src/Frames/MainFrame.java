@@ -91,10 +91,13 @@ public class MainFrame extends javax.swing.JFrame {
         
         tests = new HashMap<>();
         //BasePage.initBaseTest();
-        
-        
-        
         this.setLocationRelativeTo(null);
+        actualizarTests();
+        
+    }
+    
+    public void actualizarTests(){
+        
         TableColumn c =  this.TablaTest.getColumnModel().getColumn(0);//
        // c.setPreferredWidth(25);
         c.setMaxWidth(90);
@@ -106,6 +109,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         HandleFile.initHandleFile();
         DefaultTableModel tb ;
+        
         try {
             clientesRes = HandleFile.getHandleFile().readRegisterDataSource("new_residential_client");
             tb = (DefaultTableModel) TablaTest.getModel();
@@ -113,8 +117,11 @@ public class MainFrame extends javax.swing.JFrame {
             for (Map.Entry<String, List<Client>> entry : clientesRes.entrySet()) {
                 for (Client cl : entry.getValue()) {
                     String str = "Cargado Archivo - Alta cliente residencial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
-                    tb.addRow(new Object[]{false,str,"No iniciado"});
-                    tests.put(str, new TestNewResiClient(cl));
+                    if (!tests.containsKey(str)) {
+                        tb.addRow(new Object[]{false,str,"No iniciado"});
+                        tests.put(str, new TestNewResiClient(cl));
+                    }
+                    
                 }
             }
         } catch (Exception e) {
@@ -130,9 +137,12 @@ public class MainFrame extends javax.swing.JFrame {
 
             for (Map.Entry<String, List<EnterpriseClient>> entry : clientesEmp.entrySet()) {
                 for (EnterpriseClient cl : entry.getValue()) {
+                    
                     String str = "Cargado Archivo - Alta cliente empresarial "+ cl.getAmbiente().toUpperCase()+":    "+ cl.getName() + " "+ cl.getSecondName();
-                    tests.put(str, new TestEmpClient(cl));
-                    tb.addRow(new Object[]{false, str,"No iniciado"});
+                      if (!tests.containsKey(str)) {
+                        tests.put(str, new TestEmpClient(cl));
+                        tb.addRow(new Object[]{false, str,"No iniciado"});
+                      }
                 }
             }
         } catch (Exception e) {
@@ -150,13 +160,16 @@ public class MainFrame extends javax.swing.JFrame {
                     BaseTest bt = null;
                     if (CadenaUtils.compararCadenas("PLTT",p.getName()) || CadenaUtils.compararCadenas("PLK",p.getName())||CadenaUtils.compararCadenas("PLGP",p.getName()) ) {
                         str = "Cargado Archivo - Alta Plan PP "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                        tb.addRow(new Object[]{false,str,"No iniciado"});
-                        tests.put(str, new TestAltaPP(p));
-                        
+                        if (!tests.containsKey(str)) {
+                            tb.addRow(new Object[]{false,str,"No iniciado"});
+                            tests.put(str, new TestAltaPP(p));
+                        }
                     } else {
                         str = "Cargado Archivo - Alta Plan PosP "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                        tb.addRow(new Object[]{false,str,"No iniciado"});
-                        tests.put(str, new TestAltaPosP(p));
+                        if (!tests.containsKey(str)) {
+                            tb.addRow(new Object[]{false,str,"No iniciado"});
+                            tests.put(str, new TestAltaPosP(p));
+                        }
                     }
                 }
                 
@@ -175,19 +188,17 @@ public class MainFrame extends javax.swing.JFrame {
                 for (Plan p : entry.getValue()) {
                     String str = "";
                     BaseTest bt = null;
-                    
-                    str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
-                    tb.addRow(new Object[]{false,str,"No iniciado"});
-                    tests.put(str, new Test_SimCardLost(p));
-                    
+                    if (!tests.containsKey(str)) {
+                        str = "Cargado Archivo - Sim Card Lost "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " en cliente de object_id: "+p.getObject_id() ;
+                        tb.addRow(new Object[]{false,str,"No iniciado"});
+                        tests.put(str, new Test_SimCardLost(p));
+                    }
                 }
                 
         }
         } catch (Exception e) {
              System.out.println("Error al cargar sim card lost" + e);
         }
-         
-        
         
         try {
             recargas = HandleFile.getHandleFile().getRechargeLine();
@@ -199,9 +210,10 @@ public class MainFrame extends javax.swing.JFrame {
                 BaseTest bt = null;
                 
                 str = "Cargado Archivo - Recarga Linea "+ cl.getAmbiente().toUpperCase()+":    "+cl.getLine() + " en cliente de object_id: "+cl.getObject_id() ;
-                tb.addRow(new Object[]{false,str,"No iniciado"});
-                tests.put(str, new TestRecarga(cl));
-                
+                if (!tests.containsKey(str)) {
+                    tb.addRow(new Object[]{false,str,"No iniciado"});
+                    tests.put(str, new TestRecarga(cl));
+                }
             }
             }
            
@@ -218,9 +230,10 @@ public class MainFrame extends javax.swing.JFrame {
                     String str = "";
                     BaseTest bt = null;
                     str = "Cargado Archivo - Cambio Plan "+ p.getAmbiente().toUpperCase()+":    "+p.getName() + " to "+p.getName_change_plan()+" en cliente: "+ p.getObject_id() ;
-                    tb.addRow(new Object[]{false,str,"No iniciado"});
-                    tests.put(str, new Test_CambioPlan(p));
-                    
+                    if (!tests.containsKey(str)) {
+                        tb.addRow(new Object[]{false,str,"No iniciado"});
+                        tests.put(str, new Test_CambioPlan(p));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -237,25 +250,16 @@ public class MainFrame extends javax.swing.JFrame {
             for (Map.Entry<String, List<Plan>> entry : cambioUSIM.entrySet()) {
                 for (Plan p : entry.getValue()) {
                     String str = "Cargado Archivo - Cambio USIM "+ p.getAmbiente().toUpperCase()+":    "+ p.getName() + " new sim: "+ p.getName_change_sim();
-                    tests.put(str, new Test_ChangeUSIM(p));
-                    tb.addRow(new Object[]{false, str,"No iniciado"});
+                    if (!tests.containsKey(str)) {
+                        tests.put(str, new Test_ChangeUSIM(p));
+                        tb.addRow(new Object[]{false, str,"No iniciado"});
+                        
+                    }
                 }
             }
         } catch (Exception e) {
             System.out.println("Error al cargar CHange USIM" + e);
         }
-         
-        
-        
-        
-        
-        
-        
-         
-        
-        
-        
-        
     }
 
     /**
@@ -270,6 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaTest = new javax.swing.JTable();
         ButtonEjecutar = new javax.swing.JButton();
+        btn_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -319,6 +324,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_Refresh.setText("Refresh");
+        btn_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,15 +339,20 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
@@ -419,6 +436,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonEjecutarActionPerformed
 
+    private void btn_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RefreshActionPerformed
+        actualizarTests();
+    }//GEN-LAST:event_btn_RefreshActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,6 +478,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonEjecutar;
     private javax.swing.JTable TablaTest;
+    private javax.swing.JButton btn_Refresh;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
