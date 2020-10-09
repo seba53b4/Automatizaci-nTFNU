@@ -47,7 +47,14 @@ public class RechargePage extends Base.BasePage{
     By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
     
     CadenaUtils cadena;
-    
+     private static RechargePage  rp; 
+     
+       public static RechargePage getInstance(){
+        if (rp == null) {
+            rp = new RechargePage();
+        }
+        return rp;
+    }
     
       public RechargePage() {
        cadena=new CadenaUtils();
