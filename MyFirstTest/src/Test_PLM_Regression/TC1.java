@@ -103,7 +103,9 @@ public class TC1 extends BaseTest {
        String str = cp.estadoSOFinal();
        System.out.println("ANTES de PLR to low: " + str );
        if (str.equals("Ok")) {
-           // Cambio to Low PLR
+           
+           
+       // Cambio to Low PLR
            p.setName_change_plan("PLR310");
            cp.cambioPlan(p, p.getAmbiente());
        } else {
@@ -113,7 +115,8 @@ public class TC1 extends BaseTest {
        str = cp.estadoSOFinal();
        System.out.println("ANTES de PLR to disconnect: " + str );
        if (str.equals("Ok")) {
-           // Deberia hacer de desconexion
+           
+       // Deberia hacer de desconexion
            dp.initUrlBusqueda(enviroment);
            dp.Desconectar(p);
        } else {
