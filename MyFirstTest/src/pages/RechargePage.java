@@ -47,7 +47,14 @@ public class RechargePage extends Base.BasePage{
     By boton_anadir_recargas = By.xpath("//button[contains(text(),'Nueva recarga')]");
     By nueva_recarga_realizada = By.xpath("//tr[@__gwt_row=\"0\" and @__gwt_subrow=\"0\"]/td/div/div/a[contains(text(),'Aumentar')]/parent::div");
     By status_recarga = By.xpath("//td/div[contains(text(),'Estado')]/following::span[1]");
+    private static RechargePage rp;
     
+    public static RechargePage getInstance(){
+        if (rp == null) {
+            rp = new RechargePage();
+        }
+        return rp;
+    }
     
     CadenaUtils cadena;
     
