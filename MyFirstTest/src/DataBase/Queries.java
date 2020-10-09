@@ -5,6 +5,7 @@
  */
 package DataBase;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,16 +49,13 @@ public class Queries extends ConnectionManager{
         String str = null;
         
         while ( rs.next() ) {
-            String lastName = rs.getString("msisdn");
-            str = rs.getString("msisdn");
-            System.out.println(rs.getString(1));
+           str = rs.getString("msisdn");
         }
         newLine = "update r_msisdn set status = 'usado' where msisdn ="+str+";";
         st.execute(newLine);
         st.close();
         this.getConnection().commit();
         
-        //st.close();
         return str;
     }
     
@@ -86,5 +84,79 @@ public class Queries extends ConnectionManager{
         st.close();
     }
     
-    
+     public String selectRecurso_ICCID(String rango) throws SQLException{
+        
+        Statement st  = this.getConnection().createStatement();//prepro.prepareStatement("select * from nc_objects where OBJECT_ID = '9127005933813123419';");
+        ResultSet rs;
+        String newLine = "select top 1 iccid from r_iccid where status is null and rango="+rango+";";
+        
+        System.out.println("Seleccion "+ "select top 1 iccid from r_iccid where status is null and rango="+rango+";");
+        rs = st.executeQuery(newLine);
+        String str = null;
+        
+        while ( rs.next() ) {
+           str = rs.getString("iccid");
+        }
+        newLine = "update r_iccid set status = 'usado' where iccid ="+str+";";
+        st.execute(newLine);
+        st.close();
+        this.getConnection().commit();
+        
+        return str;
+    }
+     public int countRecurso_ICCID(String rango) throws SQLException{
+        
+        Statement st  = this.getConnection().createStatement();//prepro.prepareStatement("select * from nc_objects where OBJECT_ID = '9127005933813123419';");
+        ResultSet rs;
+        String newLine = "select count(*) as cantidad from r_iccid where status is null and rango="+rango+";";
+        
+        System.out.println("Seleccion "+ "select count(*) as cantidad from r_iccid where status is null and rango="+rango+";");
+        rs = st.executeQuery(newLine);
+        String str = null;
+        
+        while ( rs.next() ) {
+           str = rs.getString("cantidad");
+        }
+        
+        st.close();
+        
+        return Integer.parseInt(str);
+    }
+     public int countRecurso_MSISDN(String rango) throws SQLException{
+        
+        Statement st  = this.getConnection().createStatement();//prepro.prepareStatement("select * from nc_objects where OBJECT_ID = '9127005933813123419';");
+        ResultSet rs;
+        String newLine = "select count(*) as cantidad from r_msisdn where status is null and rango="+rango+";";
+        
+        System.out.println("Seleccion "+ "select count(*) as cantidad from r_msisdn where status is null and rango="+rango+";");
+        rs = st.executeQuery(newLine);
+        String str = null;
+        
+        while ( rs.next() ) {
+           str = rs.getString("cantidad");
+        }
+        st.close();
+        
+        return Integer.parseInt(str);
+    }
+     
+     public void actualizarRecursos(String msisdn, String iccid,String usuario, String env, Date date) throws SQLException{
+        
+       Statement st  = this.getConnection().createStatement();//prepro.prepareStatement("select * from nc_objects where OBJECT_ID = '9127005933813123419';");
+       
+       
+       String newLine = "INSERT INTO usados VALUES ('"+ msisdn +"' ,'"+iccid+"','"+usuario+"','"+env+"', '"+date+"');";
+       System.out.println("Insertado "+ "INSERT INTO usados VALUES ('"+ msisdn +"' ,'"+iccid+"','"+usuario+"','"+env+"', '"+date+"');");
+       st.execute(newLine);
+       
+       
+        this.getConnection().commit();
+        st.close();
+        
+    }
+     
+     
+     
+     
+     
 }
