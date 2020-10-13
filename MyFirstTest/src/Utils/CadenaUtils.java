@@ -20,21 +20,33 @@ public class CadenaUtils{
             return false;
         } else {
             //boolean ret = false;
+            int aux = 0;
             for (int i = 0; i < stringuillo.length(); i++) {
                 
                 if (stringuillo.charAt(i) == povitillo.charAt(0)) {
                     // System.out.println("Primer Comparacion - Compara pivote char "+ pivote.charAt(0) + " compara con "+ str.charAt(i));
-                    int aux = i;
+                    aux=i;
                     for (int j = 0; j < povitillo.length(); j++) {
                         /*if (str.charAt(aux) == ' ' && pivote.charAt(j) == ' ') {
                         System.out.println("son vacios");
                         aux++;
                         continue;
                         }*/
-                        if (stringuillo.charAt(aux) != povitillo.charAt(j)) {
+                        System.out.println("aux--->"+aux);
+                        System.out.println("j--->"+j);
+                        try {
+                            if ( stringuillo.charAt(aux) != povitillo.charAt(j)) {
                             //  System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
                             break;
                         }
+                            
+                        } catch (StringIndexOutOfBoundsException e) {
+                            return false;
+                        }
+                        
+                        
+                        System.out.println("povitillo--->"+(povitillo.length()-1));
+                        System.out.println("j1--->"+j);
                         if (j == povitillo.length()-1) {
                             return true;
                         }

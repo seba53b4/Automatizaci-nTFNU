@@ -154,8 +154,10 @@ public class RechargePage extends Base.BasePage{
        
        
            System.out.println("Esto es vacio ??: " + list_linea.isEmpty() +" "+ list_linea );
+           System.out.println("size: " + list_linea.size());
         for (int i = 0; i < list_linea.size(); i++) {
             System.out.println("element lista-->"+list_linea.get(i).getText());
+              System.out.println("pos-->"+i);
             System.out.println("linea-->"+cadena.formatoNumber(num));
             if(cadena.compararCadenas(cadena.formatoNumber(num),list_linea.get(i).getText()) || cadena.compararCadenas(num,list_linea.get(i).getText())){
             WebElement line=list_linea.get(i);

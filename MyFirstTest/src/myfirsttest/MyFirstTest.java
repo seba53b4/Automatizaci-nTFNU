@@ -36,6 +36,9 @@ public class MyFirstTest{
     
     public static void main(String [] args) throws ParseException {
         
+
+        System.out.println("Resultado"+ Utils.CadenaUtils.compararCadenas("11111", "93825889"));
+        
         /*
         List<String> nums = new LinkedList<>();
         nums.add("095777444");
@@ -56,7 +59,7 @@ public class MyFirstTest{
         hm.put("094", sims2);
         */
         
-        Queries q = new Queries();
+   /*     Queries q = new Queries();
         try {
             DateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             
