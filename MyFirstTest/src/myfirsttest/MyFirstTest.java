@@ -12,12 +12,19 @@ import Utils.Client;
 import Utils.HandleFile;
 import Utils.Plan;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import pages.LoginPage;
 
 
@@ -27,7 +34,10 @@ import pages.LoginPage;
 
 public class MyFirstTest{
     
-    public static void main(String [] args) {
+    public static void main(String [] args) throws ParseException {
+        
+
+        System.out.println("Resultado"+ Utils.CadenaUtils.compararCadenas("11111", "93825889"));
         
         /*
         List<String> nums = new LinkedList<>();
@@ -49,9 +59,17 @@ public class MyFirstTest{
         hm.put("094", sims2);
         */
         
-        Queries q = new Queries();
+   /*     Queries q = new Queries();
         try {
-            System.out.println("Recurso elegido: "+q.selectRecurso_MSISDN());
+            DateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            
+            java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
+            System.out.println(formato.format(date));
+            
+            q.actualizarRecursos("095777555", "123456", "user123", "JIT",date);
+             
+            
+           // System.out.println("Recurso elegido: "+q.countRecurso_MSISDN("093"));
         } catch (SQLException ex) {
             Logger.getLogger(MyFirstTest.class.getName()).log(Level.SEVERE, null, ex);
         }

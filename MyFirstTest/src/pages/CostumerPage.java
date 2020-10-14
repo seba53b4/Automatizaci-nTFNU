@@ -328,6 +328,7 @@ public class CostumerPage extends Base.BasePage{
        
        if (esta_configurar_Contrato()) {
            loading();
+           Wait_Click(boton_contrato);
            click(boton_contrato);
            Thread.sleep(300);
            confirmarContrato();
