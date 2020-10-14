@@ -69,6 +69,7 @@ public class CostumerPage extends Base.BasePage{
     By cuenta_facturacion_creada= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]");
     By servicios_lista=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div");
     By select_cuenta_facturacion= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]");
+    By select_productos_Cuenta_Facturacion = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]//span[i]");
     By boton_revision= By.xpath("//a[@class='gwt-InlineHyperlink roe-pathList'][@href='#review' and contains(text(),'Revisión')]");
     By boton_contrato = By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("//span[@class='ui-button-text' and contains(text(),'Confirmar')]");
@@ -315,11 +316,13 @@ public class CostumerPage extends Base.BasePage{
        click(botonfact_pago);
        
        if(getTypePlan(newPlan.getName()).equals("prepago") && getTypePlan(newPlan.getName_change_plan()).equals("pospago")){
+           System.out.println("ENTRO EN CAMBIO POSP A PP");
            obtener_factcreada_posp();
        }
        
        if(getTypePlan(newPlan.getName()).equals("pospago") && getTypePlan(newPlan.getName_change_plan()).equals("prepago")){
-           obtener_factcreada_pp_cambio();
+           System.out.println("ENTRO EN CAMBIO POSP A PP");
+           obtener_factcreada_pp(newPlan.getName_change_plan());
        }
        Wait_Click(boton_revision);
        Thread.sleep(500);
@@ -521,7 +524,7 @@ public class CostumerPage extends Base.BasePage{
     Thread.sleep(250);
     click(botonfact_pago);
     
-    obtener_factcreada_pp();
+    obtener_factcreada_pp(newPlan.getName());
     Thread.sleep(250);
     // Revision - Validar Factura
     
@@ -936,7 +939,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
         click(so);
     }
 
-    public void obtener_factcreada_pp() throws InterruptedException{//metodos utilizados
+    public void obtener_factcreada_pp(String linea) throws InterruptedException{//metodos utilizados
 
         WebElement factura_creada = null;
         Wait(cuenta_facturacion_creada);
@@ -983,18 +986,56 @@ public boolean esta_configurar_Contrato() throws InterruptedException
 
             WebElement scf= findElement(select_cuenta_facturacion);
             Wait(select_cuenta_facturacion);
+            
             List<WebElement> selectfacturacreada= scf.findElements(By.tagName("select"));
-            int size_list=selectfacturacreada.size();
-            WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
-            click(ultimo_select);
-            int longitud = serviciolist.size()-1;
-            for (int i = 0; i < serviciolist.size(); i++) {
-                if (i == longitud) {
-                    factura_creada=serviciolist.get(i);
-                }
-
+            List<WebElement> productos = findElements(select_productos_Cuenta_Facturacion);
+            loading();
+            if (selectfacturacreada.isEmpty()) {
+                System.out.println("ES VACIA LISTA DE SELECT");
+            } else {
+                System.out.println("LA LISTA DE SELECT TIENE "+ selectfacturacreada.size()+" elementos");
             }
-            click(factura_creada);
+            
+            if (productos.isEmpty()) {
+                System.out.println("ES VACIA LISTA DE PRODUCTOS");
+            } else {
+                System.out.println("LA LISTA DE PRODUCTOS TIENE "+ productos.size()+" elementos");
+            }
+            
+            int size_list=selectfacturacreada.size();
+            for (int i = 0; i < productos.size(); i++) {
+                selectfacturacreada= scf.findElements(By.tagName("select"));
+                System.out.println("valor en "+ i);
+                System.out.println(productos.get(i));
+                System.out.println("Producto name --> "+ productos.get(i).getText());
+                System.out.println("LInea es "+ linea);
+                
+                System.out.println("compara con plan"+ CadenaUtils.compararCadenas(linea, productos.get(i).getText()));
+                System.out.println("compara con EARLY T"+ CadenaUtils.compararCadenas("Early T", productos.get(i).getText()));
+                
+                if (CadenaUtils.compararCadenas(linea, productos.get(i).getText()) ||
+                        CadenaUtils.compararCadenas("Early T", productos.get(i).getText())) {
+                    
+                    //WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
+                    System.out.println("ENTRO EN PRODUCTO " + productos.get(i).getText());
+                    WebElement wb = selectfacturacreada.get(i);
+                    System.out.println("Select factura creada  " + wb);
+                   
+                    try {
+                        click(wb);
+                        
+                    }catch(StaleElementReferenceException ex){
+                        
+                        click(wb);
+                        System.out.println("EXPLOTO POR ACA");
+                    }
+                    List<WebElement> options = selectfacturacreada.get(i).findElements(By.tagName("option"));
+                    click( options.get(1));
+                }
+                
+            }
+            
+            
             loading();
             Thread.sleep(5000);
             Wait_Click(boton_revision);
@@ -1002,7 +1043,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
         }
 
     }
-
+/*
     public void obtener_factcreada_pp_cambio() throws InterruptedException{//metodos utilizados
 
         Wait(cuenta_facturacion_creada);
@@ -1061,7 +1102,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             Wait(boton_revision);
             click(boton_revision);
         }
-    }
+    }*/
 
     public void obtener_factcreada_posp() throws InterruptedException{//metodos utilizados
         //WebElement revision = obtener_BotonMenu("Revisión");
@@ -1110,6 +1151,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             int size_list=selectfacturacreada.size();
             WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
             click(ultimo_select);
+            
             int longitud = serviciolist.size()-1;
             for (int i = 0; i < serviciolist.size(); i++) {
                 if (i == longitud) {
