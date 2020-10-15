@@ -32,8 +32,8 @@ public class CadenaUtils{
                         aux++;
                         continue;
                         }*/
-                        System.out.println("aux--->"+aux);
-                        System.out.println("j--->"+j);
+                        //System.out.println("aux--->"+aux);
+                       // System.out.println("j--->"+j);
                         try {
                             if ( strin.charAt(aux) != pivote2.charAt(j)) {
                             //  System.out.println("Compara pivote char "+ pivote.charAt(j) + " compara con "+ str.charAt(aux) );
@@ -45,8 +45,8 @@ public class CadenaUtils{
                         }
                         
                         
-                        System.out.println("pivote2--->"+(pivote2.length()-1));
-                        System.out.println("j1--->"+j);
+                       // System.out.println("pivote2--->"+(pivote2.length()-1));
+                        //System.out.println("j1--->"+j);
                         if (j == pivote2.length()-1) {
                             return true;
                         }

@@ -68,8 +68,9 @@ public class CostumerPage extends Base.BasePage{
     By boton_crear_cf_posp=By.xpath("//button[@class=\"TableCtrl-button ParCtrl-editButton\" and contains(text(),'Crear ')][1]");
     By cuenta_facturacion_creada= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]");
     By servicios_lista=By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div");
-    By select_cuenta_facturacion= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]");
-    By select_productos_Cuenta_Facturacion = By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]//span[i]");
+     By select_cuenta_facturacion= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]");
+    //By select_cuenta_facturacion= By.xpath("/html/body/div[3]/div[3]/div[2]/div/div[1]/div/div[3]/div/div[2]/div/div[2]/div[1]");
+    By select_productos_Cuenta_Facturacion = By.xpath("//div[@class=\"billing_account_info\"]/following::span[i]");
     By boton_revision= By.xpath("//a[@class='gwt-InlineHyperlink roe-pathList'][@href='#review' and contains(text(),'Revisión')]");
     By boton_contrato = By.xpath("/html/body/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[7]");
     By boton_contrato_confirmar= By.xpath("//span[@class='ui-button-text' and contains(text(),'Confirmar')]");
@@ -675,7 +676,11 @@ public void cerrarProcesoSO(Plan newPlan, boolean especial) throws InterruptedEx
     
     if (btn_enviar != null) {
         System.out.println("Entra en enviar");
-        click(boton_enviar);
+        try {
+            click(boton_enviar);
+        } catch (NoSuchElementException e) {
+        }
+        
         validar_Deuda();
         System.out.println("Sale de enviar");
     }else {
@@ -978,11 +983,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             }
             Thread.sleep(4000);
 
-
-            Wait_Click(boton_revision1);
-            click(boton_revision1);
-
-        }else {
+        }
 
             WebElement scf= findElement(select_cuenta_facturacion);
             Wait(select_cuenta_facturacion);
@@ -1002,8 +1003,15 @@ public boolean esta_configurar_Contrato() throws InterruptedException
                 System.out.println("LA LISTA DE PRODUCTOS TIENE "+ productos.size()+" elementos");
             }
             
-            int size_list=selectfacturacreada.size();
+         int size_list=selectfacturacreada.size();
+        WebElement select_early = findElement(By.xpath("//span[contains(text(),'Early Termination Fee')]//following::select[10]"));
+        click(select_early);
+        List<WebElement> options = select_early.findElements(By.tagName("option"));
+        click(options.get(1));
+        loading();
+        Thread.sleep(5000);
             for (int i = 0; i < productos.size(); i++) {
+                productos = findElements(select_productos_Cuenta_Facturacion);
                 selectfacturacreada= scf.findElements(By.tagName("select"));
                 System.out.println("valor en "+ i);
                 System.out.println(productos.get(i));
@@ -1013,35 +1021,42 @@ public boolean esta_configurar_Contrato() throws InterruptedException
                 System.out.println("compara con plan"+ CadenaUtils.compararCadenas(linea, productos.get(i).getText()));
                 System.out.println("compara con EARLY T"+ CadenaUtils.compararCadenas("Early T", productos.get(i).getText()));
                 
-                if (CadenaUtils.compararCadenas(linea, productos.get(i).getText()) ||
-                        CadenaUtils.compararCadenas("Early T", productos.get(i).getText())) {
+                if (CadenaUtils.compararCadenas(linea, productos.get(i).getText())) {
                     
                     //WebElement ultimo_select=selectfacturacreada.get(size_list - 1);
                     System.out.println("ENTRO EN PRODUCTO " + productos.get(i).getText());
                     WebElement wb = selectfacturacreada.get(i);
+                    
                     System.out.println("Select factura creada  " + wb);
                    
-                    try {
-                        click(wb);
-                        
-                    }catch(StaleElementReferenceException ex){
-                        
-                        click(wb);
-                        System.out.println("EXPLOTO POR ACA");
-                    }
-                    List<WebElement> options = selectfacturacreada.get(i).findElements(By.tagName("option"));
+                    click(wb);
+                  
+                     options = selectfacturacreada.get(i).findElements(By.tagName("option"));
                     click( options.get(1));
                 }
-                
-            }
             
-            
-            loading();
-            Thread.sleep(5000);
-            Wait_Click(boton_revision);
-            click(boton_revision);
-        }
 
+              /* WebElement ultimo_select=selectfacturacreada.get(selectfacturacreada.size()-1);
+                click(ultimo_select);
+            List<WebElement> optionultimo= ultimo_select.findElements(By.tagName("option"));
+            int longitud = optionultimo.size()-3;
+            factura_creada = null;
+            for (int j  = 0; j < optionultimo.size(); j++) {
+                if (j == longitud) {
+                    factura_creada=optionultimo.get(j);
+                    click(factura_creada);
+              
+                    break;
+                }
+            }*/
+
+               }
+         
+
+        loading();
+        Thread.sleep(5000);
+        Wait_Click(boton_revision);
+        click(boton_revision);
     }
 /*
     public void obtener_factcreada_pp_cambio() throws InterruptedException{//metodos utilizados
@@ -1103,6 +1118,7 @@ public boolean esta_configurar_Contrato() throws InterruptedException
             click(boton_revision);
         }
     }*/
+
 
     public void obtener_factcreada_posp() throws InterruptedException{//metodos utilizados
         //WebElement revision = obtener_BotonMenu("Revisión");

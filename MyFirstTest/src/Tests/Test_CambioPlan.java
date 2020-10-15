@@ -42,7 +42,9 @@ public class Test_CambioPlan extends Base.BaseTest {
             return "OK";
         } catch (Exception ex) {
             try {
+                
                 HandleFile.getHandleFile().registrarError("ERROR en Cambio Plan \n\n"+ ex +"\n\n---------------------------------------------------------------------------\n\n");
+                ex.printStackTrace();
             } catch (IOException ex1) {
                 Logger.getLogger(TestAltaPosP.class.getName()).log(Level.SEVERE, null, ex1);
             }
