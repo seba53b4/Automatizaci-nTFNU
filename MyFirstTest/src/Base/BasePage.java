@@ -5,6 +5,7 @@
  */
 package Base;
 
+import Utils.CadenaUtils;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Alert;
@@ -58,14 +59,23 @@ public static void getNewDriver(){
 }
 
  public void initUrlBusqueda(String env){
-       if (!env.toLowerCase().contains("preprod") ) {
+     if(CadenaUtils.compararCadenas("preprod",env)){
+          
+            visit("https://pretoms.temu.com.uy/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
+        }
+     
+       /* if (CadenaUtils.compararCadenas("plm",env) && !env.equals("plm2"))
+        {
            
-           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
-           
-       } else
+            visit("https://noprd-"+env+"-toms.temu.com.uy:6100/");
+        }
+       if(CadenaUtils.compararCadenas("uat",env) ||CadenaUtils.compararCadenas("e2e",env) || CadenaUtils.compararCadenas("test",env)||CadenaUtils.compararCadenas("plm2",env))
        {
-           visit("https://pretoms.temu.com.uy/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
-       }
+          
+            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
+        }*/
+       else
+       visit("https://noprd-"+env+"-toms.temu.com.uy:6100/");
        
    }
 

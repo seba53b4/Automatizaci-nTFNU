@@ -233,13 +233,19 @@ public class CostumerPage extends Base.BasePage{
     
     /*Para Test_Cliente_solicita_denunciar_la_linea_por_robo_o_perdida*/
    public void seleccionar_CanalOrder(Plan newPlan,String env) throws InterruptedException{
-      if(env.equals("preprod")){
-      visit("https://pretoms.temu.com.uy/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
-      
-      }
-      else{
-       visit("https://noprd-"+env+"-toms.temu.com.uy:7002/platform/csr/customer.jsp?tab=_Sales+Orders+&object="+ newPlan.getObject_id());
-      }
+       if(CadenaUtils.compararCadenas("plm",env)){
+       
+        visit("https://noprd-"+env+"-toms.temu.com.uy:6100/ncobject.jsp?id="+ newPlan.getObject_id());
+       
+       }
+       if (CadenaUtils.compararCadenas("uat",env) ||CadenaUtils.compararCadenas("e2e",env) || CadenaUtils.compararCadenas("test",env) || CadenaUtils.compararCadenas("plm2",env) ) {
+           
+           visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newPlan.getObject_id());
+           
+       } if(CadenaUtils.compararCadenas("preprod",env))
+       {
+           visit("https://pretoms.temu.com.uy/ncobject.jsp?id="+ newPlan.getObject_id());
+       }
         
         Wait_Click(nuevaSO);
         click(nuevaSO);
@@ -383,14 +389,23 @@ public class CostumerPage extends Base.BasePage{
    public void seleccionar_Canal(Plan newPlan,String env) throws InterruptedException{
        
        //click(recientes);
-       if (!env.toLowerCase().contains("preprod") ) {
+    /*   if(CadenaUtils.compararCadenas("plm",env)){
+       
+        visit("https://noprd-"+env+"-toms.temu.com.uy:6100/ncobject.jsp?id="+ newPlan.getObject_id());
+       
+       }
+       if (CadenaUtils.compararCadenas("uat",env) ||CadenaUtils.compararCadenas("e2e",env) || CadenaUtils.compararCadenas("test",env) || CadenaUtils.compararCadenas("plm2",env) ) {
            
            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/ncobject.jsp?id="+ newPlan.getObject_id());
            
-       } else
+       }*/ 
+    if(CadenaUtils.compararCadenas("preprod",env))
        {
            visit("https://pretoms.temu.com.uy/ncobject.jsp?id="+ newPlan.getObject_id());
        }
+    else
+         visit("https://noprd-"+env+"-toms.temu.com.uy:6100/ncobject.jsp?id="+ newPlan.getObject_id());
+        
        Thread.sleep(500);
        Wait_Click(SO);
        click(SO);

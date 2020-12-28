@@ -6,6 +6,7 @@
 package pages;
 
 import static Base.BasePage.driver;
+import Utils.CadenaUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,7 +26,7 @@ public class LoginPage extends Base.BasePage{
     By userNT= By.xpath("//div[@class='buttonInner' and a[contains(text(),'Inicie sesión como usuario de NT')]]");
     By userNT_preprod=By.xpath("//a[@href='#' and contains(text(),'Inicie sesión como usuario de NT')]");
     ///html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]/div
-    By userNTpp=By.xpath("/html/body/div[3]/div[3]/div[1]/table/tbody/tr/td/div[1]/form/table/tbody/tr[2]/td/div[2]");
+    By userNTpp=By.xpath("//a[@href='#' and contains(text(),'Inicie sesión como usuario de NT')]");
     
     protected static LoginPage loginP;
     private String usuario;
@@ -87,21 +88,30 @@ public class LoginPage extends Base.BasePage{
     public void Nav(String env) throws InterruptedException{
         
         
-        if(env.contains("preprod")){
+        if(CadenaUtils.compararCadenas("preprod",env)){
             Boolean nav= new WebDriverWait(driver, 10)
                     .until(ExpectedConditions.invisibilityOfElementLocated(botonnavegador));
             Boolean link= new WebDriverWait(driver, 10)
                     .until(ExpectedConditions.invisibilityOfElementLocated(linknavegador));
+            //click(botonnavegador);
+           // click(linknavegador);
+            visit("https://pretoms.temu.com.uy/ncobject.jsp?id=9155890523813779409&tab=_All+Tasks");
         }
-        else{
+      /*  if (CadenaUtils.compararCadenas("plm",env))
+        {
+            //click(botonnavegador);
+            //click(linknavegador);
+            visit("https://noprd-"+env+"-toms.temu.com.uy:6100/");
+        }*/
+        else /*(CadenaUtils.compararCadenas("uat",env) ||CadenaUtils.compararCadenas("e2e",env) || CadenaUtils.compararCadenas("test",env)||CadenaUtils.compararCadenas("plm2",env))*/
+       {
             click(botonnavegador);
             click(linknavegador);
-            visit("https://noprd-"+env+"-toms.temu.com.uy:7002/");
+            visit("https://noprd-"+env+"-toms.temu.com.uy:6100/");
         }
         
     }
     public void signIn_preprod() throws InterruptedException{
-        
         
         click(userNT_preprod);
         if(isDisplayed(user)){
@@ -118,8 +128,7 @@ public class LoginPage extends Base.BasePage{
         if(isDisplayed(user)){
             sendKeys("temu\\"+usuario,user);
             sendKeys(password,pass);
-
-        click(botonlog);
+            click(botonlog);
         }else{
             System.out.println("username textbox was not present");
         }

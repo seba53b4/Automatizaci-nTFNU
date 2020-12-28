@@ -70,12 +70,12 @@ public TestRecarga(Client c){
          String enviroment = client.getAmbiente();
          this.ap.initUrlBusqueda(enviroment);
          this.lp.Nav(enviroment);
-        // if(enviroment.contains("preprod")){
-             this.lp.signIn_preprod();
-         //}
-        // else{
-       //      this.lp.signIn();
-       //  }
+         if(enviroment.equals("preprod")){
+          this.lp.signIn_preprod();
+       }
+       else{
+          this.lp.signIn();
+      }
          
          Client newClient = this.ap.recargaLinea(client, enviroment);
          if (newClient.getLink_recharge() != null) {

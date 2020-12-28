@@ -37,7 +37,7 @@ public class MyFirstTest{
     public static void main(String [] args) throws ParseException {
         
 
-        System.out.println("Resultado"+ Utils.CadenaUtils.compararCadenas("11111", "93825889"));
+       // System.out.println("Resultado"+ Utils.CadenaUtils.compararCadenas("11111", "93825889"));
         
         /*
         List<String> nums = new LinkedList<>();
@@ -74,11 +74,11 @@ public class MyFirstTest{
             Logger.getLogger(MyFirstTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         q.closeConnection();
-        /*
+        
             LoginFrame lf = new LoginFrame();
             lf.setVisible(true);
             lf.show();
-            */
+           
             
             
             //try {
@@ -118,10 +118,14 @@ public class MyFirstTest{
 
         
 
-
-//        BasePage.initBaseTest();
-//        
-//        BasePage.getNewDriver();
+      LoginFrame lf = new LoginFrame();
+            lf.setVisible(true);
+            lf.show();
+        BasePage.initBaseTest();
+        BasePage.getNewDriver();
+            
+        
+        
 //        BasePage.driver.get("https://www.google.com.uy/?hl=es-419");
 //        
 //        BasePage.getNewDriver();

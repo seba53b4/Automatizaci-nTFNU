@@ -72,11 +72,12 @@ public class TestNewResiClient extends Base.BaseTest {
         this.cp.initUrlBusqueda(client.getAmbiente());
         this.lp.Nav(client.getAmbiente());
         
-     //   if(client.getAmbiente().contains("preprod")){
-            this.lp.signIn_preprod();
-      //  } else {
-      //      this.lp.signIn();
-      //  }
+     if(client.getAmbiente().equals("preprod")){
+         this.lp.signIn_preprod();
+       }
+       else{
+          this.lp.signIn();
+      }
         
         Client newClient = this.cp.crear_Cliente_Residencial(client);
         if (client.getClientId() != null) {

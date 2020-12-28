@@ -64,12 +64,12 @@ public class Test_CambioPlan extends Base.BaseTest {
         List<Plan> realPlans = new ArrayList<>();
         this.ap.initUrlBusqueda(plan.getAmbiente());
         this.lp.Nav(plan.getAmbiente());
-      //  if(plan.getAmbiente().contains("preprod")){
-            this.lp.signIn_preprod();
-       // } else
-      //  {
-       //     this.lp.signIn();
-       // }
+       if(plan.getAmbiente().equals("preprod")){
+          this.lp.signIn_preprod();
+       }
+       else{
+          this.lp.signIn();
+      }
         List<Plan> newPlans = new LinkedList<>();
         Plan newPlan = this.ap.cambioPlan(plan,plan.getAmbiente());
         if (newPlan.getName() != null) {
