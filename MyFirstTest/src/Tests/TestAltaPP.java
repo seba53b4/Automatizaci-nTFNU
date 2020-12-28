@@ -65,6 +65,7 @@ public class TestAltaPP extends Base.BaseTest{
        String enviroment = plan.getAmbiente();
        this.ap.initUrlBusqueda(enviroment);
        this.lp.Nav(enviroment);
+       System.out.println("paso de largoo");
        if(enviroment.equals("preprod")){
            System.out.println("PREPRODDDDDDD");
          this.lp.signIn_preprod();
@@ -74,6 +75,8 @@ public class TestAltaPP extends Base.BaseTest{
          System.out.println("entrasignIn");
           this.lp.signIn();
        }
+       System.out.println("Se fue a la mierda");
+       
        Plan newPlan = this.ap.AltaPP(plan,enviroment);
        if (newPlan != null) {
            realPlans.add(newPlan);

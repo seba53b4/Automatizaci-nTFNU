@@ -121,8 +121,8 @@ public class MyFirstTest{
       LoginFrame lf = new LoginFrame();
             lf.setVisible(true);
             lf.show();
-        BasePage.initBaseTest();
-        BasePage.getNewDriver();
+        //BasePage.initBaseTest();
+        //BasePage.getNewDriver();
             
         
         

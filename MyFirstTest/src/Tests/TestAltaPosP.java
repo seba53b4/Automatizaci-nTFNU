@@ -68,7 +68,7 @@ public class TestAltaPosP extends Base.BaseTest {
        String enviroment = plan.getAmbiente();
        this.ap.initUrlBusqueda(enviroment);
        this.lp.Nav(enviroment);
-    if(!enviroment.equals("preprod")){
+    if(enviroment.equals("preprod")){
          this.lp.signIn_preprod();
        }
        else{

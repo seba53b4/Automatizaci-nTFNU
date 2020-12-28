@@ -70,7 +70,7 @@ public class TestEmpClient extends Base.BaseTest {
         String enviroment = cliente.getAmbiente();
         this.cp.initUrlBusqueda(enviroment);
         this.lp.Nav(enviroment);
-      if(!enviroment.equals("preprod")){
+      if(enviroment.equals("preprod")){
          this.lp.signIn_preprod();
        }
        else{

@@ -105,8 +105,13 @@ public class LoginPage extends Base.BasePage{
         }*/
         else /*(CadenaUtils.compararCadenas("uat",env) ||CadenaUtils.compararCadenas("e2e",env) || CadenaUtils.compararCadenas("test",env)||CadenaUtils.compararCadenas("plm2",env))*/
        {
-            click(botonnavegador);
-            click(linknavegador);
+           
+           Boolean nav= new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(botonnavegador));
+            Boolean link= new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(linknavegador));
+            //click(botonnavegador);
+            //click(linknavegador);
             visit("https://noprd-"+env+"-toms.temu.com.uy:6100/");
         }
         
